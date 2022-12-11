@@ -1,0 +1,9 @@
+input{
+    margin-top: 17vh;
+    height: fit-content;
+    width: 80%;
+    padding: .5rem;
+    background-color: var(--lighter);
+    border: 2px solid var(--grey);
+    border-radius: 25px;
+}

@@ -20,3 +20,8 @@
 html{
   background-color: var(--back-clr);
 }
+#root{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
