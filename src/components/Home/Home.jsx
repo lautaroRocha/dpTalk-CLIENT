@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../Header/Header';
+import MinQuestions from '../MinQuestion/MinQuestions';
 import "./home.css"
 
 const Home = (props) => {
@@ -10,7 +11,9 @@ const Home = (props) => {
             <Header />
 
             <main>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus aliquam labore consectetur ducimus, mollitia nihil nobis laboriosam nam fugiat nesciunt quia fugit dicta animi quas tenetur nulla. Cupiditate, ratione quod.
+                {props.questions.map((qstn, idx) => {
+                    return(<MinQuestions question={qstn} key={idx} />)
+                })}
             </main>
             </>
         )
