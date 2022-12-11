@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import './Background.css'
 
 const SPEED = 0.02;
 
