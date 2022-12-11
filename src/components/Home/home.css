@@ -8,9 +8,9 @@ header > canvas{
     clip-path: none;
     height: 15vh;
     z-index: -2;
+    opacity: .7;
 }
 header > div {
-    mix-blend-mode: color-burn;
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -18,7 +18,6 @@ header > div {
 header > div > svg{
     margin-top: 5vh;
     transform: scale(.8);
-    fill: var(--grey);
 }
 
 header >  span{

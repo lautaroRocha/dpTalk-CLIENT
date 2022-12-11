@@ -13,7 +13,7 @@ const Login = (props) => {
     })
 
     const navigate = useNavigate()
-    const url = "https://dptalk-api-production-2a5b.up.railway.app/users/login"
+    const url = "http://localhost:7000/users/login"
 
     async function LogIn(e){
         e.preventDefault()
