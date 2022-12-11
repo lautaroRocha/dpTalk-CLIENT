@@ -1,8 +1,9 @@
 .min-question{
     display: flex;
     align-items: center;
-    background-color: var(--grey);
-    width: 90%;
+    background-color: var(--light-grey);
+    border: 1px solid var(--focus-grey);
+    width: 95%;
     max-width: 900px;
     margin: 0 auto;
     padding: 1rem 0;
@@ -15,11 +16,17 @@
     align-items: center;
     flex: 1;
 }
+
 .min-question-author > div{
     background-color: rebeccapurple; 
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+.min-question-author > span{
+    font-weight: bolder;
+    font-size: .8rem;
+    display: none;
 }
 .min-question-text{
     display: flex;

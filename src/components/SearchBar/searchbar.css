@@ -4,6 +4,11 @@ input{
     width: 80%;
     padding: .5rem;
     background-color: var(--lighter);
-    border: 2px solid var(--grey);
+    border: 1px solid var(--focus-grey);
     border-radius: 25px;
+}
+
+input:focus{
+    border: 1px solid var(--dark-grey);
+
 }
