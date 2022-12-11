@@ -5,7 +5,7 @@ const Searchbar = (props) => {
 
 
     return (
-        <input placeholder='Buscá por título...' onChange={(e) =>{props.filterQuestions(e)}}/>
+        <input className='searchbar' placeholder='Buscá por título...' onChange={(e) =>{props.filterQuestions(e)}}/>
     );
 }
 

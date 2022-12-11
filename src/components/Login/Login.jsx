@@ -14,18 +14,23 @@ const Login = (props) => {
 
     const navigate = useNavigate()
     const url = "http://localhost:7000/users/login"
+    const userUrl = `http://localhost:7000/users/${userData.username}`
 
     async function LogIn(e){
         e.preventDefault()
         let token = await useFetch(url, "POST", userData)
-        if(token.token){
-            props.setToken(token.token)
-            props.setIsLogged(true)
-            navigate('/')
-            localStorage.setItem('token', JSON.stringify(token))
-        }else{
-            console.log(token.message)
-        }
+        let user = await useFetch(userUrl, "GET")
+            if(token.token){
+                props.setToken(token.token)
+                localStorage.setItem('token', JSON.stringify(token))
+                 navigate('/')
+            }else{
+                console.log(token.message)
+            }
+            if(user){
+                props.setUser(user)
+                localStorage.setItem('user', JSON.stringify(user))
+            }
     }
 
 

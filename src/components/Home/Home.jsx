@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import MinQuestions from '../MinQuestion/MinQuestions';
 import Searchbar from '../SearchBar/Searchbar';
@@ -18,7 +19,9 @@ const Home = (props) => {
     setFilteredQuestions(filteredByTitle)
 }
 
-
+      if(!props.user){
+        return <Navigate to="/login" replace />;
+      }else{
         return(
             <>
             <Header />
@@ -30,6 +33,7 @@ const Home = (props) => {
             </main>
             </>
         )
+        }
 
         // return(<Navigate to="/login" replace={true}  />)
     

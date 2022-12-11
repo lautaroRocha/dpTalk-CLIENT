@@ -24,7 +24,7 @@ async function useFetch(url, method, body){
             await fetch(url)
             .then((response) => response.json())
                 .then((data) => {
-                console.log(data);
+                    valueToReturn = data;
                 })
                 .catch((error) => {
                 console.log(error)
