@@ -1,8 +1,8 @@
 import React from 'react';
 
-const DPLogo = () => {
+const DPLogo = ({logoRef}) => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438.63 81.48" >
+        <svg red={logoRef} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438.63 81.48" >
         <g id="Capa_2" data-name="Capa 2">
           <g id="logo_definitivo" data-name="logo definitivo">
             <path class="cls-1" d="M57.9,5.84a7.91,7.91,0,0,0,5.84,2.38H92.61a8,8,0,0,0,5.78-2.38A7.81,7.81,0,0,0,100.83,0H55.52A8.08,8.08,0,0,0,57.9,5.84Z"></path>

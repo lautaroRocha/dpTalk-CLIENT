@@ -1,7 +1,5 @@
 import React from 'react';
-import Background from '../animatedCanvas/animatedCanvas';
-import DPLogo from '../DPLogo/DPLogo';
-import DPShort from '../DPLogo/DPShort'
+import Header from '../Header/Header';
 import "./home.css"
 
 const Home = (props) => {
@@ -9,13 +7,8 @@ const Home = (props) => {
   
         return(
             <>
-            <header>
-                <Background />
-                <div>
-                    <DPLogo />
-                </div>
-                    <span>TALK</span>
-            </header>
+            <Header />
+
             <main>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus aliquam labore consectetur ducimus, mollitia nihil nobis laboriosam nam fugiat nesciunt quia fugit dicta animi quas tenetur nulla. Cupiditate, ratione quod.
             </main>
