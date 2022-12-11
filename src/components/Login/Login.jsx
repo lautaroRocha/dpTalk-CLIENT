@@ -1,20 +1,29 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import useFetch from '../../useFetch';
 import Background from '../animatedCanvas/animatedCanvas';
 import "./Login.css"
 
-const Login = () => {
+const Login = (props) => {
 
     const [userData, setUserData] = useState({
         username : "",
         password : ""
     })
 
+    const navigate = useNavigate()
     const url = "https://dptalk-api-production-2a5b.up.railway.app/users/login"
 
-    function LogIn(e){
+    async function LogIn(e){
         e.preventDefault()
-        useFetch(url, "POST", userData)
+        let token = await useFetch(url, "POST", userData)
+        if(token.token){
+            props.setToken(token.token)
+            props.setIsLogged(true)
+            navigate('/')
+        }else{
+            console.log(token.message)
+        }
     }
 
 
