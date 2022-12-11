@@ -9,13 +9,18 @@ function App() {
   const [questions, setQuestions] = useState()
   const [token, setToken] = useState(false)
   
+  useEffect(()=>{
+    const token = localStorage.getItem('token')
+    token ? setIsLogged(true) : setIsLogged(false)
+    token && setToken(JSON.parse(token).token)
+  }, [])
 
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login setIsLogged={setIsLogged} setToken={setToken}/>} /> 
-          <Route path='/' element={<Home isLogged={isLogged}/>}/>
+          <Route path='/' element={<Home/>}/>
         </Routes>        
       </BrowserRouter>
     </>

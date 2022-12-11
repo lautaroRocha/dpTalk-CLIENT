@@ -1,0 +1,34 @@
+header{
+    width: 100%;
+    height: 15vh;
+    overflow: hidden;
+    position: relative;
+}
+header > canvas{
+    clip-path: none;
+    height: 15vh;
+    z-index: -2;
+}
+header > div {
+    mix-blend-mode: color-burn;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+header > div > svg{
+    margin-top: 5vh;
+    transform: scale(.8);
+    fill: var(--grey);
+}
+
+header >  span{
+    color: var(--lighter);
+    font-size: clamp(1.5rem, 20vw, 2rem);
+    font-weight: bolder;
+    opacity: .7;
+    position: absolute;
+    right: 10%;
+    letter-spacing: 1ch;
+    transform: skewX(-15deg);
+    top: 7vh;
+}
