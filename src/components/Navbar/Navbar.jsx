@@ -23,7 +23,7 @@ const Navbar = forwardRef((props, ref) => {
             <ul>
                 <li>{Icons.user}</li>
                 <li onClick={showOrHideSearchBar}>{Icons.search}</li>
-                <li>{Icons.ask}</li>
+                <li onClick={props.logOut}>{Icons.logOut}</li>
                 <li onClick={goHome}>{Icons.home}</li>
             </ul>
             </nav>

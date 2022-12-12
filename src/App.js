@@ -38,11 +38,17 @@ function App() {
     const filteredByTitle = questions.filter( (obj) => {return( obj.title.toLowerCase().includes(input.toLowerCase()))})
     setFilteredQuestions(filteredByTitle)
   }
+  function logOut(){
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    setUser(null)
+    setToken(null)
+  }
 
   return (
     <>
       <BrowserRouter>
-        <Header filterQuestions={filterQuestions}/>
+        <Header filterQuestions={filterQuestions} logOut={logOut}/>
         <Routes>
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 
           <Route path='/' element={<Home filteredQuestions={filteredQuestions} user={user}/>}/>

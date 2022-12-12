@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import "./header.css"
 import Background from '../animatedCanvas/animatedCanvas';
 import DPLogo from '../DPLogo/DPLogo';
@@ -6,10 +6,22 @@ import Navbar from '../Navbar/Navbar';
 
 const Header = (props) => {
 
+    const header = useRef()
     const canvas = useRef();
     const logo = useRef();
     const talk = useRef()
     const nav = useRef()
+
+    const location = window.location.pathname
+
+    useEffect(() => {
+        if(location === "/login"){
+            header.current.style.display = "none"
+        }else{
+            header.current.style.display = "block"
+        }
+    }, [location]);
+
 
     function handleScroll(){
         if (document.documentElement.scrollTop > 50) {
@@ -36,7 +48,7 @@ const Header = (props) => {
     }
 
     return (
-        <>
+        <div ref={header} className="header-wrapper">
         <header ref={canvas}>
                 <Background />
                 <div ref={logo}>
@@ -44,8 +56,8 @@ const Header = (props) => {
                 </div>
                     <span ref={talk}>TALK</span>
             </header>
-            <Navbar ref={nav} filterQuestions={props.filterQuestions}/>
-        </>
+            <Navbar ref={nav} filterQuestions={props.filterQuestions} logOut={props.logOut}/>
+        </div>
 
     );
 }

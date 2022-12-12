@@ -28,7 +28,7 @@ const Question = () => {
                   <span>{question.askedOn.slice(0,10)}</span>
                   <span>{question.status === false ? "PENDIENTE" : "CONTESTADA"}</span>
                 </div>
-                <h1>{question.title}</h1>
+                <h2 className='question-title'>{question.title}</h2>
               </div>
             </div>
             <div className="question-body">{question.body}</div>
