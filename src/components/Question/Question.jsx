@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import useFetch from '../../useFetch';
 import "./question.css"
 import { useParams } from 'react-router-dom';
 
@@ -15,12 +14,31 @@ const Question = () => {
     .then(data => setQuestion(data))
   }, [])
 
-
-
     return (
         <>
         <main>
-          PREGUNTAS
+          {question &&
+          <>
+          <div className="question">
+            <div className="question-head">
+              <div className="question-head-img"> </div>
+              <div className="question-head-text">
+                <div>
+                  <span>{question.author}</span>
+                  <span>{question.askedOn.slice(0,10)}</span>
+                  <span>{question.status === false ? "PENDIENTE" : "CONTESTADA"}</span>
+                </div>
+                <h1>{question.title}</h1>
+              </div>
+            </div>
+            <div className="question-body">{question.body}</div>
+          </div>
+          <div className='question-action'>
+            <span>¿Sabés la respuesta?</span>
+            <button>RESPONDER</button>
+          </div>
+          </>
+          }
         </main>
       </>
     );
