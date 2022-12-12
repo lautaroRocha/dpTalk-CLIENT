@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
+import Navbar from '../Navbar/Navbar';
 import MinQuestions from '../MinQuestion/MinQuestions';
 import Searchbar from '../SearchBar/Searchbar';
 import "./home.css"
@@ -26,7 +27,6 @@ const Home = (props) => {
         return(
             <>
             <Header />
-            <Searchbar filterQuestions={filterQuestions}/>
             <main>
                 {filteredQuestions && filteredQuestions.map((qstn, idx) => {
                     return(<MinQuestions question={qstn} key={idx} />)

@@ -10,10 +10,12 @@ function App() {
   const [token, setToken] = useState(false)
   
   useEffect(()=>{
-    const token = localStorage.getItem('token')
-    token && setToken(JSON.parse(token).token)
-    const user = localStorage.getItem('user')
-    user && setUser(user)
+    const savedToken = localStorage.getItem('token')
+    const savedUser = localStorage.getItem('user')
+    if(savedToken && savedUser){
+      setToken(JSON.parse(savedToken).token)
+      setUser(savedUser)
+    }
   }, [])
 
   const url = "http://localhost:7000/ask"

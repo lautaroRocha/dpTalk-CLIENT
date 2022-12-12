@@ -1,12 +1,10 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import './searchbar.css'
 
-const Searchbar = (props) => {
-
-
+const Searchbar = forwardRef((props, ref) => {
     return (
-        <input className='searchbar' placeholder='Buscá por título...' onChange={(e) =>{props.filterQuestions(e)}}/>
+        <input ref={ref} className='searchbar' placeholder='Buscá por título...' onChange={(e) =>{props.filterQuestions(e)}}/>
     );
-}
+})
 
 export default Searchbar;
