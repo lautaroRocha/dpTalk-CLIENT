@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 
-const SPEED = 0.02;
 
-const Background = () => {
+const Background = (props) => {
   const canvasRef = useRef()
+  const SPEED = 0.02;
 
   useEffect(() => {
     const canvas = canvasRef.current;
