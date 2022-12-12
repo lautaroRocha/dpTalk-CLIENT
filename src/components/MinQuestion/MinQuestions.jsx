@@ -1,9 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import "./minquestion.css"
 
 const MinQuestions = (props) => {
     return (
-        <div className='min-question'>
+        <Link className='min-question'  to={`question/${props.question._id}`}>
             <div className='min-question-author'>
                 <div className='min-question-author-img' />
                 <span className='min-queston-author-name'>{props.question.author}</span>
@@ -13,7 +14,7 @@ const MinQuestions = (props) => {
                 <h2>{props.question.title}</h2>
                 <p>{props.question.body.slice(0, 70)}</p>
             </div>
-        </div>
+        </Link>
     );
 }
 
