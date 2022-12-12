@@ -12,6 +12,7 @@ const Home = (props) => {
     }else{
       return(
         <>
+        <h1>¡Bienvenidx a DevPlaceTALK!</h1>
           <main>
             {props.filteredQuestions && props.filteredQuestions.map((qstn, idx) => {
               return(<MinQuestions question={qstn} key={idx} />)

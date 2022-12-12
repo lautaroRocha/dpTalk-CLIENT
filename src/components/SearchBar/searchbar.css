@@ -1,6 +1,6 @@
 .searchbar{
     margin-top: 24vh;
-    height: fit-content;
+    height: 5vh;
     width: 80%;
     padding: .5rem;
     background-color: var(--lighter);
