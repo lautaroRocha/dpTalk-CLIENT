@@ -4,13 +4,12 @@ import Background from '../animatedCanvas/animatedCanvas';
 import DPLogo from '../DPLogo/DPLogo';
 import Navbar from '../Navbar/Navbar';
 
-const Header = () => {
+const Header = (props) => {
 
     const canvas = useRef();
     const logo = useRef();
     const talk = useRef()
     const nav = useRef()
-
 
     function handleScroll(){
         if (document.documentElement.scrollTop > 50) {
@@ -45,7 +44,7 @@ const Header = () => {
                 </div>
                     <span ref={talk}>TALK</span>
             </header>
-            <Navbar ref={nav}/>
+            <Navbar ref={nav} filterQuestions={props.filterQuestions}/>
         </>
 
     );

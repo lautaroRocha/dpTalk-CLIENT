@@ -27,7 +27,7 @@ const Navbar = forwardRef((props, ref) => {
                 <li onClick={goHome}>{Icons.home}</li>
             </ul>
             </nav>
-            <Searchbar ref={search}/>
+            <Searchbar ref={search} filterQuestions={props.filterQuestions}/>
         </>
     )
   });
