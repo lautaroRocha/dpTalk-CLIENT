@@ -29,16 +29,15 @@ const Login = (props) => {
         e.preventDefault()
         let token = await useFetch(url, "POST", userData)
         let user = await useFetch(userUrl, "GET")
-            if(token.token){
-                props.setToken(token.token)
-                localStorage.setItem('token', JSON.stringify(token))
-            }else{
-                console.log(token.message)
-            }
         if(user){
             props.setUser(user)
+            props.setToken(token.token)
+            localStorage.setItem('token', JSON.stringify(token))
             localStorage.setItem('user', JSON.stringify(user))
             navigate('/')
+        }else{
+            console.log(token.message)
+            console.log(user.message)
         }
     }
 
