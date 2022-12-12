@@ -1,0 +1,6 @@
+.ask-btn, .ask-btn>button{
+    position: fixed;
+    bottom: 2vh;
+    right: auto;
+    width: 50%;
+}

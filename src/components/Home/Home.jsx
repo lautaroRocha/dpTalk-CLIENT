@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import Header from '../Header/Header';
+import AskButton from '../AskButton/AskButton';
 import MinQuestions from '../MinQuestion/MinQuestions';
 import "./home.css"
 
 const Home = (props) => {
-
 
   if(!props.user){
     return <Navigate to="/login" replace />;
@@ -18,6 +17,7 @@ const Home = (props) => {
               return(<MinQuestions question={qstn} key={idx} />)
             })}
           </main>
+          <AskButton />
         </>
         )
   }
