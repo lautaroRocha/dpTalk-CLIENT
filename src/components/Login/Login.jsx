@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFetch from '../../useFetch';
 import DPLogo from "../DPLogo/DPLogo"
@@ -12,6 +12,15 @@ const Login = (props) => {
         password : ""
     })
 
+    useEffect(()=>{
+        const token = localStorage.getItem('token')
+        const user = localStorage.getItem('user')
+        if(token && user){
+            navigate('/')
+        }
+
+    }, [])
+
     const navigate = useNavigate()
     const url = "http://localhost:7000/users/login"
     const userUrl = `http://localhost:7000/users/${userData.username}`
@@ -23,14 +32,14 @@ const Login = (props) => {
             if(token.token){
                 props.setToken(token.token)
                 localStorage.setItem('token', JSON.stringify(token))
-                 navigate('/')
             }else{
                 console.log(token.message)
             }
-            if(user){
-                props.setUser(user)
-                localStorage.setItem('user', JSON.stringify(user))
-            }
+        if(user){
+            props.setUser(user)
+            localStorage.setItem('user', JSON.stringify(user))
+            navigate('/')
+        }
     }
 
 
