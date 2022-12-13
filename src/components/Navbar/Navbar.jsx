@@ -21,10 +21,10 @@ const Navbar = forwardRef((props, ref) => {
         <>
             <nav ref={ref}>
             <ul>
+                <li onClick={goHome}>{Icons.home}</li>
                 <li>{Icons.user}</li>
                 <li onClick={showOrHideSearchBar}>{Icons.search}</li>
                 <li onClick={props.logOut}>{Icons.logOut}</li>
-                <li onClick={goHome}>{Icons.home}</li>
             </ul>
             </nav>
             <Searchbar ref={search} filterQuestions={props.filterQuestions}/>

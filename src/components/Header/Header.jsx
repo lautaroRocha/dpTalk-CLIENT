@@ -3,6 +3,7 @@ import "./header.css"
 import Background from '../animatedCanvas/animatedCanvas';
 import DPLogo from '../DPLogo/DPLogo';
 import Navbar from '../Navbar/Navbar';
+import { useLocation } from 'react-router-dom';
 
 const Header = (props) => {
 
@@ -13,14 +14,15 @@ const Header = (props) => {
     const nav = useRef()
 
     const location = window.location.pathname
+    const navigated = useLocation()
 
     useEffect(() => {
         if(location === "/login"){
             header.current.style.display = "none"
         }else{
-            header.current.style.display = "block"
+            header.current.style.display = "flex"
         }
-    }, [location]);
+    }, [navigated]);
 
 
     function handleScroll(){
