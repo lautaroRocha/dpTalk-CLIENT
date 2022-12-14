@@ -18,7 +18,8 @@ const AnswerBox = forwardRef((props, ref) => {
             question : props.question,
             body : answerBody.current.value
         }
-        await useFetch(answerUrl, 'POST', answer, props.token)
+        const postedAnswer = await useFetch(answerUrl, 'POST', answer, props.token)
+        postedAnswer && hideAnswerBox()
     }
 
     return (

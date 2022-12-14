@@ -5,18 +5,27 @@ import AnswerBox from '../AnswerBox/AnswerBox';
 
 const Question = (props) => {
 
-  const [question, setQuestion] = useState()
+  const [question, setQuestion] = useState();
+  const [answers, setAnswers] = useState();
+
   const { questionId } = useParams();
 
   const answerBox = useRef()
 
   const questionUrl= `http://localhost:7000/ask/${questionId}`
+  const answersUrl= `http://localhost:7000/reply/${questionId}`
+
   
   useEffect(()=>{
     fetch(questionUrl)
     .then(res => res.json())
     .then(data => setQuestion(data))
+
+    fetch(answersUrl, {headers:{'x-access' : props.token}})
+    .then(res => res.json())
+    .then(data => setAnswers(data))
   }, [])
+
 
   function showAnswerBox(){
     answerBox.current.style.display = "flex"
