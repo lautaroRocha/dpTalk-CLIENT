@@ -5,11 +5,11 @@ import "./askbutton.css"
 const AskButton = () => {
     return (
         <>
-        <Link className='ask-btn' to="/ask">
-            <button >
+        <button className='ask-btn'>
+            <Link  to="/ask">
             preguntá
-            </button>
-        </Link>
+            </Link>
+        </button>
         </>
     );
 }

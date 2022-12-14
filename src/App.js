@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import Ask from './components/Ask/Ask';
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ScrollToTop from "./utilities/scrollTop"
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <ScrollToTop />
         <Header filterQuestions={filterQuestions} logOut={logOut}/>
         <Routes>
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 

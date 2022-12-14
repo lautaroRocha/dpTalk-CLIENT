@@ -20,6 +20,7 @@
 }
 html{
   background-color: var(--back-clr);
+  scroll-behavior: smooth;
 }
 #root{
   display: flex;
