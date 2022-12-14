@@ -48,6 +48,7 @@ function App() {
     localStorage.removeItem('user')
     setUser(null)
     setToken(null)
+    window.location. reload()
   }
 
   return (
@@ -58,7 +59,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 
           <Route path='/' element={<Home filteredQuestions={filteredQuestions} user={user}/>}/>
-          <Route path='/question/:questionId' element={<Question />}/>
+          <Route path='/question/:questionId' element={<Question user={user} token={token}/>}/>
           <Route path="/ask" element={<Ask user={user} token={token} setNewQuestion={setNewQuestion}/>} />
         </Routes>        
       </BrowserRouter>

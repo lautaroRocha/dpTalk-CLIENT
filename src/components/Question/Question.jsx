@@ -1,11 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import "./question.css"
 import { useParams } from 'react-router-dom';
 import AnswerBox from '../AnswerBox/AnswerBox';
 
-const Question = () => {
+const Question = (props) => {
+
   const [question, setQuestion] = useState()
   const { questionId } = useParams();
+
+  const answerBox = useRef()
 
   const questionUrl= `http://localhost:7000/ask/${questionId}`
   
@@ -14,6 +17,10 @@ const Question = () => {
     .then(res => res.json())
     .then(data => setQuestion(data))
   }, [])
+
+  function showAnswerBox(){
+    answerBox.current.style.display = "flex"
+  }
 
     return (
         <>
@@ -36,10 +43,10 @@ const Question = () => {
           </div>
           <div className='question-action'>
             <span>¿Sabés la respuesta?</span>
-            <button>RESPONDER</button>
+            <button onClick={showAnswerBox}>RESPONDER</button>
           </div>
 
-          <AnswerBox />
+          <AnswerBox ref={answerBox} question={question._id} user={props.user} token={props.token}/>
           </>
           }
         </main>
