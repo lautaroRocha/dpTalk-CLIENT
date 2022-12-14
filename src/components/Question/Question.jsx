@@ -22,11 +22,11 @@ const Question = (props) => {
     .then(res => res.json())
     .then(data => setQuestion(data))
 
-    if(props.token){
+  
     fetch(answersUrl, {headers:{'x-access' : props.token}})
     .then(res => res.json())
     .then(data => setAnswers(Array.from(data)))
-    }
+    props.setNewAnswer(false)
   }, [props])
 
 
@@ -57,7 +57,7 @@ const Question = (props) => {
             <span>¿Sabés la respuesta?</span>
             <button onClick={showAnswerBox}>RESPONDER</button>
           </div>
-          <AnswerBox ref={answerBox} question={question._id} user={props.user} token={props.token}/>
+          <AnswerBox ref={answerBox} question={question._id} user={props.user} token={props.token} setAnswers={setAnswers} setNewAnswer={props.setNewAnswer}/>
           </>
           }
           {answers && 
