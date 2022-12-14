@@ -18,7 +18,7 @@ function App() {
     const savedUser = localStorage.getItem('user')
     if(savedToken && savedUser){
       setToken(JSON.parse(savedToken).token)
-      setUser(savedUser)
+      setUser(JSON.parse(savedUser))
     }
   }, [])
 
@@ -54,7 +54,7 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 
           <Route path='/' element={<Home filteredQuestions={filteredQuestions} user={user}/>}/>
           <Route path='/question/:questionId' element={<Question />}/>
-          <Route path="/ask" element={<Ask user={user}/>} />
+          <Route path="/ask" element={<Ask user={user} token={token}/>} />
         </Routes>        
       </BrowserRouter>
     </>

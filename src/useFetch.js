@@ -1,5 +1,5 @@
 
-async function useFetch(url, method, body){
+async function useFetch(url, method, body, token){
 
     let valueToReturn
 
@@ -9,6 +9,7 @@ async function useFetch(url, method, body){
                 method : method,
                 headers: {
                     'Content-Type': 'application/json',
+                    'x-access' : token
                   },
                 body : JSON.stringify(body)
             })
