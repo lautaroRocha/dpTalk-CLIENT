@@ -2,11 +2,12 @@ import React, {useState, useEffect, useRef} from 'react';
 import "./question.css"
 import { useParams } from 'react-router-dom';
 import AnswerBox from '../AnswerBox/AnswerBox';
+import Answer from '../Answer/Answer';
 
 const Question = (props) => {
 
-  const [question, setQuestion] = useState();
-  const [answers, setAnswers] = useState();
+  const [question, setQuestion] = useState(null);
+  const [answers, setAnswers] = useState([]);
 
   const { questionId } = useParams();
 
@@ -21,10 +22,12 @@ const Question = (props) => {
     .then(res => res.json())
     .then(data => setQuestion(data))
 
+    if(props.token){
     fetch(answersUrl, {headers:{'x-access' : props.token}})
     .then(res => res.json())
-    .then(data => setAnswers(data))
-  }, [])
+    .then(data => setAnswers(Array.from(data)))
+    }
+  }, [props])
 
 
   function showAnswerBox(){
@@ -54,8 +57,16 @@ const Question = (props) => {
             <span>¿Sabés la respuesta?</span>
             <button onClick={showAnswerBox}>RESPONDER</button>
           </div>
-
           <AnswerBox ref={answerBox} question={question._id} user={props.user} token={props.token}/>
+          </>
+          }
+          {answers && 
+          <>
+          <div className="answers-container">
+            {answers.map((ans, idx) =>{
+              return (<Answer answer={ans} key={idx}/>)
+            })}
+            </div>
           </>
           }
         </main>
