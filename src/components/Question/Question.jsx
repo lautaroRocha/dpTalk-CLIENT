@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import "./question.css"
 import { useParams } from 'react-router-dom';
+import AnswerBox from '../AnswerBox/AnswerBox';
 
 const Question = () => {
   const [question, setQuestion] = useState()
@@ -37,6 +38,8 @@ const Question = () => {
             <span>¿Sabés la respuesta?</span>
             <button>RESPONDER</button>
           </div>
+
+          <AnswerBox />
           </>
           }
         </main>
