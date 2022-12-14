@@ -2,6 +2,7 @@ import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import Question from './components/Question/Question';
 import Header from './components/Header/Header';
+import Ask from './components/Ask/Ask';
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -53,6 +54,7 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 
           <Route path='/' element={<Home filteredQuestions={filteredQuestions} user={user}/>}/>
           <Route path='/question/:questionId' element={<Question />}/>
+          <Route path="/ask" element={<Ask user={user}/>} />
         </Routes>        
       </BrowserRouter>
     </>
