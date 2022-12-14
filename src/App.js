@@ -12,6 +12,7 @@ function App() {
   const [questions, setQuestions] = useState([])
   const [token, setToken] = useState(false)
   const [filteredQuestions, setFilteredQuestions] = useState(null)
+  const [newQuestion, setNewQuestion] = useState(false)
 
   useEffect(()=>{
     const savedToken = localStorage.getItem('token')
@@ -30,9 +31,10 @@ function App() {
 
   useEffect(()=>{
     fetch(url)
-      .then(res => res.json())
-      .then(data => setQuestions(data))
-  },[])
+    .then(res => res.json())
+    .then(data => setQuestions(data))
+    setNewQuestion(false)
+  }, [newQuestion])
 
   function filterQuestions(e){
     let input = e.target.value;
@@ -54,7 +56,7 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 
           <Route path='/' element={<Home filteredQuestions={filteredQuestions} user={user}/>}/>
           <Route path='/question/:questionId' element={<Question />}/>
-          <Route path="/ask" element={<Ask user={user} token={token}/>} />
+          <Route path="/ask" element={<Ask user={user} token={token} setNewQuestion={setNewQuestion}/>} />
         </Routes>        
       </BrowserRouter>
     </>

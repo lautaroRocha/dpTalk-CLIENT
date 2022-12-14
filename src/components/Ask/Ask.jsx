@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useFetch from '../../useFetch';
 import "./ask.css"
 
@@ -8,6 +8,7 @@ const Ask = (props) => {
     const [question, setQuestion] = useState({title : "", body : ""})
 
     const askUrl = "http://localhost:7000/ask"
+    const navigate = useNavigate()
 
     function createQuestion(){
         const newQuestion = {
@@ -21,6 +22,9 @@ const Ask = (props) => {
     async function usePostToDatabase(){
         const newQuestion = createQuestion()
         const asking = await useFetch(askUrl, 'POST', newQuestion, props.token)
+        await props.setNewQuestion(true)
+        navigate('/')
+
     }
 
 
