@@ -24,7 +24,8 @@ function App() {
   }, [])
 
   useEffect(()=>{
-    setFilteredQuestions(questions)
+    const questionsArray = questions
+    setFilteredQuestions(questionsArray.reverse())
   }, [questions])
 
   const url = "http://localhost:7000/ask"
