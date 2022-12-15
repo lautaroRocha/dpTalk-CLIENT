@@ -69,7 +69,7 @@ function App() {
           <Route path='/' element={<Home filteredQuestions={filteredQuestions}/>}/>
           <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer}/>}/>
           <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
         </Routes>    
       </TokenContext.Provider>    
       </UserContext.Provider>
