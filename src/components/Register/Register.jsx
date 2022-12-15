@@ -14,38 +14,16 @@ const Register = (props) => {
     })
 
     const navigate = useNavigate()
-    const newUserURL = "http://localhost:7000/users/signin"
-
-    const url = "http://localhost:7000/users/login"
-    const userUrl = `http://localhost:7000/users/${newUser.username}`
-
 
     const username = useRef()
     const email = useRef()
     const password = useRef()
     const repeatPassword = useRef()
 
-    function createUser(){
-        let user = {
-            "username" : newUser.username,
-            "email" : newUser.email,
-            "password" : newUser.password
-        }
-        return user
-    }
 
-    async function registerUser(){
-        if(password.current.value === repeatPassword.current.value){
-            const user = createUser()
-            fetch(newUserURL, {method:"POST", body: JSON.stringify(user), headers: {
-                'Content-Type': 'application/json'}})
-            .then(res => res.json())
-            .then(data => LogIn())
-            .catch(error => console.log(error))
-        }else{
-            console.log('las contraseñas deben coincidir')
-        }
-    }
+    const newUserURL = "http://localhost:7000/users/signin"
+    const url = "http://localhost:7000/users/login"
+    const userUrl = `http://localhost:7000/users/${newUser.username}`
 
     async function LogIn(){
         let token = await useFetch(url, "POST", {'username' : newUser.username, 'password': newUser.password});
@@ -61,11 +39,24 @@ const Register = (props) => {
             navigate('/')
         }
     }
-  
+
+    async function registerUser(){
+        if(password.current.value === repeatPassword.current.value){
+            fetch(newUserURL, {method:"POST", body: JSON.stringify(newUser), headers: {
+                'Content-Type': 'application/json'}})
+            .then(res => res.json())
+            .then(data => LogIn())
+            .catch(error => console.log(error))
+        }else{
+            console.log('las contraseñas deben coincidir')
+        }
+    }
+
     function handleRegister(e){
         e.preventDefault()
-        registerUser('asd')
+        registerUser()
     }
+
 
     return (
         <div className='register'>

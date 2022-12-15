@@ -26,7 +26,7 @@ const Login = (props) => {
     const userUrl = `http://localhost:7000/users/${userData.username}`
 
     async function LogIn(e){
-        e.preventDefault()
+        e && e.preventDefault()
         let token = await useFetch(url, "POST", userData);
         let user = await useFetch(userUrl, "GET")
 
