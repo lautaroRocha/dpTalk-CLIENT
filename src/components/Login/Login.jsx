@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import useFetch from '../../useFetch';
 import DPLogo from "../DPLogo/DPLogo"
 import Background from '../animatedCanvas/animatedCanvas';
@@ -70,7 +70,7 @@ const Login = (props) => {
                     })}}/></label>
                 <button onClick={(e) =>{LogIn(e)}}>ingresá</button>
 
-                <a href="">¿No tenés cuenta? Creá una</a>
+                <Link to="/register">¿No tenés cuenta? Creá una</Link>
             </form>
         </div>
     );

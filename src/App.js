@@ -3,6 +3,7 @@ import Home from './components/Home/Home';
 import Question from './components/Question/Question';
 import Header from './components/Header/Header';
 import Ask from './components/Ask/Ask';
+import Register from './components/Register/Register';
 import { useState, useEffect } from 'react';
 import {  Route, Routes, useNavigate } from 'react-router-dom';
 import TokenContext from "./Context/TokenContext"
@@ -68,6 +69,7 @@ function App() {
           <Route path='/' element={<Home filteredQuestions={filteredQuestions}/>}/>
           <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer}/>}/>
           <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
+          <Route path="/register" element={<Register />} />
         </Routes>    
       </TokenContext.Provider>    
       </UserContext.Provider>

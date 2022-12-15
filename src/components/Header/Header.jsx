@@ -17,7 +17,7 @@ const Header = (props) => {
     const navigated = useLocation()
 
     useEffect(() => {
-        if(location === "/login"){
+        if(location === "/login" || location === "/register" ){
             header.current.style.display = "none"
         }else{
             header.current.style.display = "flex"
