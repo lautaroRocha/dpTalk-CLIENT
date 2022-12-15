@@ -5,6 +5,9 @@ import Header from './components/Header/Header';
 import Ask from './components/Ask/Ask';
 import { useState, useEffect } from 'react';
 import {  Route, Routes, useNavigate } from 'react-router-dom';
+import TokenContext from "./Context/TokenContext"
+import UserContext from "./Context/UserContext"
+
 import ScrollToTop from "./utilities/scrollTop"
 
 function App() {
@@ -56,14 +59,18 @@ function App() {
 
   return (
     <>
+    <UserContext.Provider value={user}>
+    <TokenContext.Provider value={token}>
       <ScrollToTop />
         <Header filterQuestions={filterQuestions} logOut={logOut}/>
         <Routes>
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 
-          <Route path='/' element={<Home filteredQuestions={filteredQuestions} user={user}/>}/>
-          <Route path='/question/:questionId' element={<Question user={user} token={token} setNewAnswer={setNewAnswer}/>}/>
-          <Route path="/ask" element={<Ask user={user} token={token} setNewQuestion={setNewQuestion}/>} />
-        </Routes>        
+          <Route path='/' element={<Home filteredQuestions={filteredQuestions}/>}/>
+          <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer}/>}/>
+          <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
+        </Routes>    
+      </TokenContext.Provider>    
+      </UserContext.Provider>
     </>
   );
 }

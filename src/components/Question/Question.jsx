@@ -1,4 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
+import TokenContext from '../../Context/TokenContext';
 import "./question.css"
 import { useParams } from 'react-router-dom';
 import AnswerBox from '../AnswerBox/AnswerBox';
@@ -6,6 +7,7 @@ import Answer from '../Answer/Answer';
 
 const Question = (props) => {
 
+  const token = useContext(TokenContext)
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
 
@@ -23,7 +25,7 @@ const Question = (props) => {
     .then(data => setQuestion(data))
 
   
-    fetch(answersUrl, {headers:{'x-access' : props.token}})
+    fetch(answersUrl, {headers:{'x-access' : token}})
     .then(res => res.json())
     .then(data => setAnswers(Array.from(data)))
     props.setNewAnswer(false)
@@ -57,7 +59,7 @@ const Question = (props) => {
             <span>¿Sabés la respuesta?</span>
             <button onClick={showAnswerBox}>RESPONDER</button>
           </div>
-          <AnswerBox ref={answerBox} question={question._id} user={props.user} token={props.token} setAnswers={setAnswers} setNewAnswer={props.setNewAnswer}/>
+          <AnswerBox ref={answerBox} question={question._id} setAnswers={setAnswers} setNewAnswer={props.setNewAnswer}/>
           </>
           }
           {answers && 

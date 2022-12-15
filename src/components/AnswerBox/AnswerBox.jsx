@@ -1,9 +1,13 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, useRef, useContext } from 'react';
+import UserContext from '../../Context/UserContext';
+import TokenContext from '../../Context/TokenContext';
 import useFetch from "../../useFetch"
 import "./answerbox.css"
 
 const AnswerBox = forwardRef((props, ref) => {
 
+    const user = useContext(UserContext)
+    const token = useContext(TokenContext)
     const answerBody = useRef()
 
     function hideAnswerBox(){
@@ -14,11 +18,11 @@ const AnswerBox = forwardRef((props, ref) => {
 
     async function useAnswerQuestion(){
         const answer = {
-            author : props.user.username,
+            author : user.username,
             question : props.question,
             body : answerBody.current.value
         }
-        const postedAnswer = await useFetch(answerUrl, 'POST', answer, props.token)
+        const postedAnswer = await useFetch(answerUrl, 'POST', answer, token)
         postedAnswer && hideAnswerBox()
         postedAnswer && props.setNewAnswer(true)
     }
