@@ -45,7 +45,13 @@ const Register = (props) => {
             fetch(newUserURL, {method:"POST", body: JSON.stringify(newUser), headers: {
                 'Content-Type': 'application/json'}})
             .then(res => res.json())
-            .then(data => LogIn())
+            .then( data => {
+                if(data.message){
+                    console.log(Array.from(data.message.split(', ')))
+                }else{
+                    LogIn()
+                }
+            })
             .catch(error => console.log(error))
         }else{
             console.log('las contraseñas deben coincidir')
