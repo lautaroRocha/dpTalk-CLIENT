@@ -1,5 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import UserContext from "../../Context/UserContext"
+import TokenContext from "../../Context/TokenContext"
+import { ToastContainer, toast } from 'react-toastify';
 import useFetch from '../../useFetch';
 import "./ask.css"
 
@@ -7,12 +10,16 @@ const Ask = (props) => {
 
     const [question, setQuestion] = useState({title : "", body : ""})
 
+    const user = useContext(UserContext)
+    const token = useContext(TokenContext)
+
     const askUrl = "http://localhost:7000/ask"
     const navigate = useNavigate()
 
+
     function createQuestion(){
         const newQuestion = {
-            author : props.user.username,
+            author : user.username,
             title : question.title,
             body : question.body
         }
@@ -21,13 +28,24 @@ const Ask = (props) => {
 
     async function usePostToDatabase(){
         const newQuestion = createQuestion()
-        const asking = await useFetch(askUrl, 'POST', newQuestion, props.token)
+        const asking = await useFetch(askUrl, 'POST', newQuestion, token)
+        if(asking.message){
+            let errors = Array.from(asking.message.split(', '))
+            errors.forEach((err) => showError(err))
+        }else{
+            showInfo('Pregunta hecha!')
+            navigate('/')
+        }
         await props.setNewQuestion(true)
-        navigate('/')
 
     }
 
-
+    function showError(error){
+        toast.error(error)
+    }
+    function showInfo(info){
+        toast.info(info)
+    }
 
     return (
         <div className='ask'>

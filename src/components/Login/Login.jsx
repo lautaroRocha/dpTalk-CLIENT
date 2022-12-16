@@ -41,11 +41,15 @@ const Login = (props) => {
             localStorage.setItem('token', JSON.stringify(token.token))
             localStorage.setItem('user', JSON.stringify(user))
             navigate('/')
+            showInfo('Hola ' + user.username + ' !')
         }
     }
 
     function showError(error){
         toast.error(error)
+    }
+    function showInfo(info){
+        toast.info(info)
     }
 
 
