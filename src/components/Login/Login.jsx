@@ -3,6 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import useFetch from '../../useFetch';
 import DPLogo from "../DPLogo/DPLogo"
 import Background from '../animatedCanvas/animatedCanvas';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css"
 
 const Login = (props) => {
@@ -31,7 +33,7 @@ const Login = (props) => {
         let user = await useFetch(userUrl, "GET")
 
         if(token.message){
-            console.log(token.message)
+           showError(token.message)
             return
         }else{
             props.setUser(user)
@@ -42,8 +44,13 @@ const Login = (props) => {
         }
     }
 
+    function showError(error){
+        toast.error(error)
+    }
+
 
     return (
+        <>
         <div className='login'>
             <Background />
                   <span>TALK</span>
@@ -73,6 +80,7 @@ const Login = (props) => {
                 <Link to="/register">¿No tenés cuenta? Creá una</Link>
             </form>
         </div>
+                    </>
     );
 }
 

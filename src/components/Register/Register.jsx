@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Background from '../animatedCanvas/animatedCanvas';
 import './register.css'
 import DPLogo from '../DPLogo/DPLogo';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = (props) => {
 
@@ -47,7 +49,8 @@ const Register = (props) => {
             .then(res => res.json())
             .then( data => {
                 if(data.message){
-                    console.log(Array.from(data.message.split(', ')))
+                    let errors = Array.from(data.message.split(', '))
+                    errors.forEach((err) => showError(err))
                 }else{
                     LogIn()
                 }
@@ -63,6 +66,9 @@ const Register = (props) => {
         registerUser()
     }
 
+    function showError(error){
+        toast.error(error)
+    }
 
     return (
         <div className='register'>
@@ -113,6 +119,7 @@ const Register = (props) => {
             
             <Link to="/login">¿Ya tenés cuenta? Ingresá</Link> 
         </form>
+       
         </div>
     );
 }

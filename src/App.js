@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import Ask from './components/Ask/Ask';
 import Register from './components/Register/Register';
 import { useState, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 import {  Route, Routes, useNavigate } from 'react-router-dom';
 import TokenContext from "./Context/TokenContext"
 import UserContext from "./Context/UserContext"
@@ -71,6 +72,18 @@ function App() {
           <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
         </Routes>    
+        <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar={true}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+/>
       </TokenContext.Provider>    
       </UserContext.Provider>
     </>
