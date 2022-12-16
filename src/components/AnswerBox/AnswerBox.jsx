@@ -1,6 +1,7 @@
 import React, { forwardRef, useRef, useContext } from 'react';
 import UserContext from '../../Context/UserContext';
 import TokenContext from '../../Context/TokenContext';
+import { toast } from 'react-toastify';
 import useFetch from "../../useFetch"
 import "./answerbox.css"
 
@@ -23,8 +24,21 @@ const AnswerBox = forwardRef((props, ref) => {
             body : answerBody.current.value
         }
         const postedAnswer = await useFetch(answerUrl, 'POST', answer, token)
-        postedAnswer && hideAnswerBox()
-        postedAnswer && props.setNewAnswer(true)
+        if(postedAnswer.message){
+            showError(postedAnswer.message)
+        }else{
+            hideAnswerBox()
+            showInfo('Gracias por responder!')
+            props.setNewAnswer(true)
+        }
+    
+    }
+
+    function showError(error){
+        toast.error(error)
+    }
+    function showInfo(info){
+        toast.info(info)
     }
 
     return (

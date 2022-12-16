@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UserContext from "../../Context/UserContext"
 import TokenContext from "../../Context/TokenContext"
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import useFetch from '../../useFetch';
 import "./ask.css"
 
