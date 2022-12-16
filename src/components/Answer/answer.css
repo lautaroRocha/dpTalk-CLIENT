@@ -19,3 +19,26 @@
     display: flex;
     justify-content: space-around;
 }
+.answer-likes{
+    display: flex;
+    gap: 2rem;
+    width: 40%;
+    align-self: flex-end;
+}
+span[data-like]:before{
+    content:"👍 ";
+    filter: grayscale(60%);
+}
+span[data-like]:hover:before{
+    filter: none;
+}
+span[data-dislike]:hover:before{
+    filter: none;
+}
+span[data-dislike]:before{
+    content:"👎 ";
+    filter: grayscale(60%);
+}
+span[data-dislike]:hover, span[data-like]:hover{
+    cursor: pointer;
+}

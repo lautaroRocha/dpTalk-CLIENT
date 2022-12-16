@@ -13,6 +13,10 @@ const Answer = (props) => {
             <div className="answer-body">
                 <p>{props.answer.body}</p>
             </div>
+            <div className="answer-likes">
+                <span data-like>{props.answer.likes}</span>
+                <span data-dislike>{props.answer.dislikes}</span>
+            </div>
         </div>
     );
 }
