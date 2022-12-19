@@ -34,10 +34,7 @@
     flex-direction: column;
     flex: 3;
 }
-.min-question-text > div{
-    display: flex;
-    justify-content: space-around;
-}
+
 
 .min-question-text p {
     max-width: 50ch;
@@ -53,4 +50,6 @@
 .min-question-status{
     font-weight: bolder;
     color: var(--green);
+    text-align: right;
+    margin-right: 10vw;
 }

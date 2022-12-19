@@ -10,10 +10,7 @@ const MinQuestions = (props) => {
                 <span className='min-queston-author-name'>{props.question.author}</span>
             </div>
             <div className='min-question-text'>
-                <div>
-                <span className='min-question-status'>{props.question.status === false ? <></> : "CONTESTADA"}</span>
-                <span>{props.question.askedOn.slice(0, 10)}</span>
-                </div>
+                <span className='min-question-status'>{!props.question.status ? <></> : "CONTESTADA"}</span>
                 <h2>{props.question.title}</h2>
                 <p>{props.question.body.slice(0, 70)}</p>
             </div>

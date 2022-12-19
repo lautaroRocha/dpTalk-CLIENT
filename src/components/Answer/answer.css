@@ -49,9 +49,11 @@ span[data-dislike]:hover, span[data-like]:hover{
 }
 button[data-set]{
     text-transform: uppercase;
-    white-space: nowrap;
-    width: 100%;
     background-color: var(--light-grey);
     border: 1px solid var(--focus-grey);
     color: var(--action-blue);
+    width: fit-content;
+}
+button[data-set]:after{
+    content: '✔️';
 }

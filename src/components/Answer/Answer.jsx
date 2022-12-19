@@ -63,10 +63,14 @@ const Answer = (props) => {
                 "x-access" : token
             }
         })
-            .then(res => console.log(res.json()))
-            .then(data => props.setAsResolved)
-            .then(succes => props.setNewAnswer(true))
-            .catch(error => console.log(error))
+        .then(response => {   
+            if(!response.ok){
+                console.log(response)
+            }else{
+                props.setAsResolved();
+                props.setNewAnswer(true)
+            }})
+        .catch(error => console.log(error))
     }
 
     return (
@@ -81,9 +85,15 @@ const Answer = (props) => {
             </div>
             <div className="answer-likes">
             {props.question.author === user.username ?
-            <button data-set onClick={setAsCorrect}>Marcar como Correcta</button> : <>
+            <>
+                {props.question.status ? <span className='min-question-status'>APROBADA</span>
+                    : 
+                <button data-set onClick={setAsCorrect}>Aprobar</button> 
+                    } </>:
+            <>
                 <span data-like onClick={likeAnswer}>{props.answer.likes.length}</span>
-                <span data-dislike onClick={dislikeAnswer}>{props.answer.dislikes.length}</span></>
+                <span data-dislike onClick={dislikeAnswer}>{props.answer.dislikes.length}</span>
+            </>
             }
             </div>
         </div>
