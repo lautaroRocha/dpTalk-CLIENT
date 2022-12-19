@@ -31,6 +31,7 @@ const Question = (props) => {
     props.setNewAnswer(false)
   }, [props])
 
+  answers.sort((a, b) => b.likes -  a.likes )
 
   function showAnswerBox(){
     answerBox.current.style.display = "flex"
