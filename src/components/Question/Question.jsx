@@ -66,7 +66,7 @@ const Question = (props) => {
           <>
           <div className="answers-container">
             {answers.map((ans, idx) =>{
-              return (<Answer answer={ans} key={idx}/>)
+              return (<Answer answer={ans} key={idx} setNewAnswer={props.setNewAnswer}/>)
             })}
             </div>
           </>
