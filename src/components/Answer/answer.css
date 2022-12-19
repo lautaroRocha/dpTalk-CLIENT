@@ -22,8 +22,13 @@
 .answer-likes{
     display: flex;
     gap: 2rem;
-    width: 40%;
+    width: 60%;
     align-self: flex-end;
+    justify-content: flex-end;
+}
+.answer-status{
+    font-weight: bolder;
+    color: var(--green);
 }
 span[data-like]:before{
     content:"👍 ";
@@ -41,4 +46,12 @@ span[data-dislike]:before{
 }
 span[data-dislike]:hover, span[data-like]:hover{
     cursor: pointer;
+}
+button[data-set]{
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: 100%;
+    background-color: var(--light-grey);
+    border: 1px solid var(--focus-grey);
+    color: var(--action-blue);
 }

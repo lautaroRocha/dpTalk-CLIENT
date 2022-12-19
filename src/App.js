@@ -68,7 +68,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 
           <Route path='/' element={<Home filteredQuestions={filteredQuestions}/>}/>
-          <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer}/>}/>
+          <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer} setNewQuestion={setNewQuestion}/>}/>
           <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
         </Routes>    

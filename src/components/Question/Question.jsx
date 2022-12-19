@@ -36,6 +36,25 @@ const Question = (props) => {
   function showAnswerBox(){
     answerBox.current.style.display = "flex"
   }
+  function setAsResolved(){
+    fetch(questionUrl, {
+        method : "PATCH",
+        headers : {
+            "Content-Type": "application/json",
+            "x-access" : token
+        }
+    })
+    .then(response => {
+        if(!response.ok){
+            console.log(response.message)
+        }else{
+            console.log('exito')
+            props.setNewQuestion(true)
+        }
+    
+    })
+}
+
 
     return (
         <>
@@ -67,7 +86,7 @@ const Question = (props) => {
           <>
           <div className="answers-container">
             {answers.map((ans, idx) =>{
-              return (<Answer answer={ans} key={idx} setNewAnswer={props.setNewAnswer}/>)
+              return (<Answer answer={ans} key={idx} setNewAnswer={props.setNewAnswer} question={question} setAsResolved={setAsResolved}/>)
             })}
             </div>
           </>
