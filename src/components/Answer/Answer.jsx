@@ -86,7 +86,7 @@ const Answer = (props) => {
             <div className="answer-likes">
             {props.question.author === user.username ?
             <>
-                {props.question.status ? <span className='min-question-status'>APROBADA</span>
+                {props.question.status ? <span className='min-question-status'></span>
                     : 
                 <button data-set onClick={setAsCorrect}>Aprobar</button> 
                     } </>:

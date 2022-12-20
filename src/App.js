@@ -21,6 +21,9 @@ function App() {
   const [newQuestion, setNewQuestion] = useState(false)
   const [newAnswer, setNewAnswer] = useState(false)
 
+  const questionsUrl = "http://localhost:7000/ask"
+
+
   useEffect(()=>{
     const savedToken = localStorage.getItem('token')
     const savedUser = localStorage.getItem('user')
@@ -35,13 +38,17 @@ function App() {
     setFilteredQuestions(questionsArray.reverse())
   }, [questions])
 
-  const url = "http://localhost:7000/ask"
-
   useEffect(()=>{
-    fetch(url)
-    .then(res => res.json())
-    .then(data => setQuestions(data))
-    setNewQuestion(false)
+    fetch(questionsUrl)
+      .then(res => res.json())
+      .then(data => {
+        if(data.message){
+          console.log(data.message)
+        }else{
+          setQuestions(data)
+          setNewQuestion(false)
+        }})
+      .catch(error => console.log(error))
   }, [newQuestion])
 
   const navigate = useNavigate()
