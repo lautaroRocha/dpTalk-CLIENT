@@ -78,7 +78,7 @@ function App() {
           <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer} setNewQuestion={setNewQuestion}/>}/>
           <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
-          <Route path="/user" element={<UserProfile />} />
+          <Route path="/user" element={<UserProfile questions={questions}/>} />
         </Routes>    
         <ToastContainer
             position="bottom-center"
