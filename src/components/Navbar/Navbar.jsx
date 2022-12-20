@@ -16,13 +16,16 @@ const Navbar = forwardRef((props, ref) => {
     function goHome(){
         navigate('/')
     }
+    function goProfile(){
+        navigate('/user')
+    }
 
     return (
         <>
             <nav ref={ref}>
             <ul>
                 <li onClick={goHome}>{Icons.home}</li>
-                <li>{Icons.user}</li>
+                <li onClick={goProfile}>{Icons.user}</li>
                 <li onClick={showOrHideSearchBar}>{Icons.search}</li>
                 <li onClick={props.logOut}>{Icons.logOut}</li>
             </ul>

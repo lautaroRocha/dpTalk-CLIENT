@@ -9,8 +9,8 @@ import { ToastContainer } from 'react-toastify';
 import {  Route, Routes, useNavigate } from 'react-router-dom';
 import TokenContext from "./Context/TokenContext"
 import UserContext from "./Context/UserContext"
-
 import ScrollToTop from "./utilities/scrollTop"
+import UserProfile from './components/UserProfile/UserProfile';
 
 function App() {
 
@@ -78,6 +78,7 @@ function App() {
           <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer} setNewQuestion={setNewQuestion}/>}/>
           <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
+          <Route path="/user" element={<UserProfile />} />
         </Routes>    
         <ToastContainer
             position="bottom-center"
