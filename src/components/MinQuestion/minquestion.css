@@ -8,6 +8,7 @@
     margin: 0 auto;
     padding: 1rem 0;
     border-radius: 25px;
+    color: #000;
 }
 
 .min-question-author{
@@ -34,6 +35,7 @@
     flex: 3;
 }
 
+
 .min-question-text p {
     max-width: 50ch;
     overflow: hidden;
@@ -43,4 +45,11 @@
 .min-question-text h2{
     font-size: 1.3rem;
     width: 90%;
+}
+
+.min-question-status{
+    font-weight: bolder;
+    color: var(--green);
+    text-align: right;
+    margin-right: 10vw;
 }

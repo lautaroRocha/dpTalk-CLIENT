@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import useFetch from '../../useFetch';
 import DPLogo from "../DPLogo/DPLogo"
 import Background from '../animatedCanvas/animatedCanvas';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css"
 
 const Login = (props) => {
@@ -26,24 +28,33 @@ const Login = (props) => {
     const userUrl = `http://localhost:7000/users/${userData.username}`
 
     async function LogIn(e){
-        e.preventDefault()
-        let token = await useFetch(url, "POST", userData)
+        e && e.preventDefault()
+        let token = await useFetch(url, "POST", userData);
         let user = await useFetch(userUrl, "GET")
-            if(token.token){
-                props.setToken(token.token)
-                localStorage.setItem('token', JSON.stringify(token))
-            }else{
-                console.log(token.message)
-            }
-        if(user){
+
+        if(token.message){
+           showError(token.message)
+            return
+        }else{
             props.setUser(user)
+            props.setToken(token.token)
+            localStorage.setItem('token', JSON.stringify(token.token))
             localStorage.setItem('user', JSON.stringify(user))
             navigate('/')
+            showInfo('Hola ' + user.username + ' !')
         }
+    }
+
+    function showError(error){
+        toast.error(error)
+    }
+    function showInfo(info){
+        toast.info(info)
     }
 
 
     return (
+        <>
         <div className='login'>
             <Background />
                   <span>TALK</span>
@@ -70,9 +81,10 @@ const Login = (props) => {
                     })}}/></label>
                 <button onClick={(e) =>{LogIn(e)}}>ingresá</button>
 
-                <a href="">¿No tenés cuenta? Creá una</a>
+                <Link to="/register">¿No tenés cuenta? Creá una</Link>
             </form>
         </div>
+                    </>
     );
 }
 

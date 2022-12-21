@@ -1,34 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import Header from '../Header/Header';
+import AskButton from '../AskButton/AskButton';
 import MinQuestions from '../MinQuestion/MinQuestions';
 import "./home.css"
+import  UserContext from '../../Context/UserContext';
+import { useContext } from 'react';
 
 const Home = (props) => {
 
-  const [filteredQuestions, setFilteredQuestions] = useState(null)
+  const user = useContext(UserContext)
 
-  useEffect(()=>{
-    setFilteredQuestions(props.questions)
-  }, [props])
-
-  function filterQuestions(e){
-    let input = e.target.value;
-    const filteredByTitle = props.questions.filter( (obj) => {return( obj.title.toLowerCase().includes(input.toLowerCase()))})
-    setFilteredQuestions(filteredByTitle)
-  }
-
-  if(!props.user){
+  if(!user){
     return <Navigate to="/login" replace />;
     }else{
       return(
         <>
-          <Header filterQuestions={filterQuestions} />
+        <h1>¡Bienvenidx a DevPlaceTALK!</h1>
           <main>
-            {filteredQuestions && filteredQuestions.map((qstn, idx) => {
+            {props.filteredQuestions && props.filteredQuestions.map((qstn, idx) => {
               return(<MinQuestions question={qstn} key={idx} />)
             })}
           </main>
+          <AskButton />
         </>
         )
   }

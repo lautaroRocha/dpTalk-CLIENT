@@ -1,3 +1,12 @@
+h1{
+    width: 70%;
+    font-size: clamp(.8rem, 5vw, 1.5rem);
+    color: var(--dark-grey);
+    position: absolute;
+    top: 25vh;
+    z-index: -2;
+    text-align: center;
+}
 main{
     margin-top: .9rem;
     height: 200vh;

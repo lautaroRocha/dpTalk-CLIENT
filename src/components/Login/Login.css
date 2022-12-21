@@ -66,7 +66,7 @@ label{
     color: var(--dark-grey);
 }
 
-label > .login-input{
+label > input{
     padding: 1rem;
     border-radius: 23px;
     background-color:var(--lighter);
@@ -75,7 +75,7 @@ label > .login-input{
     font-size: 1rem;
 }
 
-label > .login-input:focus{
+label > input:focus{
     border: 3px solid var(--focus-grey);
 }
 
@@ -96,6 +96,14 @@ button{
     justify-content: center;
     align-content: center;
     margin-top: 2rem;
+}
+
+button[data-cancel]{
+    background-color: red;
+}
+button>a{
+    text-decoration: none;
+    color: inherit;
 }
 
 a{
