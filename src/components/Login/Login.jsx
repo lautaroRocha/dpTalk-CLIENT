@@ -31,7 +31,6 @@ const Login = (props) => {
         e && e.preventDefault()
         let token = await useFetch(url, "POST", userData);
         let user = await useFetch(userUrl, "GET")
-
         if(token.message){
            showError(token.message)
             return

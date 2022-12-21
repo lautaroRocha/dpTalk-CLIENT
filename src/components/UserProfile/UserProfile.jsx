@@ -3,20 +3,22 @@ import "./userprofile.css"
 import UserContext from '../../Context/UserContext';
 import TokenContext from '../../Context/TokenContext';
 import { Link } from 'react-router-dom';
+import ProfilePic from '../ProfilePic/ProfilePic';
 
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 
 
-const UserProfile = (props) => {
+const UserProfile = () => {
 
     const [questionsByUser, setQuestionsByUser] = useState([])
     const [answersByUser, setAnswersByUser] = useState([])
+    const [profilePicUrl, setProfilePicUrl] = useState()
 
     const user = useContext(UserContext)
     const token = useContext(TokenContext)
-
     const storage = getStorage();
-    const storageRef = ref(storage, `${user.username}-profilepic`);
+
+    const storageRef = user && ref(storage, `${user.username}-profilepic`);
 
 
     const imagen = useRef()
@@ -26,13 +28,22 @@ const UserProfile = (props) => {
         await uploadBytes(ref, file).then((snapshot) => {
             console.log('Uploaded a blob or file!');
         });
-        getURL(ref)
+        saveURL(ref)
     }
    
-  function getURL(ref){
+  function saveURL(ref){
       getDownloadURL(ref)
         .then((url) => {
-          console.log(url) //url de la imagen de perfil
+          setProfilePicUrl(url);
+          fetch("http://localhost:7000/users/profile-pic", {
+            method : "PATCH",
+            body : JSON.stringify({
+              "username" : user.username,
+                "picture" : url
+            }),
+            headers : {
+              "Content-Type" : "application/json"
+            }})
         })
         .catch((error) => {
           console.log(error)
@@ -44,6 +55,7 @@ const UserProfile = (props) => {
         if(user){
             const answersUrl = `http://localhost:7000/reply/by/${user.username}`
             const questionsUrl = `http://localhost:7000/ask/by/${user.username}`
+            setProfilePicUrl(user.profilePic)
         fetch(answersUrl, {headers: { 
             "x-access" : token
         }})
@@ -82,7 +94,7 @@ const UserProfile = (props) => {
             {user &&
             <div className="profile-card">
                 <div className="profile-head">
-                    <span className="profile-picture"> </span>  
+                  <ProfilePic url={profilePicUrl} />
                     <div>
                         <h2>{user.username}</h2>
                         <span>{user.email}</span>
