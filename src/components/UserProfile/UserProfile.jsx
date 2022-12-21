@@ -1,8 +1,11 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, useRef} from 'react';
 import "./userprofile.css"
 import UserContext from '../../Context/UserContext';
 import TokenContext from '../../Context/TokenContext';
 import { Link } from 'react-router-dom';
+
+import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
+
 
 const UserProfile = (props) => {
 
@@ -11,6 +14,31 @@ const UserProfile = (props) => {
 
     const user = useContext(UserContext)
     const token = useContext(TokenContext)
+
+    const storage = getStorage();
+    const storageRef = ref(storage, `${user.username}-profilepic`);
+
+
+    const imagen = useRef()
+
+    async function uploadToStorage(e, ref, file){
+        e.preventDefault()
+        await uploadBytes(ref, file).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+        });
+        getURL(ref)
+    }
+   
+  function getURL(ref){
+      getDownloadURL(ref)
+        .then((url) => {
+          console.log(url) //url de la imagen de perfil
+        })
+        .catch((error) => {
+          console.log(error)
+      });
+    }
+
 
     useEffect( () => {
         if(user){
@@ -46,10 +74,15 @@ const UserProfile = (props) => {
 
     return (
         <div className='profile'>
+            <form action="">
+            <input type="file" ref={imagen}/>  
+            <button type="submit" onClick={(e)=>{uploadToStorage(e, storageRef, imagen.current.files[0])}}>subir</button> 
+            </form>
+
             {user &&
             <div className="profile-card">
                 <div className="profile-head">
-                    <span className="profile-picture"> </span>     
+                    <span className="profile-picture"> </span>  
                     <div>
                         <h2>{user.username}</h2>
                         <span>{user.email}</span>
