@@ -86,7 +86,6 @@ function showError(error){
   toast.error(error)
 }
 
-console.log('render')
 
   return (
     <>

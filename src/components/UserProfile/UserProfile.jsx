@@ -8,7 +8,7 @@ import ProfilePic from '../ProfilePic/ProfilePic';
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 
 
-const UserProfile = () => {
+const UserProfile = (props) => {
 
     const [questionsByUser, setQuestionsByUser] = useState([])
     const [answersByUser, setAnswersByUser] = useState([])
@@ -48,6 +48,7 @@ const UserProfile = () => {
         .catch((error) => {
           console.log(error)
       });
+      props.updateUser()
     }
 
 
