@@ -4,7 +4,7 @@ import UserContext from '../../Context/UserContext';
 import TokenContext from '../../Context/TokenContext';
 import { Link } from 'react-router-dom';
 import ProfilePic from '../ProfilePic/ProfilePic';
-
+import PictureModal from '../PictureModal/PictureModal';
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 
 
@@ -20,8 +20,7 @@ const UserProfile = (props) => {
 
     const storageRef = user && ref(storage, `${user.username}-profilepic`);
 
-
-    const imagen = useRef()
+    const modal = useRef()
 
     async function uploadToStorage(e, ref, file){
         e.preventDefault()
@@ -29,6 +28,13 @@ const UserProfile = (props) => {
             console.log('Uploaded a blob or file!');
         });
         saveURL(ref)
+        modal.current.style.opacity = 0
+    }
+
+    function openModal(e){
+      e.preventDefault()
+      console.log(modal.current)
+      modal.current.style.opacity = 1
     }
    
   function saveURL(ref){
@@ -85,17 +91,17 @@ const UserProfile = (props) => {
     
     }, [user])
 
-    return (
-        <div className='profile'>
-            <form action="">
-            <input type="file" ref={imagen}/>  
-            <button type="submit" onClick={(e)=>{uploadToStorage(e, storageRef, imagen.current.files[0])}}>subir</button> 
-            </form>
 
+
+
+    return (
+      <>
+           <PictureModal uploadToStorage={uploadToStorage} storageRef={storageRef} ref={modal}/>
+        <div className='profile'>
             {user &&
             <div className="profile-card">
                 <div className="profile-head">
-                  <ProfilePic url={profilePicUrl} />
+                    <ProfilePic url={profilePicUrl} openModal={openModal}/>
                     <div>
                         <h2>{user.username}</h2>
                         <span>{user.email}</span>
@@ -122,6 +128,7 @@ const UserProfile = (props) => {
             </div>
             }
         </div>
+        </>
     );
 }
 

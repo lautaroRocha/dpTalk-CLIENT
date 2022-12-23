@@ -41,6 +41,8 @@
         .profile-head>div{
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: visible;
         }
         .profile-head>div>h2{
             font-size: 1.8rem;
@@ -50,11 +52,24 @@
             font-style: oblique;
             text-align: right;
         }
-        .profile-picture{
+        .profile-head>div>img{
             width: 80px;
             height: 80px;
             background-color: rebeccapurple;
             border-radius: 50%;
+        }
+        .profile-head>div>button{
+            border-radius: 50%;
+            position: absolute;
+            right: -70%;
+            top: -40%;
+            transform: scale(.3);
+            display: inline;
+        }
+        .profile-picture>button>svg{
+            fill: #fff;
+            width: 100%;
+            transform: scale(.8);
         }
     .profile-body{
         width: 85%;
