@@ -4,12 +4,15 @@ import "./question.css"
 import { useParams } from 'react-router-dom';
 import AnswerBox from '../AnswerBox/AnswerBox';
 import Answer from '../Answer/Answer';
+import useGetURL from '../../useGetURL';
+
 
 const Question = (props) => {
 
   const token = useContext(TokenContext)
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
+  const [profilePictureUrl, setProfilePicUrl] = useState()
 
   const { questionId } = useParams();
 
@@ -29,9 +32,12 @@ const Question = (props) => {
     .then(res => res.json())
     .then(data => setAnswers(Array.from(data)))
     props.setNewAnswer(false)
+    
   }, [props])
 
   answers.sort((a, b) => b.likes -  a.likes )
+
+  useGetURL( question && question.author, setProfilePicUrl) 
 
   function showAnswerBox(){
     answerBox.current.style.display = "flex"
@@ -63,7 +69,7 @@ const Question = (props) => {
           <>
           <div className="question">
             <div className="question-head">
-              <div className="question-head-img"> </div>
+            <img className='question-head-img' src={profilePictureUrl}/>
               <div className="question-head-text">
                 <div>
                   <span>{question.author}</span>

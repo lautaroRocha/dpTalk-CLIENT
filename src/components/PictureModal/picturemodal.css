@@ -9,6 +9,7 @@
     position: absolute;
     opacity: 0;
     transition: all .5s ease;
+    z-index: -100;
 }
 .update-modal{
     position: absolute;

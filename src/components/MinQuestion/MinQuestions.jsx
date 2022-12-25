@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom'
 import "./minquestion.css"
+import useGetURL from '../../useGetURL';
+
 
 const MinQuestions = (props) => {
+
+    const [profilePictureUrl, setProfilePicUrl] = useState()
+    
+    useGetURL(props.question.author, setProfilePicUrl)
+
     return (
         <Link className='min-question'  to={`question/${props.question._id}`}>
             <div className='min-question-author'>
-                <div className='min-question-author-img' />
+                <img className='min-question-author-img' src={`${profilePictureUrl}` }/>
                 <span className='min-queston-author-name'>{props.question.author}</span>
             </div>
             <div className='min-question-text'>

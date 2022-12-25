@@ -19,7 +19,7 @@ const Home = (props) => {
           <main>
             {props.filteredQuestions && props.filteredQuestions.map((qstn, idx) => {
               return(<MinQuestions question={qstn} key={idx} />)
-            })}
+            })} 
           </main>
           <AskButton />
         </>

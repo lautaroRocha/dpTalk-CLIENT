@@ -24,17 +24,21 @@ const UserProfile = (props) => {
 
     async function uploadToStorage(e, ref, file){
         e.preventDefault()
+        compressImage(file, 0.8, 0.8)
         await uploadBytes(ref, file).then((snapshot) => {
             console.log('Uploaded a blob or file!');
         });
         saveURL(ref)
         modal.current.style.opacity = 0
+        modal.current.style.zIndex = -10
+
     }
 
     function openModal(e){
       e.preventDefault()
-      console.log(modal.current)
+      modal.current.style.zIndex = 10
       modal.current.style.opacity = 1
+
     }
    
   function saveURL(ref){
@@ -92,7 +96,7 @@ const UserProfile = (props) => {
     }, [user])
 
 
-
+    
 
     return (
       <>
