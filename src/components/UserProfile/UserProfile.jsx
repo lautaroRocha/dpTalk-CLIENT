@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import ProfilePic from '../ProfilePic/ProfilePic';
 import PictureModal from '../PictureModal/PictureModal';
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
-
+import imageCompression from 'browser-image-compression';
 
 const UserProfile = (props) => {
 
@@ -22,10 +22,18 @@ const UserProfile = (props) => {
 
     const modal = useRef()
 
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 500,
+      useWebWorker: true,
+      convertSize: 500,
+      convertTypes: ['image/png', 'image/webp', 'image/jpg']
+    }
+
     async function uploadToStorage(e, ref, file){
         e.preventDefault()
-        compressImage(file, 0.8, 0.8)
-        await uploadBytes(ref, file).then((snapshot) => {
+        const compressedFile = await imageCompression(file, options);
+        await uploadBytes(ref, compressedFile).then((snapshot) => {
             console.log('Uploaded a blob or file!');
         });
         saveURL(ref)
