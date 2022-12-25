@@ -4,7 +4,7 @@ import "./question.css"
 import { useParams } from 'react-router-dom';
 import AnswerBox from '../AnswerBox/AnswerBox';
 import Answer from '../Answer/Answer';
-import useGetURL from '../../utilities/useGetURL';
+import getProfilePicture from '../../utilities/getPPURL';
 
 
 const Question = (props) => {
@@ -37,7 +37,17 @@ const Question = (props) => {
 
   answers.sort((a, b) => b.likes -  a.likes )
 
-  useGetURL( question && question.author, setProfilePicUrl) 
+  if(question && !profilePictureUrl){
+  const cachedURL = sessionStorage.getItem(`ProPic-${question._id}`)
+
+  if(cachedURL && !profilePictureUrl){
+      setProfilePicUrl(cachedURL)
+  }else{
+      getProfilePicture(question.author, setProfilePicUrl)
+      sessionStorage.setItem(`ProPic-${question._id}`, profilePictureUrl )
+  }
+}
+
 
   function showAnswerBox(){
     answerBox.current.style.display = "flex"
