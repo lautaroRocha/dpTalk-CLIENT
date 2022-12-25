@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import UserContext from "../../Context/UserContext"
 import TokenContext from "../../Context/TokenContext"
 import { toast } from 'react-toastify';
-import useFetch from '../../useFetch';
+import useFetch from '../../utilities/useFetch';
 import "./ask.css"
 
 const Ask = (props) => {
@@ -31,21 +31,15 @@ const Ask = (props) => {
         const asking = await useFetch(askUrl, 'POST', newQuestion, token)
         if(asking.message){
             let errors = Array.from(asking.message.split(', '))
-            errors.forEach((err) => showError(err))
+            errors.forEach((err) => toast.error(err))
         }else{
-            showInfo('Pregunta hecha!')
+            toast.info('Pregunta hecha!')
             navigate('/')
         }
         await props.setNewQuestion(true)
 
     }
 
-    function showError(error){
-        toast.error(error)
-    }
-    function showInfo(info){
-        toast.info(info)
-    }
 
     return (
         <div className='ask'>

@@ -7,7 +7,7 @@ import Register from './components/Register/Register';
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import {  Route, Routes, useNavigate } from 'react-router-dom';
-import useFetch from './useFetch';
+import useFetch from './utilities/useFetch';
 import TokenContext from "./Context/TokenContext"
 import UserContext from "./Context/UserContext"
 import ScrollToTop from "./utilities/scrollTop"
@@ -73,19 +73,13 @@ function App() {
     e && e.preventDefault()
     let user = await useFetch(userUrl, "GET")
     if(user.message){
-       showError(user.message)
+        toast.error(user.message)
         return
     }else{
         setUser(user)
         localStorage.setItem('user', JSON.stringify(user))
     }
 }
-
-
-function showError(error){
-  toast.error(error)
-}
-
 
   return (
     <>

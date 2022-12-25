@@ -3,6 +3,7 @@ import "./userprofile.css"
 import UserContext from '../../Context/UserContext';
 import TokenContext from '../../Context/TokenContext';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import ProfilePic from '../ProfilePic/ProfilePic';
 import PictureModal from '../PictureModal/PictureModal';
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
@@ -22,31 +23,30 @@ const UserProfile = (props) => {
 
     const modal = useRef()
 
-    const options = {
-      maxSizeMB: 1,
-      maxWidthOrHeight: 500,
-      useWebWorker: true,
-      convertSize: 500,
-      convertTypes: ['image/png', 'image/webp', 'image/jpg']
-    }
+
 
     async function uploadToStorage(e, ref, file){
         e.preventDefault()
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 500,
+          useWebWorker: true,
+          convertSize: 500,
+          convertTypes: ['image/png', 'image/webp', 'image/jpg']
+        }
         const compressedFile = await imageCompression(file, options);
         await uploadBytes(ref, compressedFile).then((snapshot) => {
-            console.log('Uploaded a blob or file!');
+            toast.info('Estamos subiendo tu foto...');
         });
         saveURL(ref)
         modal.current.style.opacity = 0
         modal.current.style.zIndex = -10
-
     }
 
     function openModal(e){
       e.preventDefault()
       modal.current.style.zIndex = 10
       modal.current.style.opacity = 1
-
     }
    
   function saveURL(ref){

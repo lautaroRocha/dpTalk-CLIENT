@@ -4,7 +4,7 @@ import "./question.css"
 import { useParams } from 'react-router-dom';
 import AnswerBox from '../AnswerBox/AnswerBox';
 import Answer from '../Answer/Answer';
-import useGetURL from '../../useGetURL';
+import useGetURL from '../../utilities/useGetURL';
 
 
 const Question = (props) => {
