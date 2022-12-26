@@ -26,6 +26,7 @@ const Header = (props) => {
 
 
     function handleScroll(){
+        if(window.innerWidth < 900){
         if (document.documentElement.scrollTop > 50) {
             canvas.current.style.height = "10vh";
             logo.current.style.width = "40%"
@@ -42,6 +43,23 @@ const Header = (props) => {
             talk.current.style.transform = "scale(1) skewX(-15deg)";
             talk.current.style.fontSize = 'clamp(1.5rem, 20vw, 2rem)';
             nav.current.style.marginTop="15vh"
+        }
+        }else{
+            if (document.documentElement.scrollTop > 50) {
+                canvas.current.style.height = "5rem";
+                logo.current.style.width = "50%"
+                talk.current.style.left = "10%"
+                talk.current.style.top = "3vh"
+                talk.current.style.transform = "scale(.6)"
+                talk.current.style.fontSize = 'clamp(.7rem, 10vw, 1rem)';
+            } else {
+                canvas.current.style.height = "10rem";
+                logo.current.style.width = "100%"
+                talk.current.style.left = "60%"
+                talk.current.style.top = "5rem"
+                talk.current.style.transform = "scale(1) skewX(-15deg)";
+                talk.current.style.fontSize = 'clamp(1.5rem, 20vw, 2rem)';
+            }
         }
     }
 

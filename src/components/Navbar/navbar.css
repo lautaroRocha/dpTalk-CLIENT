@@ -28,3 +28,17 @@ li>svg{
     transform: scale(.8);
     pointer-events: none;
 }
+@media(min-width:900px){
+    nav{
+        align-self: flex-start;
+    }
+    nav, ul{
+        flex-direction: column;
+        width: fit-content;
+    }
+    nav{
+        height: 80vh;
+    }
+    ul{
+    }
+}

@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: auto;
 }
 header{
     width: 100%;
@@ -41,5 +42,17 @@ header >  span{
     transform: skewX(-15deg);
     top: 7vh;
     transition: all .5s ease;
+}
+@media (min-width: 900px){
+    header{
+        height: 10rem;
+    }
+    header > div > svg{
+        transform: scale(.5);
+        margin-top: 0;
+    }
+    header >  span{
+        top: 5rem;
+    }
 
 }
