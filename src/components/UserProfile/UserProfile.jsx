@@ -8,22 +8,29 @@ import ProfilePic from '../ProfilePic/ProfilePic';
 import PictureModal from '../PictureModal/PictureModal';
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 import imageCompression from 'browser-image-compression';
+import { useParams } from 'react-router-dom';
 
 const UserProfile = (props) => {
 
     const [questionsByUser, setQuestionsByUser] = useState([])
     const [answersByUser, setAnswersByUser] = useState([])
-    const [profilePicUrl, setProfilePicUrl] = useState()
+    const [userData, setUserData] = useState({username:"", email:"", profilePic: ""})
+    const [ownProfile, setOwnProfile] = useState(false)
+
+    const { username } = useParams()
 
     const user = useContext(UserContext)
     const token = useContext(TokenContext)
     const storage = getStorage();
-
     const storageRef = user && ref(storage, `${user.username}-profilepic`);
-
     const modal = useRef()
 
-
+    useEffect(()=>{
+      if(user){
+      username === user.username && setOwnProfile(true)
+      }
+    },[user])
+    
 
     async function uploadToStorage(e, ref, file){
         e.preventDefault()
@@ -52,7 +59,11 @@ const UserProfile = (props) => {
   function saveURL(ref){
       getDownloadURL(ref)
         .then((url) => {
-          setProfilePicUrl(url);
+          setUserData({
+            email: userData.email,
+            username: userData.username,
+            profilePic: url
+          })
           fetch("http://localhost:7000/users/profile-pic", {
             method : "PATCH",
             body : JSON.stringify({
@@ -72,9 +83,26 @@ const UserProfile = (props) => {
 
     useEffect( () => {
         if(user){
-            const answersUrl = `http://localhost:7000/reply/by/${user.username}`
-            const questionsUrl = `http://localhost:7000/ask/by/${user.username}`
-            setProfilePicUrl(user.profilePic)
+            const answersUrl = `http://localhost:7000/reply/by/${username}`
+            const questionsUrl = `http://localhost:7000/ask/by/${username}`
+            if(ownProfile){
+              setUserData({
+                username : user.username,
+                email : user.email,
+                profilePic: user.profilePic
+              })
+            }else{
+              const usersUrl = `http://localhost:7000/users/${username}`
+              fetch(usersUrl)
+                .then(res => res.json())
+                .then(data => setUserData({
+                  username : data.username,
+                  email : data.email,
+                  profilePic: data.profilePic
+                }))
+              
+            }
+
         fetch(answersUrl, {headers: { 
             "x-access" : token
         }})
@@ -101,10 +129,8 @@ const UserProfile = (props) => {
         .catch(error => console.log(error))
         }
     
-    }, [user])
+    }, [user, ownProfile])
 
-
-    
 
     return (
       <>
@@ -113,25 +139,35 @@ const UserProfile = (props) => {
             {user &&
             <div className="profile-card">
                 <div className="profile-head">
-                    <ProfilePic url={profilePicUrl} openModal={openModal}/>
+                    <ProfilePic url={userData.profilePic} openModal={openModal} ownProfile={ownProfile}/>
                     <div>
-                        <h2>{user.username}</h2>
-                        <span>{user.email}</span>
+                        <h2>{userData.username}</h2>
+                        <span>{userData.email}</span>
                     </div>   
                 </div>
                 <div className="profile-body">
                     <div className="questions">
+                      {ownProfile ?
                         <h3>
                     Hiciste  
-                    <span> {questionsByUser.length}</span> preguntas</h3>
+                    <span> {questionsByUser.length} </span>{questionsByUser.length > 1  ? 'preguntas' : 'pregunta'}</h3> :
+                    <h3>
+                    Hizo  
+                    <span> {questionsByUser.length} </span>{questionsByUser.length > 1  ? 'preguntas' : 'pregunta'}</h3>}
                         <div>
                         {questionsByUser.map((qstn, idx) => {return(<Link key={idx} to={`../question/${qstn._id}`}>{qstn.title}</Link>)})}
                         </div>
                     </div>
                     <div className="answers">
-                    <h3>
-                    Subiste  
-                    <span> {answersByUser.length}</span> respuestas</h3>
+                      {ownProfile ?
+                      <h3>
+                      Subiste  
+                      <span> {answersByUser.length} </span>{answersByUser.length > 1  ? 'respuestas' : 'respuesta'}</h3> :
+                       <h3>
+                       Subió
+                       <span> {answersByUser.length} </span>{answersByUser.length > 1  ? 'respuestas' : 'respuesta'}</h3>
+                      }
+                    
                         <div>
                         {answersByUser.map((answ, idx) => {return(<Link key={idx} to={`../question/${answ.question}`}>{answ.body}</Link>)})}
                         </div>

@@ -7,7 +7,8 @@ const ProfilePic = (props) => {
     return (
         <div className='profile-picture'>
         <img  src={props.url} />
-        <button onClick={(e)=>{props.openModal(e)}}>{Icons.camera}</button>
+        {props.ownProfile &&
+        <button onClick={(e)=>{props.openModal(e)}}>{Icons.camera}</button>}
         </div>
     );
 }

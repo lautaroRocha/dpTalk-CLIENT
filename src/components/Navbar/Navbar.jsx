@@ -1,8 +1,9 @@
-import React, {useRef, forwardRef, useEffect} from 'react';
+import React, {useRef, forwardRef, useEffect, useContext} from 'react';
 import './navbar.css'
 import * as Icons from "../../utilities/svgIcons"
 import Searchbar from '../SearchBar/Searchbar';
 import { useNavigate, useLocation } from 'react-router-dom';
+import UserContext from '../../Context/UserContext';
 
 
 const Navbar = forwardRef((props, ref) => {
@@ -10,6 +11,7 @@ const Navbar = forwardRef((props, ref) => {
     const navigate = useNavigate()
     const search = useRef()
     const location = useLocation()
+    const user = useContext(UserContext)
 
     function showOrHideSearchBar(){
         if(location.pathname === '/'){
@@ -19,7 +21,7 @@ const Navbar = forwardRef((props, ref) => {
         navigate('/')
     }
     function goProfile(){
-        navigate('/user')
+        navigate(`/user/${user.username}`)
     }
     useEffect(()=>{
         search.current.style.opacity = 0

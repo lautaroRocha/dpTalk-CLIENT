@@ -93,7 +93,7 @@ function App() {
           <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer} setNewQuestion={setNewQuestion}/>}/>
           <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
-          <Route path="/user" element={<UserProfile updateUser={useUpdateUser}/>} />
+          <Route path="/user/:username" element={<UserProfile updateUser={useUpdateUser}/>} />
         </Routes>    
         <ToastContainer
             position="bottom-center"
