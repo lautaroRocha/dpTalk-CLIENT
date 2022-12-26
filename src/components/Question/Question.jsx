@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import AnswerBox from '../AnswerBox/AnswerBox';
 import Answer from '../Answer/Answer';
 import getProfilePicture from '../../utilities/getPPURL';
+import { Link } from 'react-router-dom';
 
 
 const Question = (props) => {
@@ -82,7 +83,7 @@ const Question = (props) => {
             <img className='question-head-img' src={profilePictureUrl}/>
               <div className="question-head-text">
                 <div>
-                  <span>{question.author}</span>
+                  <Link to={`/user/${question.author}`}>{question.author}</Link>
                   <span>{question.askedOn.slice(0,10)}</span>
                   <span>{question.status === false ? "PENDIENTE" : "CONTESTADA"}</span>
                 </div>

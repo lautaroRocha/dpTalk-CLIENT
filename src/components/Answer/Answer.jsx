@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import TokenContext from "../../Context/TokenContext"
 import UserContext from "../../Context/UserContext"
 import './answer.css'
+import {Link} from 'react-router-dom'
 
 
 const Answer = (props) => {
@@ -76,7 +77,7 @@ const Answer = (props) => {
     return (
         <div className='answer'>
             <div className="answer-data">
-                <span>{props.answer.author}</span>
+                <Link to={`../user/${props.answer.author}`}>{props.answer.author}</Link>
                 <span>{props.answer.repliedOn.slice(0, 10)}</span>
                 <span className='answer-status'>{props.answer.status ? "APROBADA" : " "}</span>
             </div>
