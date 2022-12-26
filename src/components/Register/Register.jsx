@@ -76,6 +76,8 @@ const Register = (props) => {
             <DPLogo/>
         </div>
         <form >
+            <div>
+            <div>
             <label htmlFor="username">
                 <span>
                 usuario:
@@ -96,6 +98,8 @@ const Register = (props) => {
                      "password" : newUser.password
                 })}}/>
             </label>
+            </div>
+            <div>
             <label htmlFor="password">
                 <span>
                 contraseña:
@@ -112,6 +116,8 @@ const Register = (props) => {
                 </span>
                 <input type="password" name='repeat-password' ref={repeatPassword} />
             </label>
+            </div>
+            </div>
             <button onClick={(e) => {handleRegister(e)}}>registrate</button>
             
             <Link to="/login">¿Ya tenés cuenta? Ingresá</Link> 

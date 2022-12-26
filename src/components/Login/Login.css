@@ -120,11 +120,12 @@ a{
     }
     .login > .dev-place-logo {
         width: 50%;
+        margin-top: 8vh;
     }
     .login > span{
-        top: 27vh;
+        top: 15vh;
         z-index: 10;
-        left: 5%;
+        left: 35%;
     } 
     .login > form{
         right: 7rem;
@@ -135,5 +136,24 @@ a{
     }
     .login > form > label > span{
         color: var(--lighter);
+        position: relative;
+        width: fit-content;
+        height: fit-content;
+        overflow: visible;
+        margin-bottom: 1rem;
+    }
+    .login > form > label > span:before{
+        content: "";
+        position: absolute;
+        width: 102%;
+        height: 100%;
+        top: -5%;
+        bottom: 0;
+        background-color: var(--dark-grey);
+        padding: 5px;
+        border-radius: 15px;
+        left: -5%;
+        z-index: -1;
+        opacity: .3;
     }
 }
