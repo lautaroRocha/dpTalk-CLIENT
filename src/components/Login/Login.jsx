@@ -47,7 +47,7 @@ const Login = (props) => {
     return (
         <>
         <div className='login'>
-            <Background />
+            <Background className="login-canvas"/>
                   <span>TALK</span>
             <div className='dev-place-logo'>
                 <DPLogo/>
@@ -75,7 +75,7 @@ const Login = (props) => {
                 <Link to="/register">¿No tenés cuenta? Creá una</Link>
             </form>
         </div>
-                    </>
+        </>
     );
 }
 
