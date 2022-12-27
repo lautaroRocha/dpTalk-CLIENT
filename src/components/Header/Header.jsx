@@ -75,6 +75,7 @@ const Header = (props) => {
                 <Background />
                 <div ref={logo}>
                     <DPLogo />
+                    <DPLogo />
                 </div>
                     <span ref={talk}>TALK</span>
             </header>

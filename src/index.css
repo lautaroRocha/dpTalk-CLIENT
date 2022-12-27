@@ -20,6 +20,8 @@
   --dark-grey: #343a40;
   --action-blue: #0d6efd;
   --green : #198754;
+  --damp-green : rgba(172, 174, 25, 0.405);
+  --soft-pink  : rgba(210, 149, 222, 0.5);
 }
 html{
   background-color: var(--back-clr);

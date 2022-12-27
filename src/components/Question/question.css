@@ -1,3 +1,6 @@
+.question-wrapper{
+    max-width: 600px;
+}
 .question{
     display: flex;
     flex-direction: column;
@@ -59,6 +62,12 @@
 }
 .question-action > button{
     margin: 0;
+}
+
+@media(min-width:900px){
+    .question{
+        
+    }
 }
 
 

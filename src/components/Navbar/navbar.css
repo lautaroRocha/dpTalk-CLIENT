@@ -60,7 +60,7 @@ li>svg{
         place-items: center;
     }
     li:hover{
-        background-color: rgba(172, 174, 25, 0.405);
+        background-color: var(--damp-green);
     }
     li>a{
         padding: 1rem;

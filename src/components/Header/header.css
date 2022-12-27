@@ -34,9 +34,10 @@ header > div > svg{
     fill: var(--grey);
     position: absolute;
 }
+
 header > div > svg:last-of-type{
-    fill: var(--dark-grey);
-    opacity: .5;
+    fill: #000;
+    opacity: .3;
 }
 
 header >  span{

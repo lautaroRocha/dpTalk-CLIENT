@@ -9,7 +9,7 @@ import UserContext from '../../Context/UserContext';
 const Navbar = forwardRef((props, ref) => {
 
     let activeStyle = {
-        "backgroundColor" : "rgba(210, 149, 222, 0.5)"
+        "backgroundColor" : "var(--soft-pink)"
       };
 
     const search = useRef()

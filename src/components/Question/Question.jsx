@@ -75,7 +75,7 @@ const Question = (props) => {
 
     return (
         <>
-        <main>
+        <div className='question-wrapper'>
           {question &&
           <>
           <div className="question">
@@ -108,7 +108,7 @@ const Question = (props) => {
             </div>
           </>
           }
-        </main>
+        </div>
       </>
     );
 }
