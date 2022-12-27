@@ -25,8 +25,8 @@ const MinQuestions = (props) => {
                 <img className='min-question-author-img' src={`${profilePictureUrl}` }/>
                 <span className='min-queston-author-name'>{props.question.author}</span>
             </div>
-            <div className='min-question-text'>
                 <span className='min-question-status'>{!props.question.status ? <></> : "CONTESTADA"}</span>
+            <div className='min-question-text'>
                 <h2>{props.question.title}</h2>
                 <p>{props.question.body.slice(0, 70)}</p>
             </div>

@@ -5,6 +5,7 @@
     width: 50%;
     transition: all .5s ease;
     cursor: pointer;
+    z-index: 10;
 }
 
 @media(min-width:500px){
@@ -14,7 +15,7 @@
     }
     .ask-btn:hover{
         transform: scale(1.1);
-        background-color: var(--lighter);
+        background-color: var(--back-clr);
         color: var(--action-blue);
         border: 3px solid var(--action-blue);
 
