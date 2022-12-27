@@ -1,13 +1,14 @@
 .searchbar{
-    margin-top: 24vh;
+    margin-top: 25vh;
     height: 5vh;
     width: 80%;
     padding: .5rem;
     background-color: var(--lighter);
     border: 1px solid var(--focus-grey);
     border-radius: 25px;
-    opacity: 0;
     transition: all .5s ease;
+    z-index: 500;
+    opacity: 0;
 }
 
 .searchbar:focus{

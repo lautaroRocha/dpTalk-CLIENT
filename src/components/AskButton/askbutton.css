@@ -3,4 +3,21 @@
     bottom: 2vh;
     right: auto;
     width: 50%;
+    transition: all .5s ease;
+    cursor: pointer;
+}
+
+@media(min-width:500px){
+    .ask-btn{
+        width: 20%;
+        margin-bottom: 1rem;
+    }
+    .ask-btn:hover{
+        transform: scale(1.1);
+        background-color: var(--lighter);
+        color: var(--action-blue);
+        border: 3px solid var(--action-blue);
+
+     
+    }
 }

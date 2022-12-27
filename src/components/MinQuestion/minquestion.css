@@ -53,3 +53,12 @@
     text-align: right;
     margin-right: 10vw;
 }
+@media(min-width:900px){
+    .min-question{
+        width: 50%;
+    }
+    .min-question-author > img{
+        width: 50%;
+        height: auto;
+    }
+}

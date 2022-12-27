@@ -106,6 +106,7 @@ function App() {
             draggable
             pauseOnHover
             theme="colored"
+            style={{"overflow" : "visible"}}
 />
       </TokenContext.Provider>    
       </UserContext.Provider>

@@ -52,6 +52,7 @@ const Header = (props) => {
                 talk.current.style.top = "3vh"
                 talk.current.style.transform = "scale(.6)"
                 talk.current.style.fontSize = 'clamp(.7rem, 10vw, 1rem)';
+                nav.current.style.marginTop="5rem"
             } else {
                 canvas.current.style.height = "10rem";
                 logo.current.style.width = "100%"
@@ -59,6 +60,7 @@ const Header = (props) => {
                 talk.current.style.top = "5rem"
                 talk.current.style.transform = "scale(1) skewX(-15deg)";
                 talk.current.style.fontSize = 'clamp(1.5rem, 20vw, 2rem)';
+                nav.current.style.marginTop="12rem"
             }
         }
     }
