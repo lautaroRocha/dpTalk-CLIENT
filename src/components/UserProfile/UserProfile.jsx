@@ -34,6 +34,9 @@ const UserProfile = (props) => {
 
     async function uploadToStorage(e, ref, file){
         e.preventDefault()
+        if(!file){
+          toast.error("No se ha detectado ningun archivo")
+        }else{
         const options = {
           maxSizeMB: 1,
           maxWidthOrHeight: 500,
@@ -48,12 +51,23 @@ const UserProfile = (props) => {
         saveURL(ref)
         modal.current.style.opacity = 0
         modal.current.style.zIndex = -10
+      }
     }
 
     function openModal(e){
       e.preventDefault()
       modal.current.style.zIndex = 10
       modal.current.style.opacity = 1
+      document.body.style.overflow = "hidden"
+    }
+
+    function closeModal(e, refFiles, refPreview){
+      e.preventDefault()
+      modal.current.style.zIndex = -100
+      modal.current.style.opacity = 0
+      document.body.style.overflow = "auto"
+      refFiles.current.value = ""
+      refPreview.current.innerHTML= ""
     }
    
   function saveURL(ref){
@@ -134,8 +148,8 @@ const UserProfile = (props) => {
 
     return (
       <>
-           <PictureModal uploadToStorage={uploadToStorage} storageRef={storageRef} ref={modal}/>
-        <div className='profile'>
+           <PictureModal uploadToStorage={uploadToStorage} storageRef={storageRef} ref={modal} closeModal={closeModal}/>
+        <div className='profile' >
             {user &&
             <div className="profile-card">
                 <div className="profile-head">
