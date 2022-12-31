@@ -9,6 +9,7 @@ import PictureModal from '../PictureModal/PictureModal';
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 import imageCompression from 'browser-image-compression';
 import { useParams } from 'react-router-dom';
+import Spinner from '../Spinner/Spinner'
 
 const UserProfile = (props) => {
 
@@ -153,7 +154,10 @@ const UserProfile = (props) => {
             {user &&
             <div className="profile-card">
                 <div className="profile-head">
-                    <ProfilePic url={userData.profilePic} openModal={openModal} ownProfile={ownProfile}/>
+                  {!userData.profilePic ?
+                  <Spinner /> :
+                  <ProfilePic url={userData.profilePic} openModal={openModal} ownProfile={ownProfile}/>
+                  }
                     <div>
                         <h2>{userData.username}</h2>
                         <span>{userData.email}</span>

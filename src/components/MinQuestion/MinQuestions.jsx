@@ -9,14 +9,13 @@ const MinQuestions = (props) => {
 
     const [profilePictureUrl, setProfilePicUrl] = useState()
 
-    const cachedURL = sessionStorage.getItem(`ProPic-${props.question._id}`)
+    const cachedURL = sessionStorage.getItem(`ProPic-${props.question.author}`)
 
     useEffect(()=>{
         if(cachedURL && !profilePictureUrl){
             setProfilePicUrl(cachedURL)
         }else{
             getProfilePicture(props.question.author, setProfilePicUrl)
-            sessionStorage.setItem(`ProPic-${props.question._id}`, profilePictureUrl )
         }
     },[])
    

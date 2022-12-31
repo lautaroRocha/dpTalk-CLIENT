@@ -6,7 +6,8 @@ function getProfilePictureURL(reference, setter){
       const storageRef = ref(storage, `${reference}-profilepic`);
       getDownloadURL(storageRef)
       .then((url) => {
-        setter(url)
+        setter(url);
+        sessionStorage.setItem(`ProPic-${reference}`, url)
       })
       .catch((error) => {
         console.log(error)
