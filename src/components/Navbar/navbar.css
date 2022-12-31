@@ -41,6 +41,7 @@ li>svg{
     nav, ul{
         flex-direction: column;
         width: fit-content;
+        max-height: 600px;
     }
     nav{
         height: 80vh;
@@ -61,6 +62,8 @@ li>svg{
     }
     li:hover{
         background-color: var(--damp-green);
+        border: 1px solid var(--dark-grey);
+
     }
     li>a{
         padding: 1rem;

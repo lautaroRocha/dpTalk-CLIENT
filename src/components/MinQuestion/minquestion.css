@@ -81,7 +81,6 @@
     }
     .min-question-status{
         position: absolute;
-        right: -6.5rem;
-        top: .5rem
+        top: .5rem;
     }
 }

@@ -17,7 +17,13 @@
 .answer-data{
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    gap: 1rem;
+}
+.answer-data a, .answer-data span{
+    margin: 0;
+}
+.answer-data span:last-of-type{
+    margin-left: auto;
 }
 .answer-likes{
     display: flex;

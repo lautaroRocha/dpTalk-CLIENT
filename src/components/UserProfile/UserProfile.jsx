@@ -14,8 +14,8 @@ const UserProfile = (props) => {
 
     const [questionsByUser, setQuestionsByUser] = useState([])
     const [answersByUser, setAnswersByUser] = useState([])
-    const [userData, setUserData] = useState({username:"", email:"", profilePic: ""})
     const [ownProfile, setOwnProfile] = useState(false)
+    const [userData, setUserData] = useState({username:"", email:"", profilePic: ""})
 
     const { username } = useParams()
 

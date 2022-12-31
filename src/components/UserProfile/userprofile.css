@@ -58,7 +58,6 @@
             background-color: rebeccapurple;
             border-radius: 50%;
             aspect-ratio: 1 / 1;
-            object-fit: scale-down;
         }
         .profile-head>div>button{
             border-radius: 50%;
@@ -118,3 +117,21 @@
             text-overflow: ellipsis;
             margin: .3rem 0;
         }
+@media(min-width:900px){
+    .profile{
+        width: 50%;
+        margin: -1.5rem auto 10rem;
+    }
+    .profile-head>div>img{
+        width: 10vw;
+        height: auto;
+    }
+    .profile-head>div>button{
+        transform: scale(.2);
+        top: -28%;
+        cursor: pointer;
+    }
+    .profile-head>div>span{
+        margin-top: 1rem;
+    }
+}
