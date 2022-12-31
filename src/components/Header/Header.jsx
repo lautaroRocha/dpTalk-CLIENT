@@ -68,6 +68,9 @@ const Header = (props) => {
     window.onscroll = () =>{
         handleScroll()
     }
+    window.onresize = () =>{
+        handleScroll()
+    }
 
     return (
         <div ref={header} className="header-wrapper">

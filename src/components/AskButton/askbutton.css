@@ -10,7 +10,7 @@
 
 @media(min-width:500px){
     .ask-btn{
-        width: 20%;
+        width: 40%;
         margin-bottom: 1rem;
     }
     .ask-btn:hover{
@@ -20,5 +20,10 @@
         border: 3px solid var(--action-blue);
 
      
+    }
+}
+@media(min-width:900px){
+    .ask-btn{
+        width: 20%;
     }
 }

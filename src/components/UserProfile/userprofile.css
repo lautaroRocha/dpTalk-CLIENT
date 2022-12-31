@@ -117,6 +117,19 @@
             text-overflow: ellipsis;
             margin: .3rem 0;
         }
+
+        @media(min-width:500px){
+            .profile-head>div>img{
+                width: 20vw;
+                max-width: 100px;
+                height: auto;
+            }
+            .profile-head>div>button{
+                transform: scale(.2);
+                top: -33%;        
+                cursor: pointer;
+            }
+        }
 @media(min-width:900px){
     .profile{
         width: 50%;
@@ -124,14 +137,13 @@
     }
     .profile-head>div>img{
         width: 10vw;
-        height: auto;
     }
     .profile-head>div>button{
         transform: scale(.2);
-        top: -28%;
-        cursor: pointer;
     }
     .profile-head>div>span{
         margin-top: 1rem;
+        top: -28%;        
+
     }
 }
