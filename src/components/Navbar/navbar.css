@@ -8,6 +8,7 @@ nav{
     align-items: center;
     position: fixed;
     transition: all .5s ease;
+    overflow: visible;
 }
 
 ul{
@@ -37,7 +38,13 @@ li>svg{
     transform: scale(.8);
     pointer-events: none;
 }
+.tooltip{
+    display: none;
+}
 @media(min-width:900px){
+    .tooltip{
+        display: flex;
+    }
     nav, ul{
         flex-direction: column;
         width: fit-content;
