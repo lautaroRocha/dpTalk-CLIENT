@@ -19,16 +19,16 @@ const Question = (props) => {
 
   const answerBox = useRef()
 
-  const questionUrl= `http://localhost:7000/ask/${questionId}`
-  const answersUrl= `http://localhost:7000/reply/${questionId}`
+  const questionUrl= `https://dptalk-api-production.up.railway.app/ask/${questionId}`
+  const answersUrl= `https://dptalk-api-production.up.railway.app/reply/${questionId}`
 
   
   useEffect(()=>{
-    fetch(questionUrl)
+    fetch(questionUrl, {headers:{'x-access' : token}})
     .then(res => res.json())
     .then(data => setQuestion(data))
 
-  
+
     fetch(answersUrl, {headers:{'x-access' : token}})
     .then(res => res.json())
     .then(data => setAnswers(Array.from(data)))
@@ -39,13 +39,13 @@ const Question = (props) => {
   answers.sort((a, b) => b.likes -  a.likes )
 
   if(question && !profilePictureUrl){
-  const cachedURL = sessionStorage.getItem(`ProPic-${question._id}`)
+  const cachedURL = sessionStorage.getItem(`ProPic-${question.author}`)
 
   if(cachedURL && !profilePictureUrl){
       setProfilePicUrl(cachedURL)
   }else{
       getProfilePicture(question.author, setProfilePicUrl)
-      sessionStorage.setItem(`ProPic-${question._id}`, profilePictureUrl )
+      sessionStorage.setItem(`ProPic-${question.author}`, profilePictureUrl )
   }
 }
 

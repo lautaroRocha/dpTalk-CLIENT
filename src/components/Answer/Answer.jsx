@@ -7,9 +7,9 @@ import {Link} from 'react-router-dom'
 
 const Answer = (props) => {
 
-    const likesUrl = `http://localhost:7000/reply/like/${props.answer._id}`
-    const dislikesUrl = `http://localhost:7000/reply/dislike/${props.answer._id}`
-    const answerUrl= `http://localhost:7000/reply/${props.answer._id}`
+    const likesUrl = `https://dptalk-api-production.up.railway.app/reply/like/${props.answer._id}`
+    const dislikesUrl = `https://dptalk-api-production.up.railway.app/reply/dislike/${props.answer._id}`
+    const answerUrl= `https://dptalk-api-production.up.railway.app/reply/${props.answer._id}`
 
     const token = useContext(TokenContext)
     const user = useContext(UserContext)

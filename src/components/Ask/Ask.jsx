@@ -13,17 +13,22 @@ const Ask = (props) => {
     const user = useContext(UserContext)
     const token = useContext(TokenContext)
 
-    const askUrl = "http://localhost:7000/ask"
+    const askUrl = "https://dptalk-api-production.up.railway.app/ask"
     const navigate = useNavigate()
 
 
     function createQuestion(){
+        if(question.title !== "" && question.body !== ""){
         const newQuestion = {
             author : user.username,
             title : question.title,
             body : question.body
         }
         return newQuestion
+        }else{
+            toast.error('Tu pregunta debe tener título y cuerpo')
+
+        }
     }
 
     async function usePostToDatabase(){
@@ -37,7 +42,6 @@ const Ask = (props) => {
             navigate('/')
         }
         await props.setNewQuestion(true)
-
     }
 
 
@@ -45,7 +49,7 @@ const Ask = (props) => {
         <div className='ask'>
             <div className='ask-text'>
                 <textarea type="text" placeholder='Título...' onChange={(e)=>{setQuestion({title: e.target.value, body : question.body})}}/>
-                <textarea type="text" placeholder='Tu pregunta...' onChange={(e)=>{setQuestion({title: question.title, body : e.target.value})}}/>
+                <textarea type="text" placeholder='Tu pregunta...'  onChange={(e)=>{setQuestion({title: question.title, body : e.target.value})}}/>
             </div>
             <div className="ask-action">
                 <button data-cancel>

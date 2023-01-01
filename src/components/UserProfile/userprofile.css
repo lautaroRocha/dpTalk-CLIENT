@@ -58,6 +58,7 @@
             background-color: rebeccapurple;
             border-radius: 50%;
             aspect-ratio: 1 / 1;
+            object-fit: cover;
         }
         .profile-head>div>button{
             border-radius: 50%;

@@ -22,8 +22,8 @@ function App() {
   const [newQuestion, setNewQuestion] = useState(false)
   const [newAnswer, setNewAnswer] = useState(false)
 
-  const questionsUrl = "http://localhost:7000/ask"
-  const userUrl = user && `http://localhost:7000/users/${user.username}`
+  const questionsUrl = "https://dptalk-api-production.up.railway.app/ask"
+  const userUrl = user && `https://dptalk-api-production.up.railway.app/users/${user.username}`
 
 
   useEffect(()=>{

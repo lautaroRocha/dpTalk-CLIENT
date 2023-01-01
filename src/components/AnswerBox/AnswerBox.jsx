@@ -15,7 +15,7 @@ const AnswerBox = forwardRef((props, ref) => {
         ref.current.style.display = "none"
     }
 
-    const answerUrl = "http://localhost:7000/reply"
+    const answerUrl = "https://dptalk-api-production.up.railway.app/reply"
 
     async function useAnswerQuestion(){
         const answer = {

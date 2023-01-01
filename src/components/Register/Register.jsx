@@ -23,9 +23,9 @@ const Register = (props) => {
     const repeatPassword = useRef()
 
 
-    const newUserURL = "http://localhost:7000/users/signin"
-    const url = "http://localhost:7000/users/login"
-    const userUrl = `http://localhost:7000/users/${newUser.username}`
+    const newUserURL = "https://dptalk-api-production.up.railway.app/users/signin"
+    const url = "https://dptalk-api-production.up.railway.app/users/login"
+    const userUrl = `https://dptalk-api-production.up.railway.app/users/${newUser.username}`
 
     async function LogIn(){
         let token = await useFetch(url, "POST", {'username' : newUser.username, 'password': newUser.password});

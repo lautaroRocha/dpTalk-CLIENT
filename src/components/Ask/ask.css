@@ -24,6 +24,7 @@
     border-radius: 5px;
     border: none;
     height: 3rem;
+    resize: none;
 }
 
 .ask-text > textarea:last-of-type{
@@ -36,4 +37,16 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    pointer-events: all;
+}
+
+
+@media(min-width:900px){
+    .ask{
+        width: 50%;
+        margin-bottom: 3rem;
+    }
+    .ask-action>button{
+        cursor: pointer;
+    }
 }
