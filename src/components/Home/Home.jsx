@@ -9,6 +9,7 @@ import { useContext } from 'react';
 const Home = (props) => {
 
   const user = useContext(UserContext)
+  console.log(user)
 
   if(!user){
     return <Navigate to="/login" replace />;
