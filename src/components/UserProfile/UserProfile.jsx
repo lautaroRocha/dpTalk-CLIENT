@@ -86,7 +86,8 @@ const UserProfile = (props) => {
                 "picture" : url
             }),
             headers : {
-              "Content-Type" : "application/json"
+              "Content-Type" : "application/json",
+              "x-access" : token
             }})
         })
         .catch((error) => {

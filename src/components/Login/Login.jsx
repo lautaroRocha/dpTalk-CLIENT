@@ -14,16 +14,15 @@ const Login = (props) => {
         password : ""
     })
 
-    useEffect(()=>{
-        const token = localStorage.getItem('token')
-        const user = localStorage.getItem('user')
-        if(token && user){
-            navigate('/')
-        }
-
-    }, [])
-
+    const token = localStorage.getItem('token')
+    const user = localStorage.getItem('user')
     const navigate = useNavigate()
+
+    if(token && user){
+        navigate('/')
+    }
+
+
     const url = "https://dptalk-api-production.up.railway.app/users/login"
     const userUrl = `https://dptalk-api-production.up.railway.app/users/${userData.username}`
 
