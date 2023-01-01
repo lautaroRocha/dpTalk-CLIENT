@@ -89,7 +89,7 @@ function App() {
         <Header filterQuestions={filterQuestions} logOut={logOut}/>
         <Routes>
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 
-          <Route path='/' element={<Home filteredQuestions={filteredQuestions}/>}/>
+          <Route path='/' element={<Home filteredQuestions={filteredQuestions} user={user}/>}/>
           <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer} setNewQuestion={setNewQuestion}/>}/>
           <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
