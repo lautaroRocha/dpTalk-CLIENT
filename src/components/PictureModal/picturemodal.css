@@ -53,7 +53,7 @@
     cursor: pointer;
     border: 3px solid transparent;
     transition: all .5s ease;
-
+    margin-top: 3rem;
 }
 .img-preview{
     position: absolute;
@@ -80,7 +80,6 @@
         height: fit-content;
         width: fit-content;
         background-color: var(--light-grey);
-        overflow: visible;
     }
     .img-preview>img{
         width: 35%;
@@ -88,8 +87,18 @@
         border-radius: 50%;
         transform: scale(1.1);
         max-width: 130px;
-    }
 
+    }
+    .update-modal>form>div>button:hover{
+        background-color: var(--lighter);
+        color: var(--action-blue);
+        border: 3px solid var(--action-blue);
+    }
+    .update-modal>form>div>button[data-cancel]:hover{
+        background-color: var(--lighter);
+        color: red;
+        border: 3px solid red;
+    }
 }
 @media(min-width:900px){
     .update-modal{
@@ -111,16 +120,7 @@
         border-radius: 50%;
         transform: scale(1.1);
     }
-    .update-modal>form>div>button:hover{
-        background-color: var(--lighter);
-        color: var(--action-blue);
-        border: 3px solid var(--action-blue);
-    }
-    .update-modal>form>div>button[data-cancel]:hover{
-        background-color: var(--lighter);
-        color: red;
-        border: 3px solid red;
-    }
+   
 }
 
 

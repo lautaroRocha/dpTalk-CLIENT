@@ -3,6 +3,7 @@ import TokenContext from "../../Context/TokenContext"
 import UserContext from "../../Context/UserContext"
 import './answer.css'
 import {Link} from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 
 const Answer = (props) => {
@@ -27,9 +28,8 @@ const Answer = (props) => {
         })
         .then(response => {
             if(!response.ok){
-                console.log(response)
+                toast.error('Hubo un error, intentá más tarde')
             }else{
-                console.log('exito')
                 props.setNewAnswer(true)
             }
         
@@ -48,9 +48,8 @@ const Answer = (props) => {
         })
         .then(response => {
             if(!response.ok){
-                console.log(response.message)
+                toast.error('Hubo un error, intentá más tarde')
             }else{
-                console.log('exito')
                 props.setNewAnswer(true)
             }
         
@@ -66,12 +65,12 @@ const Answer = (props) => {
         })
         .then(response => {   
             if(!response.ok){
-                console.log(response)
+                toast.error('Hubo un error, intentá más tarde')
             }else{
                 props.setAsResolved();
                 props.setNewAnswer(true)
             }})
-        .catch(error => console.log(error))
+        .catch(error => toast.error(error))
     }
 
     return (

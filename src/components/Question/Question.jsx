@@ -6,6 +6,8 @@ import AnswerBox from '../AnswerBox/AnswerBox';
 import Answer from '../Answer/Answer';
 import getProfilePicture from '../../utilities/getPPURL';
 import { Link } from 'react-router-dom';
+import Spinner from '../Spinner/Spinner'
+import { toast } from 'react-toastify';
 
 
 const Question = (props) => {
@@ -36,8 +38,19 @@ const Question = (props) => {
     
   }, [props])
 
-  answers.sort((a, b) => b.likes -  a.likes )
+answers.sort((a, b) =>{
+  const aLikes = a.likes.length;
+  const bLikes = b.likes.length;
+      if(aLikes == bLikes) {
+        return 0; 
+      }
+      if(aLikes < bLikes) {
+        return 1;
+      }
+      return -1;
+    })
 
+ 
   if(question && !profilePictureUrl){
   const cachedURL = sessionStorage.getItem(`ProPic-${question.author}`)
 
@@ -63,9 +76,8 @@ const Question = (props) => {
     })
     .then(response => {
         if(!response.ok){
-            console.log(response.message)
+            toast.error('Tuvimos un problema, intentá de nuevo más tarde')
         }else{
-            console.log('exito')
             props.setNewQuestion(true)
         }
     
@@ -75,6 +87,8 @@ const Question = (props) => {
 
     return (
         <>
+        {!question ?
+        <Spinner/> :
         <div className='question-wrapper'>
           {question &&
           <>
@@ -108,7 +122,7 @@ const Question = (props) => {
             </div>
           </>
           }
-        </div>
+        </div>}
       </>
     );
 }

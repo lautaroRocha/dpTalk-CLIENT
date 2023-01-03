@@ -38,6 +38,11 @@ const UserProfile = (props) => {
         if(!file){
           toast.error("No se ha detectado ningun archivo")
         }else{
+          setUserData({
+            email: userData.email,
+            username: userData.username,
+            profilePic: ""
+          })
         const options = {
           maxSizeMB: 1,
           maxWidthOrHeight: 500,
@@ -152,7 +157,8 @@ const UserProfile = (props) => {
       <>
            <PictureModal uploadToStorage={uploadToStorage} storageRef={storageRef} ref={modal} closeModal={closeModal}/>
         <div className='profile' >
-            {user &&
+            {!user ?
+              <Spinner /> :
             <div className="profile-card">
                 <div className="profile-head">
                   {!userData.profilePic ?
@@ -195,7 +201,7 @@ const UserProfile = (props) => {
             </div>
             }
         </div>
-        </>
+          </>
     );
 }
 

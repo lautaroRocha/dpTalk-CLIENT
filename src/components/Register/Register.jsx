@@ -75,7 +75,7 @@ const Register = (props) => {
             <DPLogo/>
             <DPLogo/>
         </div>
-        <form >
+        <form className='register-form'>
             <div>
             <div>
             <label htmlFor="username">

@@ -33,6 +33,15 @@ canvas{
     right: 5%;
     letter-spacing: 1ch;
 }
+.register-form > div{
+    margin-top: 1.5rem;
+}
+.register-form span{
+    font-size: 1.3rem;
+    margin-left: 15px;
+    margin-top: 1rem;
+}
+
 @media(min-width:600px){
     .register > span{
         top: 24vh;
