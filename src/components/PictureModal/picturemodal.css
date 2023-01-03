@@ -1,0 +1,126 @@
+.modal-back{
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    opacity: 0;
+    transition: all .5s ease;
+    z-index: -100;
+    display: grid;
+    place-items: center;
+}
+.update-modal{
+    position: absolute;
+    z-index: 100; 
+    height: fit-content;
+}
+.update-modal>form{
+    height: fit-content;
+    text-align: center;
+    position: relative;
+    overflow: visible;
+
+}
+.update-modal>form>span{
+    font-weight: bolder;
+}
+.update-modal>form>input{
+    opacity: 0;
+    height: 3rem;
+    width: 100%;
+}
+.update-modal>form:before{
+    content: "📂🖼️";
+    width: 100%;
+    font-size: 3rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 25%;
+    cursor: pointer;
+}
+.update-modal>form>div{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.update-modal>form>div>button{
+    width: 45%;
+    height: fit-content;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all .5s ease;
+    margin-top: 3rem;
+}
+.img-preview{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 15%;
+    height: fit-content;
+    width: fit-content;
+    background-color: var(--light-grey);
+}
+.img-preview>img{
+    width: 40%;
+    height: auto;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover   ;
+}
+@media(min-width:500px){
+    .img-preview{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: fit-content;
+        width: fit-content;
+        background-color: var(--light-grey);
+    }
+    .img-preview>img{
+        width: 35%;
+        height: auto;
+        border-radius: 50%;
+        transform: scale(1.1);
+        max-width: 130px;
+
+    }
+    .update-modal>form>div>button:hover{
+        background-color: var(--lighter);
+        color: var(--action-blue);
+        border: 3px solid var(--action-blue);
+    }
+    .update-modal>form>div>button[data-cancel]:hover{
+        background-color: var(--lighter);
+        color: red;
+        border: 3px solid red;
+    }
+}
+@media(min-width:900px){
+    .update-modal{
+        margin-top: 20vh;
+    }
+    .img-preview{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 15%;
+        height: fit-content;
+        width: fit-content;
+        background-color: var(--light-grey);
+        overflow: visible;
+    }
+    .img-preview>img{
+        width: 25%;
+        height: auto;
+        border-radius: 50%;
+        transform: scale(1.1);
+    }
+   
+}
+
+

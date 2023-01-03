@@ -4,34 +4,64 @@ import "./question.css"
 import { useParams } from 'react-router-dom';
 import AnswerBox from '../AnswerBox/AnswerBox';
 import Answer from '../Answer/Answer';
+import getProfilePicture from '../../utilities/getPPURL';
+import { Link } from 'react-router-dom';
+import Spinner from '../Spinner/Spinner'
+import { toast } from 'react-toastify';
+
 
 const Question = (props) => {
 
   const token = useContext(TokenContext)
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
+  const [profilePictureUrl, setProfilePicUrl] = useState()
 
   const { questionId } = useParams();
 
   const answerBox = useRef()
 
-  const questionUrl= `http://localhost:7000/ask/${questionId}`
-  const answersUrl= `http://localhost:7000/reply/${questionId}`
+  const questionUrl= `https://dptalk-api-production.up.railway.app/ask/${questionId}`
+  const answersUrl= `https://dptalk-api-production.up.railway.app/reply/${questionId}`
 
   
   useEffect(()=>{
-    fetch(questionUrl)
+    fetch(questionUrl, {headers:{'x-access' : token}})
     .then(res => res.json())
     .then(data => setQuestion(data))
 
-  
+
     fetch(answersUrl, {headers:{'x-access' : token}})
     .then(res => res.json())
     .then(data => setAnswers(Array.from(data)))
     props.setNewAnswer(false)
+    
   }, [props])
 
-  answers.sort((a, b) => b.likes -  a.likes )
+answers.sort((a, b) =>{
+  const aLikes = a.likes.length;
+  const bLikes = b.likes.length;
+      if(aLikes == bLikes) {
+        return 0; 
+      }
+      if(aLikes < bLikes) {
+        return 1;
+      }
+      return -1;
+    })
+
+ 
+  if(question && !profilePictureUrl){
+  const cachedURL = sessionStorage.getItem(`ProPic-${question.author}`)
+
+  if(cachedURL && !profilePictureUrl){
+      setProfilePicUrl(cachedURL)
+  }else{
+      getProfilePicture(question.author, setProfilePicUrl)
+      sessionStorage.setItem(`ProPic-${question.author}`, profilePictureUrl )
+  }
+}
+
 
   function showAnswerBox(){
     answerBox.current.style.display = "flex"
@@ -46,9 +76,8 @@ const Question = (props) => {
     })
     .then(response => {
         if(!response.ok){
-            console.log(response.message)
+            toast.error('Tuvimos un problema, intentá de nuevo más tarde')
         }else{
-            console.log('exito')
             props.setNewQuestion(true)
         }
     
@@ -58,15 +87,17 @@ const Question = (props) => {
 
     return (
         <>
-        <main>
+        {!question ?
+        <Spinner/> :
+        <div className='question-wrapper'>
           {question &&
           <>
           <div className="question">
             <div className="question-head">
-              <div className="question-head-img"> </div>
+            <img className='question-head-img' src={profilePictureUrl}/>
               <div className="question-head-text">
                 <div>
-                  <span>{question.author}</span>
+                  <Link to={`/user/${question.author}`}>{question.author}</Link>
                   <span>{question.askedOn.slice(0,10)}</span>
                   <span>{question.status === false ? "PENDIENTE" : "CONTESTADA"}</span>
                 </div>
@@ -91,7 +122,7 @@ const Question = (props) => {
             </div>
           </>
           }
-        </main>
+        </div>}
       </>
     );
 }

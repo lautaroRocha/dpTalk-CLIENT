@@ -1,10 +1,10 @@
 import React, {useState, useRef} from 'react';
-import  useFetch  from '../../useFetch';
+import  useFetch  from '../../utilities/useFetch';
 import { Link, useNavigate } from 'react-router-dom';
 import Background from '../animatedCanvas/animatedCanvas';
 import './register.css'
 import DPLogo from '../DPLogo/DPLogo';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Register = (props) => {
@@ -23,15 +23,15 @@ const Register = (props) => {
     const repeatPassword = useRef()
 
 
-    const newUserURL = "http://localhost:7000/users/signin"
-    const url = "http://localhost:7000/users/login"
-    const userUrl = `http://localhost:7000/users/${newUser.username}`
+    const newUserURL = "https://dptalk-api-production.up.railway.app/users/signin"
+    const url = "https://dptalk-api-production.up.railway.app/users/login"
+    const userUrl = `https://dptalk-api-production.up.railway.app/users/${newUser.username}`
 
     async function LogIn(){
         let token = await useFetch(url, "POST", {'username' : newUser.username, 'password': newUser.password});
         let user = await useFetch(userUrl, "GET")
         if(token.message){
-            console.log(token.message)
+            toast.error(token.message)
             return
         }else{
             props.setUser(user)
@@ -50,14 +50,14 @@ const Register = (props) => {
             .then( data => {
                 if(data.message){
                     let errors = Array.from(data.message.split(', '))
-                    errors.forEach((err) => showError(err))
+                    errors.forEach((err) => toast.error(err))
                 }else{
                     LogIn()
                 }
             })
-            .catch(error => console.log(error))
+            .catch(error => toast.error(error))
         }else{
-            console.log('las contraseñas deben coincidir')
+            toast.error('las contraseñas deben coincidir')
         }
     }
 
@@ -66,9 +66,6 @@ const Register = (props) => {
         registerUser()
     }
 
-    function showError(error){
-        toast.error(error)
-    }
 
     return (
         <div className='register'>
@@ -78,7 +75,9 @@ const Register = (props) => {
             <DPLogo/>
             <DPLogo/>
         </div>
-        <form >
+        <form className='register-form'>
+            <div>
+            <div>
             <label htmlFor="username">
                 <span>
                 usuario:
@@ -99,6 +98,8 @@ const Register = (props) => {
                      "password" : newUser.password
                 })}}/>
             </label>
+            </div>
+            <div>
             <label htmlFor="password">
                 <span>
                 contraseña:
@@ -115,6 +116,8 @@ const Register = (props) => {
                 </span>
                 <input type="password" name='repeat-password' ref={repeatPassword} />
             </label>
+            </div>
+            </div>
             <button onClick={(e) => {handleRegister(e)}}>registrate</button>
             
             <Link to="/login">¿Ya tenés cuenta? Ingresá</Link> 

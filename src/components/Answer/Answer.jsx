@@ -2,13 +2,15 @@ import React, {useContext} from 'react';
 import TokenContext from "../../Context/TokenContext"
 import UserContext from "../../Context/UserContext"
 import './answer.css'
+import {Link} from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 
 const Answer = (props) => {
 
-    const likesUrl = `http://localhost:7000/reply/like/${props.answer._id}`
-    const dislikesUrl = `http://localhost:7000/reply/dislike/${props.answer._id}`
-    const answerUrl= `http://localhost:7000/reply/${props.answer._id}`
+    const likesUrl = `https://dptalk-api-production.up.railway.app/reply/like/${props.answer._id}`
+    const dislikesUrl = `https://dptalk-api-production.up.railway.app/reply/dislike/${props.answer._id}`
+    const answerUrl= `https://dptalk-api-production.up.railway.app/reply/${props.answer._id}`
 
     const token = useContext(TokenContext)
     const user = useContext(UserContext)
@@ -26,9 +28,8 @@ const Answer = (props) => {
         })
         .then(response => {
             if(!response.ok){
-                console.log(response)
+                toast.error('Hubo un error, intentá más tarde')
             }else{
-                console.log('exito')
                 props.setNewAnswer(true)
             }
         
@@ -47,9 +48,8 @@ const Answer = (props) => {
         })
         .then(response => {
             if(!response.ok){
-                console.log(response.message)
+                toast.error('Hubo un error, intentá más tarde')
             }else{
-                console.log('exito')
                 props.setNewAnswer(true)
             }
         
@@ -65,18 +65,18 @@ const Answer = (props) => {
         })
         .then(response => {   
             if(!response.ok){
-                console.log(response)
+                toast.error('Hubo un error, intentá más tarde')
             }else{
                 props.setAsResolved();
                 props.setNewAnswer(true)
             }})
-        .catch(error => console.log(error))
+        .catch(error => toast.error(error))
     }
 
     return (
         <div className='answer'>
             <div className="answer-data">
-                <span>{props.answer.author}</span>
+                <Link to={`../user/${props.answer.author}`}>{props.answer.author}</Link>
                 <span>{props.answer.repliedOn.slice(0, 10)}</span>
                 <span className='answer-status'>{props.answer.status ? "APROBADA" : " "}</span>
             </div>

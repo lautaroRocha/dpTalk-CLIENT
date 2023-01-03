@@ -3,4 +3,27 @@
     bottom: 2vh;
     right: auto;
     width: 50%;
+    transition: all .5s ease;
+    cursor: pointer;
+    z-index: 10;
+}
+
+@media(min-width:500px){
+    .ask-btn{
+        width: 40%;
+        margin-bottom: 1rem;
+    }
+    .ask-btn:hover{
+        transform: scale(1.1);
+        background-color: var(--back-clr);
+        color: var(--action-blue);
+        border: 3px solid var(--action-blue);
+
+     
+    }
+}
+@media(min-width:900px){
+    .ask-btn{
+        width: 20%;
+    }
 }

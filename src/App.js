@@ -5,8 +5,9 @@ import Header from './components/Header/Header';
 import Ask from './components/Ask/Ask';
 import Register from './components/Register/Register';
 import { useState, useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import {  Route, Routes, useNavigate } from 'react-router-dom';
+import useFetch from './utilities/useFetch';
 import TokenContext from "./Context/TokenContext"
 import UserContext from "./Context/UserContext"
 import ScrollToTop from "./utilities/scrollTop"
@@ -21,7 +22,8 @@ function App() {
   const [newQuestion, setNewQuestion] = useState(false)
   const [newAnswer, setNewAnswer] = useState(false)
 
-  const questionsUrl = "http://localhost:7000/ask"
+  const questionsUrl = "https://dptalk-api-production.up.railway.app/ask"
+  const userUrl = user && `https://dptalk-api-production.up.railway.app/users/${user.username}`
 
 
   useEffect(()=>{
@@ -66,6 +68,19 @@ function App() {
     navigate('/login')
   }
 
+
+  async function useUpdateUser(e){
+    e && e.preventDefault()
+    let user = await useFetch(userUrl, "GET")
+    if(user.message){
+        toast.error(user.message)
+        return
+    }else{
+        setUser(user)
+        localStorage.setItem('user', JSON.stringify(user))
+    }
+}
+
   return (
     <>
     <UserContext.Provider value={user}>
@@ -78,7 +93,7 @@ function App() {
           <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer} setNewQuestion={setNewQuestion}/>}/>
           <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
-          <Route path="/user" element={<UserProfile questions={questions}/>} />
+          <Route path="/user/:username" element={<UserProfile updateUser={useUpdateUser}/>} />
         </Routes>    
         <ToastContainer
             position="bottom-center"
@@ -91,6 +106,7 @@ function App() {
             draggable
             pauseOnHover
             theme="colored"
+            style={{"overflow" : "visible"}}
 />
       </TokenContext.Provider>    
       </UserContext.Provider>

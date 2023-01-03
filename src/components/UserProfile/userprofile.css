@@ -41,6 +41,8 @@
         .profile-head>div{
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: visible;
         }
         .profile-head>div>h2{
             font-size: 1.8rem;
@@ -50,11 +52,26 @@
             font-style: oblique;
             text-align: right;
         }
-        .profile-picture{
+        .profile-head>div>img{
             width: 80px;
             height: 80px;
             background-color: rebeccapurple;
             border-radius: 50%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+        .profile-head>div>button{
+            border-radius: 50%;
+            position: absolute;
+            right: -70%;
+            top: -40%;
+            transform: scale(.3);
+            display: inline;
+        }
+        .profile-picture>button>svg{
+            fill: #fff;
+            width: 100%;
+            transform: scale(.8);
         }
     .profile-body{
         width: 85%;
@@ -101,3 +118,33 @@
             text-overflow: ellipsis;
             margin: .3rem 0;
         }
+
+        @media(min-width:500px){
+            .profile-head>div>img{
+                width: 20vw;
+                max-width: 100px;
+                height: auto;
+            }
+            .profile-head>div>button{
+                transform: scale(.2);
+                top: -33%;        
+                cursor: pointer;
+            }
+        }
+@media(min-width:900px){
+    .profile{
+        width: 50%;
+        margin: -1.5rem auto 10rem;
+    }
+    .profile-head>div>img{
+        width: 10vw;
+    }
+    .profile-head>div>button{
+        transform: scale(.2);
+    }
+    .profile-head>div>span{
+        margin-top: 1rem;
+        top: -28%;        
+
+    }
+}

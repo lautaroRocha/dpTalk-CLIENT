@@ -1,18 +1,19 @@
 .login{
-    width: 100vw;
+    width: 100%;
     height: 100%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: var(--back-clr);
 }
-canvas{
+.login > canvas{
     clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
     width: 100%;
     position: absolute;
     z-index: 1;
     height: 40vh;
 }
+
 .dev-place-logo {
     transform: scale(.88);
     position: relative;
@@ -32,7 +33,7 @@ canvas{
     left: 0;
     z-index: 30;
     fill: rgb(0, 0, 0);
-    opacity: .45;
+    opacity: .2;
 }
 .login > span{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -46,7 +47,6 @@ canvas{
     right: 5%;
     letter-spacing: 1ch;
 } 
-
 form{
     z-index: 2;
     display: flex;
@@ -65,24 +65,23 @@ label{
     text-transform: capitalize;
     color: var(--dark-grey);
 }
-
 label > input{
     padding: 1rem;
     border-radius: 23px;
     background-color:var(--lighter);
-    border: 1px solid var(--lighter);
+    border: 3px solid var(--lighter);
     transition: border .5s ease-in-out;
     font-size: 1rem;
 }
-
 label > input:focus{
     border: 3px solid var(--focus-grey);
 }
-
-label > span{
+.login > form > label > span{
     margin-left: 15px;
-}
+    color: var(--dark-grey);
+    transition: color .5s ease;
 
+}
 button{
     font-size: 1rem;
     color: var(--lighter);
@@ -97,7 +96,6 @@ button{
     align-content: center;
     margin-top: 2rem;
 }
-
 button[data-cancel]{
     background-color: red;
 }
@@ -105,30 +103,57 @@ button>a{
     text-decoration: none;
     color: inherit;
 }
-
 a{
     margin: 0 auto;
     text-decoration: none;
 }
-
 @media(min-width:600px){
     .login > span{
         top: 24vh;
     } 
 }
-
 @media(min-width:900px){
-    canvas{
-        clip-path: polygon(0 0, 100% 0, 100% 35%, 0 100%);
-        height: 50vh;
+    .login > canvas{
+        clip-path: polygon(0 0, 100% 0, 100% 45%, 0 100%);
+        height: 80%;
+        position: absolute;
+    }
+    .login > .dev-place-logo {
+        width: 50%;
+        margin-top: 8vh;
     }
     .login > span{
-        top: 27vh;
+        top: 15vh;
         z-index: 10;
         left: 35%;
     } 
-    form{
-        margin-top: 7vh;
+    .login > form{
+        right: 7rem;
+        top: 3rem;
+        position: absolute; 
+        width: 30%;      
+        z-index: 100; 
     }
-
+    .login > form > label > span{
+        color: var(--lighter);
+        position: relative;
+        width: fit-content;
+        height: fit-content;
+        overflow: visible;
+        margin-bottom: 1rem;
+    }
+    .login > form > label > span:before{
+        content: "";
+        position: absolute;
+        width: 102%;
+        height: 100%;
+        top: -5%;
+        bottom: 0;
+        background-color: var(--dark-grey);
+        padding: 5px;
+        border-radius: 15px;
+        left: -5%;
+        z-index: -1;
+        opacity: .3;
+    }
 }

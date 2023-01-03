@@ -1,16 +1,24 @@
 .searchbar{
-    margin-top: 24vh;
+    margin-top: 25vh;
     height: 5vh;
     width: 80%;
     padding: .5rem;
     background-color: var(--lighter);
     border: 1px solid var(--focus-grey);
     border-radius: 25px;
-    opacity: 0;
     transition: all .5s ease;
+    z-index: -1;
+    opacity: 0;
+    max-width: 600px;
 }
 
 .searchbar:focus{
     border: 1px solid var(--dark-grey);
+}
 
+@media(min-width:900px){
+    .searchbar{
+        margin-top: 11rem ;
+        height: 10vh;
+    }
 }

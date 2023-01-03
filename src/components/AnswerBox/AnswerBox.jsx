@@ -2,7 +2,7 @@ import React, { forwardRef, useRef, useContext } from 'react';
 import UserContext from '../../Context/UserContext';
 import TokenContext from '../../Context/TokenContext';
 import { toast } from 'react-toastify';
-import useFetch from "../../useFetch"
+import useFetch from "../../utilities/useFetch"
 import "./answerbox.css"
 
 const AnswerBox = forwardRef((props, ref) => {
@@ -15,7 +15,7 @@ const AnswerBox = forwardRef((props, ref) => {
         ref.current.style.display = "none"
     }
 
-    const answerUrl = "http://localhost:7000/reply"
+    const answerUrl = "https://dptalk-api-production.up.railway.app/reply"
 
     async function useAnswerQuestion(){
         const answer = {
@@ -25,20 +25,12 @@ const AnswerBox = forwardRef((props, ref) => {
         }
         const postedAnswer = await useFetch(answerUrl, 'POST', answer, token)
         if(postedAnswer.message){
-            showError(postedAnswer.message)
+            toast.error(postedAnswer.message)
         }else{
             hideAnswerBox()
-            showInfo('Gracias por responder!')
+            toast.info('Gracias por responder!')
             props.setNewAnswer(true)
-        }
-    
-    }
-
-    function showError(error){
-        toast.error(error)
-    }
-    function showInfo(info){
-        toast.info(info)
+        }  
     }
 
     return (

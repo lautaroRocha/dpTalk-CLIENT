@@ -4,11 +4,13 @@
     background-color: var(--light-grey);
     border: 1px solid var(--focus-grey);
     width: 95%;
-    max-width: 900px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 1rem 0;
     border-radius: 25px;
     color: #000;
+    position: relative;
+    min-height: 90px;
 }
 
 .min-question-author{
@@ -16,13 +18,16 @@
     flex-direction: column;
     align-items: center;
     flex: 1;
+    overflow: visible;
 }
 
-.min-question-author > div{
+.min-question-author-img{
     background-color: rebeccapurple; 
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
 }
 .min-question-author > span{
     font-weight: bolder;
@@ -51,5 +56,36 @@
     font-weight: bolder;
     color: var(--green);
     text-align: right;
-    margin-right: 10vw;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+}
+
+@media(min-width:900px){
+    .min-question{
+        width: 50%;
+        height: fit-content;
+        position: relative;
+        z-index: 1;
+        min-height: 110px;
+    }
+    .min-question:hover{
+        border: 1px solid var(--dark-grey);
+
+    }
+    .min-question-author > img{
+        width: 50%;
+        height: auto;
+    }
+    .min-question-text{
+        width: 100%;
+    }
+    .min-question-text p {
+        height: 100%;
+        max-width: 44ch;
+    }
+    .min-question-status{
+        position: absolute;
+        top: .5rem;
+    }
 }
