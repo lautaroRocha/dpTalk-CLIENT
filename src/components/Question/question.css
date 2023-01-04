@@ -1,8 +1,9 @@
 .question-wrapper{
-    max-width: 600px;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    width: 100%;
+    max-width: 600px;
 }
 .question{
     display: flex;
@@ -83,7 +84,7 @@
         margin-top: -1.5rem;
     }
     .question{
-        
+        width: 100%;
     }
     .question-head-img{
         width: 10vw;

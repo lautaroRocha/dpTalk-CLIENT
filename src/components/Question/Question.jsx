@@ -21,8 +21,8 @@ const Question = (props) => {
 
   const answerBox = useRef()
 
-  const questionUrl= `https://dptalk-api-production.up.railway.app/ask/${questionId}`
-  const answersUrl= `https://dptalk-api-production.up.railway.app/reply/${questionId}`
+  const questionUrl= `http://localhost:7000/ask/${questionId}`
+  const answersUrl= `http://localhost:7000/reply/${questionId}`
 
   
   useEffect(()=>{
@@ -79,6 +79,7 @@ answers.sort((a, b) =>{
             toast.error('Tuvimos un problema, intentá de nuevo más tarde')
         }else{
             props.setNewQuestion(true)
+           
         }
     
     })
@@ -110,14 +111,14 @@ answers.sort((a, b) =>{
             <span>¿Sabés la respuesta?</span>
             <button onClick={showAnswerBox}>RESPONDER</button>
           </div>
-          <AnswerBox ref={answerBox} question={question._id} setAnswers={setAnswers} setNewAnswer={props.setNewAnswer}/>
+          <AnswerBox ref={answerBox} question={question} setAnswers={setAnswers} setNewAnswer={props.setNewAnswer} socket={props.socket}/>
           </>
           }
           {answers && 
           <>
           <div className="answers-container">
             {answers.map((ans, idx) =>{
-              return (<Answer answer={ans} key={idx} setNewAnswer={props.setNewAnswer} question={question} setAsResolved={setAsResolved}/>)
+              return (<Answer answer={ans} key={idx} setNewAnswer={props.setNewAnswer} question={question} setAsResolved={setAsResolved} socket={props.socket}/>)
             })}
             </div>
           </>

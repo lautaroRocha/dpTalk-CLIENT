@@ -7,6 +7,7 @@ import "./answerbox.css"
 
 const AnswerBox = forwardRef((props, ref) => {
 
+
     const user = useContext(UserContext)
     const token = useContext(TokenContext)
     const answerBody = useRef()
@@ -20,7 +21,7 @@ const AnswerBox = forwardRef((props, ref) => {
     async function useAnswerQuestion(){
         const answer = {
             author : user.username,
-            question : props.question,
+            question : props.question._id,
             body : answerBody.current.value
         }
         const postedAnswer = await useFetch(answerUrl, 'POST', answer, token)
@@ -29,6 +30,7 @@ const AnswerBox = forwardRef((props, ref) => {
         }else{
             hideAnswerBox()
             toast.info('Gracias por responder!')
+            props.socket.emit('new-answer', {authorOfAnswer : answer.author, authorOfQuestion : props.question.author})
             props.setNewAnswer(true)
         }  
     }

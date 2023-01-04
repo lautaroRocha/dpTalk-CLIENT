@@ -84,7 +84,7 @@ const UserProfile = (props) => {
             username: userData.username,
             profilePic: url
           })
-          fetch("https://dptalk-api-production.up.railway.app/users/profile-pic", {
+          fetch("http://localhost:7000/users/profile-pic", {
             method : "PATCH",
             body : JSON.stringify({
               "username" : user.username,
@@ -104,8 +104,8 @@ const UserProfile = (props) => {
 
     useEffect( () => {
         if(user){
-            const answersUrl = `https://dptalk-api-production.up.railway.app/reply/by/${username}`
-            const questionsUrl = `https://dptalk-api-production.up.railway.app/ask/by/${username}`
+            const answersUrl = `http://localhost:7000/reply/by/${username}`
+            const questionsUrl = `http://localhost:7000/ask/by/${username}`
             if(ownProfile){
               setUserData({
                 username : user.username,
@@ -113,7 +113,7 @@ const UserProfile = (props) => {
                 profilePic: user.profilePic
               })
             }else{
-              const usersUrl = `https://dptalk-api-production.up.railway.app/users/${username}`
+              const usersUrl = `http://localhost:7000/users/${username}`
               fetch(usersUrl)
                 .then(res => res.json())
                 .then(data => setUserData({
