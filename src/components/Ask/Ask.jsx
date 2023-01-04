@@ -12,7 +12,7 @@ const Ask = (props) => {
 
     const user = useContext(UserContext)
     const token = useContext(TokenContext)
-    const askUrl = "http://localhost:7000/ask"
+    const askUrl = "https://dptalk-api-production.up.railway.app/ask"
     const navigate = useNavigate()
 
 
@@ -39,6 +39,7 @@ const Ask = (props) => {
         }else{
             toast.info('Pregunta hecha!')
             navigate('/')
+            props.socket.emit('new-post', 'hay novedades')
         }
         await props.setNewQuestion(true)
     }

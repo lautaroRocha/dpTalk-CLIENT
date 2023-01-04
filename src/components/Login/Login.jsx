@@ -23,8 +23,8 @@ const Login = (props) => {
     }
 
 
-    const url = "http://localhost:7000/users/login"
-    const userUrl = `http://localhost:7000/users/${userData.username}`
+    const url = "https://dptalk-api-production.up.railway.app/users/login"
+    const userUrl = `https://dptalk-api-production.up.railway.app/users/${userData.username}`
 
     async function LogIn(e){
         e && e.preventDefault()

@@ -25,8 +25,8 @@ function App() {
   const [newAnswer, setNewAnswer] = useState(false)
   const [socket, setSocket] = useState(null)
 
-  const questionsUrl = "http://localhost:7000/ask"
-  const userUrl = user && `http://localhost:7000/users/${user.username}`
+  const questionsUrl = "https://dptalk-api-production.up.railway.app/ask"
+  const userUrl = user && `https://dptalk-api-production.up.railway.app/users/${user.username}`
 
 
   useEffect(()=>{
@@ -58,14 +58,14 @@ function App() {
 
   useEffect(()=>{
     if(!socket){
-    const socket = socketIO.connect("http://localhost:8000");
+    const socket = socketIO.connect("https://socket-testing-production.up.railway.app/");
     socket && setSocket(socket)
     }
   }, [])
 
   if(socket){
     socket.on("connection", (arg) => {
-      console.log(arg);
+      console.log('entraste al socket');
     });
 
     socket.off("answer-notification").on("answer-notification", (arg) => {
@@ -85,6 +85,9 @@ function App() {
       if(!data.answer.likes.includes(data.authorId) && data.authorOfAnswer === user.username && data.authorOfLike !== user.username){
        toast.success(`A ${data.authorOfLike} le gustó tu respuesta!`)}
    });
+   socket.off("post-notification").on("post-notification", (arg) => {
+      alert('Hay nuevos posteos')
+ });
   }
 
   const navigate = useNavigate()
@@ -126,7 +129,7 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 
           <Route path='/' element={<Home filteredQuestions={filteredQuestions}/>}/>
           <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer} setNewQuestion={setNewQuestion} socket={socket}/>}/>
-          <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
+          <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion} socket={socket}/>} />
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
           <Route path="/user/:username" element={<UserProfile updateUser={useUpdateUser}/>} />
         </Routes>    
