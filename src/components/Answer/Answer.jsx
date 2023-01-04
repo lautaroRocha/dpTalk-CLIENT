@@ -8,9 +8,9 @@ import { toast } from 'react-toastify';
 
 const Answer = (props) => {
 
-    const likesUrl = `https://dptalk-api-production.up.railway.app/reply/like/${props.answer._id}`
-    const dislikesUrl = `https://dptalk-api-production.up.railway.app/reply/dislike/${props.answer._id}`
-    const answerUrl= `https://dptalk-api-production.up.railway.app/reply/${props.answer._id}`
+    const likesUrl = `http://localhost:7000/reply/like/${props.answer._id}`
+    const dislikesUrl = `http://localhost:7000/reply/dislike/${props.answer._id}`
+    const answerUrl= `http://localhost:7000/reply/${props.answer._id}`
 
     const token = useContext(TokenContext)
     const user = useContext(UserContext)
@@ -31,6 +31,7 @@ const Answer = (props) => {
                 toast.error('Hubo un error, intentá más tarde')
             }else{
                 props.setNewAnswer(true)
+                props.socket.emit('new-liked', {authorOfLike : user.username, authorOfAnswer: props.answer.author, answer : props.answer, authorId : user._id})
             }
         
         })
@@ -55,6 +56,7 @@ const Answer = (props) => {
         
         })
     }
+
     function setAsCorrect(){
         fetch(answerUrl, {
             method : "PATCH",
@@ -68,6 +70,7 @@ const Answer = (props) => {
                 toast.error('Hubo un error, intentá más tarde')
             }else{
                 props.setAsResolved();
+                props.socket.emit('new-confirmed', {authorOfQuestion : props.question.author, authorOfAnswer: props.answer.author})
                 props.setNewAnswer(true)
             }})
         .catch(error => toast.error(error))

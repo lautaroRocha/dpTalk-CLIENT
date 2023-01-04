@@ -12,8 +12,7 @@ const Ask = (props) => {
 
     const user = useContext(UserContext)
     const token = useContext(TokenContext)
-
-    const askUrl = "https://dptalk-api-production.up.railway.app/ask"
+    const askUrl = "http://localhost:7000/ask"
     const navigate = useNavigate()
 
 

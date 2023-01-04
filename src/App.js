@@ -12,6 +12,8 @@ import TokenContext from "./Context/TokenContext"
 import UserContext from "./Context/UserContext"
 import ScrollToTop from "./utilities/scrollTop"
 import UserProfile from './components/UserProfile/UserProfile';
+import socketIO from "socket.io-client";
+
 
 function App() {
 
@@ -21,9 +23,10 @@ function App() {
   const [filteredQuestions, setFilteredQuestions] = useState(null)
   const [newQuestion, setNewQuestion] = useState(false)
   const [newAnswer, setNewAnswer] = useState(false)
+  const [socket, setSocket] = useState(null)
 
-  const questionsUrl = "https://dptalk-api-production.up.railway.app/ask"
-  const userUrl = user && `https://dptalk-api-production.up.railway.app/users/${user.username}`
+  const questionsUrl = "http://localhost:7000/ask"
+  const userUrl = user && `http://localhost:7000/users/${user.username}`
 
 
   useEffect(()=>{
@@ -53,6 +56,37 @@ function App() {
       .catch(error => console.log(error))
   }, [newQuestion])
 
+  useEffect(()=>{
+    if(!socket){
+    const socket = socketIO.connect("http://localhost:8000");
+    socket && setSocket(socket)
+    }
+  }, [])
+
+  if(socket){
+    socket.on("connection", (arg) => {
+      console.log(arg);
+    });
+
+    socket.off("answer-notification").on("answer-notification", (arg) => {
+      const data = JSON.parse(arg)
+      if(data.authorOfQuestion === user.username){
+      toast.success(`${data.authorOfAnswer} respondió tu pregunta!`)}
+    });
+
+    socket.off("confirmed-notification").on("confirmed-notification", (arg) => {
+       const data = JSON.parse(arg)
+       if(data.authorOfAnswer === user.username){
+        toast.success(`${data.authorOfQuestion} marcó tu respuesta como correcta!`)}
+    });
+    socket.off("like-notification").on("like-notification", (arg) => {
+      const data = JSON.parse(arg)
+      console.log()
+      if(!data.answer.likes.includes(data.authorId) && data.authorOfAnswer === user.username && data.authorOfLike !== user.username){
+       toast.success(`A ${data.authorOfLike} le gustó tu respuesta!`)}
+   });
+  }
+
   const navigate = useNavigate()
 
   function filterQuestions(e){
@@ -81,6 +115,7 @@ function App() {
     }
 }
 
+
   return (
     <>
     <UserContext.Provider value={user}>
@@ -90,7 +125,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 
           <Route path='/' element={<Home filteredQuestions={filteredQuestions}/>}/>
-          <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer} setNewQuestion={setNewQuestion}/>}/>
+          <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer} setNewQuestion={setNewQuestion} socket={socket}/>}/>
           <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
           <Route path="/user/:username" element={<UserProfile updateUser={useUpdateUser}/>} />
