@@ -4,15 +4,13 @@ import UserContext from '../../Context/UserContext';
 import TokenContext from '../../Context/TokenContext';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import ProfilePic from '../ProfilePic/ProfilePic';
-import PictureModal from '../PictureModal/PictureModal';
+import { ProfilePic, PictureModal, Spinner } from '../../components';
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 import imageCompression from 'browser-image-compression';
 import { useParams } from 'react-router-dom';
-import Spinner from '../Spinner/Spinner'
 import * as URL from "../../utilities/ApiUrls"
 
-const UserProfile = (props) => {
+export const UserProfile = (props) => {
 
     const [questionsByUser, setQuestionsByUser] = useState([])
     const [answersByUser, setAnswersByUser] = useState([])
@@ -207,4 +205,3 @@ const UserProfile = (props) => {
     );
 }
 
-export default UserProfile;

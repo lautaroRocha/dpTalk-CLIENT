@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import * as URL from "../../utilities/ApiUrls"
 
 
-const Answer = (props) => {
+export const Answer = (props) => {
 
     const likesUrl = URL.like + props.answer._id
     const dislikesUrl = URL.dislike + props.answer._id
@@ -104,4 +104,3 @@ const Answer = (props) => {
     );
 }
 
-export default Answer;

@@ -2,16 +2,14 @@ import React, {useState, useEffect, useRef, useContext} from 'react';
 import TokenContext from '../../Context/TokenContext';
 import "./question.css"
 import { useParams } from 'react-router-dom';
-import AnswerBox from '../AnswerBox/AnswerBox';
-import Answer from '../Answer/Answer';
+import { Answer, AnswerBox, Spinner  } from '../../components';
 import getProfilePicture from '../../utilities/getPPURL';
 import { Link } from 'react-router-dom';
-import Spinner from '../Spinner/Spinner'
 import { toast } from 'react-toastify';
 import * as URL from "../../utilities/ApiUrls"
 
 
-const Question = (props) => {
+export const Question = (props) => {
 
   const token = useContext(TokenContext)
   const [question, setQuestion] = useState(null);
@@ -127,4 +125,3 @@ answers.sort((a, b) =>{
     );
 }
 
-export default Question;

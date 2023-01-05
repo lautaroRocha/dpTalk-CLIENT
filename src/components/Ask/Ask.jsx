@@ -7,7 +7,7 @@ import useFetch from '../../utilities/useFetch';
 import "./ask.css"
 import * as URL from "../../utilities/ApiUrls"
 
-const Ask = (props) => {
+export const Ask = (props) => {
 
     const [question, setQuestion] = useState({title : "", body : ""})
 
@@ -60,4 +60,3 @@ const Ask = (props) => {
     );
 }
 
-export default Ask;

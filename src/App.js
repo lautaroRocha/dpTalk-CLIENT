@@ -1,17 +1,11 @@
-import Login from './components/Login/Login';
-import Home from './components/Home/Home';
-import Question from './components/Question/Question';
-import Header from './components/Header/Header';
-import Ask from './components/Ask/Ask';
-import Register from './components/Register/Register';
+
+import {Login, Home, Question, Header, Ask, Register, UserProfile, ScrollToTop} from "./components"
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import {  Route, Routes, useNavigate } from 'react-router-dom';
 import useFetch from './utilities/useFetch';
 import TokenContext from "./Context/TokenContext"
 import UserContext from "./Context/UserContext"
-import ScrollToTop from "./utilities/scrollTop"
-import UserProfile from './components/UserProfile/UserProfile';
 import socketIO from "socket.io-client";
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';

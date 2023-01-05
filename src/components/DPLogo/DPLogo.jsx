@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DPLogo = ({logoRef}) => {
+export const DPLogo = ({logoRef}) => {
     return (
         <svg red={logoRef} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438.63 81.48" >
         <g id="Capa_2" data-name="Capa 2">
@@ -26,4 +26,3 @@ const DPLogo = ({logoRef}) => {
     );
 }
 
-export default DPLogo;

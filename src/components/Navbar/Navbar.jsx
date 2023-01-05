@@ -1,7 +1,7 @@
 import React, {useRef, forwardRef, useEffect, useContext} from 'react';
 import './navbar.css'
 import * as Icons from "../../utilities/svgIcons"
-import Searchbar from '../SearchBar/Searchbar';
+import {Searchbar} from '../../components';
 import {  useLocation, NavLink } from 'react-router-dom';
 import UserContext from '../../Context/UserContext';
 import { Tooltip } from 'react-tooltip'
@@ -9,7 +9,7 @@ import 'react-tooltip/dist/react-tooltip.css'
 
 
 
-const Navbar = forwardRef((props, ref) => {
+export const Navbar = forwardRef((props, ref) => {
 
     let activeStyle = {
         "backgroundColor" : "var(--soft-pink)"
@@ -63,5 +63,3 @@ const Navbar = forwardRef((props, ref) => {
         </>
     )
   });
-
-  export default Navbar;

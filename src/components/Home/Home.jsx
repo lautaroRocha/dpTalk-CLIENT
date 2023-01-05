@@ -1,12 +1,11 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import AskButton from '../AskButton/AskButton';
-import MinQuestions from '../MinQuestion/MinQuestions';
+import { AskButton, MinQuestions} from '../../components';
 import "./home.css"
 import  UserContext from '../../Context/UserContext';
 import { useContext } from 'react';
 
-const Home = (props) => {
+export const Home = (props) => {
 
   const user = useContext(UserContext)
 
@@ -28,4 +27,3 @@ const Home = (props) => {
   }
 }
 
-export default Home;

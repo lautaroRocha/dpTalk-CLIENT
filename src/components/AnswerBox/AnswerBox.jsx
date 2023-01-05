@@ -6,7 +6,7 @@ import useFetch from "../../utilities/useFetch"
 import "./answerbox.css"
 import * as URL from "../../utilities/ApiUrls"
 
-const AnswerBox = forwardRef((props, ref) => {
+export const AnswerBox = forwardRef((props, ref) => {
 
 
     const user = useContext(UserContext)
@@ -45,4 +45,3 @@ const AnswerBox = forwardRef((props, ref) => {
     );
 })
 
-export default AnswerBox;

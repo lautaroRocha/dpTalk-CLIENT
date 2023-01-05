@@ -1,15 +1,14 @@
 import React, {useState, useRef} from 'react';
 import  useFetch  from '../../utilities/useFetch';
 import { Link, useNavigate } from 'react-router-dom';
-import Background from '../animatedCanvas/animatedCanvas';
+import {Background, DPLogo} from "../../components"
 import './register.css'
-import DPLogo from '../DPLogo/DPLogo';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getStorage, ref, uploadBytes} from "firebase/storage";
 import * as URL from "../../utilities/ApiUrls"
 
-const Register = (props) => {
+export const Register = (props) => {
 
     const [newUser, setNewUser] = useState({
         "username": " ",
@@ -153,4 +152,3 @@ const Register = (props) => {
     );
 }
 
-export default Register;

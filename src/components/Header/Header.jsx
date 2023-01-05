@@ -1,11 +1,10 @@
 import React, {useRef, useEffect} from 'react';
 import "./header.css"
-import Background from '../animatedCanvas/animatedCanvas';
-import DPLogo from '../DPLogo/DPLogo';
-import Navbar from '../Navbar/Navbar';
+import { Background, DPLogo, Navbar} from '../../components';
+
 import { useLocation } from 'react-router-dom';
 
-const Header = (props) => {
+export const Header = (props) => {
 
     const header = useRef()
     const canvas = useRef();
@@ -88,4 +87,3 @@ const Header = (props) => {
     );
 }
 
-export default Header;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DPShort = () => {
+export const DPShort = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 " >
         <g id="Capa_2" data-name="Capa 2">
@@ -12,4 +12,3 @@ const DPShort = () => {
     );
 }
 
-export default DPShort;

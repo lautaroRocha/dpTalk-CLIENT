@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom'
-import Spinner from '../Spinner/Spinner'
+import {Spinner} from '../../components'
 import "./minquestion.css"
 import getProfilePicture from '../../utilities/getPPURL';
 
 
-const MinQuestions = (props) => {
+export const MinQuestions = (props) => {
 
     const [profilePictureUrl, setProfilePicUrl] = useState()
 
@@ -41,4 +41,3 @@ const MinQuestions = (props) => {
     );
 }
 
-export default MinQuestions;

@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useFetch from '../../utilities/useFetch';
-import DPLogo from "../DPLogo/DPLogo"
-import Background from '../animatedCanvas/animatedCanvas';
+import { DPLogo, Background } from '../../components';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css"
 import * as URL from "../../utilities/ApiUrls"
 
-const Login = (props) => {
+export const Login = (props) => {
 
     const [userData, setUserData] = useState({
         username : "",
@@ -78,4 +77,3 @@ const Login = (props) => {
     );
 }
 
-export default Login;
