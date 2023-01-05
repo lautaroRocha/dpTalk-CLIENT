@@ -8,6 +8,7 @@ import getProfilePicture from '../../utilities/getPPURL';
 import { Link } from 'react-router-dom';
 import Spinner from '../Spinner/Spinner'
 import { toast } from 'react-toastify';
+import * as URL from "../../utilities/ApiUrls"
 
 
 const Question = (props) => {
@@ -21,17 +22,15 @@ const Question = (props) => {
 
   const answerBox = useRef()
 
-  const questionUrl= `https://dptalk-api-production.up.railway.app/ask/${questionId}`
-  const answersUrl= `https://dptalk-api-production.up.railway.app/reply/${questionId}`
 
   
   useEffect(()=>{
-    fetch(questionUrl, {headers:{'x-access' : token}})
+    fetch(URL.questions + questionId, {headers:{'x-access' : token}})
     .then(res => res.json())
     .then(data => setQuestion(data))
 
 
-    fetch(answersUrl, {headers:{'x-access' : token}})
+    fetch(URL.answers + questionId, {headers:{'x-access' : token}})
     .then(res => res.json())
     .then(data => setAnswers(Array.from(data)))
     props.setNewAnswer(false)
@@ -67,7 +66,7 @@ answers.sort((a, b) =>{
     answerBox.current.style.display = "flex"
   }
   function setAsResolved(){
-    fetch(questionUrl, {
+    fetch(URL.questions + questionId, {
         method : "PATCH",
         headers : {
             "Content-Type": "application/json",

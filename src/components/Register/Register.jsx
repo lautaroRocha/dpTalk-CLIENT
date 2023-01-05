@@ -6,10 +6,8 @@ import './register.css'
 import DPLogo from '../DPLogo/DPLogo';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import imageCompression from 'browser-image-compression';
 import { getStorage, ref, uploadBytes} from "firebase/storage";
-import defaultPicture from "../../utilities/default.png"
-
+import * as URL from "../../utilities/ApiUrls"
 
 const Register = (props) => {
 
@@ -27,9 +25,6 @@ const Register = (props) => {
     const password = useRef()
     const repeatPassword = useRef()
 
-    const newUserURL = "https://dptalk-api-production.up.railway.app/users/signin"
-    const url = "https://dptalk-api-production.up.railway.app/users/login"
-    const userUrl = `https://dptalk-api-production.up.railway.app/users/${newUser.username}`
 
     const defaultPictureURL = 'https://media-exp1.licdn.com/dms/image/C4D0BAQGlw01EDZIgVg/company-logo_200_200/0/1624978925235?e=2147483647&v=beta&t=dYqkqfAhVTDGr1GW7_oV1FC11wXeGSx8Ywadhc4KmzA'
 
@@ -48,8 +43,8 @@ const Register = (props) => {
     }
 
     async function LogIn(){
-        let token = await useFetch(url, "POST", {'username' : newUser.username, 'password': newUser.password});
-        let user = await useFetch(userUrl, "GET")
+        let token = await useFetch(URL.logIn, "POST", {'username' : newUser.username, 'password': newUser.password});
+        let user = await useFetch(URL.user + newUser.username, "GET")
         if(token.message){
             toast.error(token.message)
             return
@@ -72,7 +67,7 @@ const Register = (props) => {
     async function registerUser(){
         if(password.current.value === repeatPassword.current.value){
 
-            fetch(newUserURL, {method:"POST", body: JSON.stringify(newUser), headers: {
+            fetch(URL.registerUser, {method:"POST", body: JSON.stringify(newUser), headers: {
                 'Content-Type': 'application/json'}})
             .then(res => res.json())
             .then( data => {

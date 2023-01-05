@@ -4,6 +4,7 @@ import TokenContext from '../../Context/TokenContext';
 import { toast } from 'react-toastify';
 import useFetch from "../../utilities/useFetch"
 import "./answerbox.css"
+import * as URL from "../../utilities/ApiUrls"
 
 const AnswerBox = forwardRef((props, ref) => {
 
@@ -16,15 +17,13 @@ const AnswerBox = forwardRef((props, ref) => {
         ref.current.style.display = "none"
     }
 
-    const answerUrl = "https://dptalk-api-production.up.railway.app/reply"
-
     async function useAnswerQuestion(){
         const answer = {
             author : user.username,
             question : props.question._id,
             body : answerBody.current.value
         }
-        const postedAnswer = await useFetch(answerUrl, 'POST', answer, token)
+        const postedAnswer = await useFetch(URL.answers, 'POST', answer, token)
         if(postedAnswer.message){
             toast.error(postedAnswer.message)
         }else{

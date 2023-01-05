@@ -4,13 +4,14 @@ import UserContext from "../../Context/UserContext"
 import './answer.css'
 import {Link} from 'react-router-dom'
 import { toast } from 'react-toastify';
+import * as URL from "../../utilities/ApiUrls"
 
 
 const Answer = (props) => {
 
-    const likesUrl = `https://dptalk-api-production.up.railway.app/reply/like/${props.answer._id}`
-    const dislikesUrl = `https://dptalk-api-production.up.railway.app/reply/dislike/${props.answer._id}`
-    const answerUrl= `https://dptalk-api-production.up.railway.app/reply/${props.answer._id}`
+    const likesUrl = URL.like + props.answer._id
+    const dislikesUrl = URL.dislike + props.answer._id
+    const answerUrl= URL.answers + props.answer._id
 
     const token = useContext(TokenContext)
     const user = useContext(UserContext)

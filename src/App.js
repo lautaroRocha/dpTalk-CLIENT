@@ -16,6 +16,8 @@ import socketIO from "socket.io-client";
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+import * as URL from "./utilities/ApiUrls"
+
 
 function App() {
 
@@ -26,8 +28,11 @@ function App() {
   const [newQuestion, setNewQuestion] = useState(false)
   const [newAnswer, setNewAnswer] = useState(false)
   const [socket, setSocket] = useState(null)
-  const questionsUrl = "https://dptalk-api-production.up.railway.app/ask"
-  const userUrl = user && `https://dptalk-api-production.up.railway.app/users/${user.username}`
+
+
+  const questionsUrl = URL.questions
+  const userUrl = user && URL.user + user.username
+  
   const navigate = useNavigate()
 
 
@@ -41,8 +46,7 @@ function App() {
   }, [])
 
   useEffect(()=>{
-    const questionsArray = questions
-    setFilteredQuestions(questionsArray.reverse())
+    setFilteredQuestions(Array.from(questions).reverse())
   }, [questions])
 
   useEffect(()=>{
@@ -60,7 +64,7 @@ function App() {
 
   useEffect(()=>{
     if(!socket){
-    const socket = socketIO.connect("https://socket-testing-production.up.railway.app/");
+    const socket = socketIO.connect(URL.socket);
     socket && setSocket(socket)
     }
   }, [])

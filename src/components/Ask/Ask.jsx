@@ -5,6 +5,7 @@ import TokenContext from "../../Context/TokenContext"
 import { toast } from 'react-toastify';
 import useFetch from '../../utilities/useFetch';
 import "./ask.css"
+import * as URL from "../../utilities/ApiUrls"
 
 const Ask = (props) => {
 
@@ -12,9 +13,7 @@ const Ask = (props) => {
 
     const user = useContext(UserContext)
     const token = useContext(TokenContext)
-    const askUrl = "https://dptalk-api-production.up.railway.app/ask"
     const navigate = useNavigate()
-
 
     function createQuestion(){
         if(question.title !== "" && question.body !== ""){
@@ -32,7 +31,7 @@ const Ask = (props) => {
 
     async function usePostToDatabase(){
         const newQuestion = createQuestion()
-        const asking = await useFetch(askUrl, 'POST', newQuestion, token)
+        const asking = await useFetch(URL.questions, 'POST', newQuestion, token)
         if(asking.message){
             let errors = Array.from(asking.message.split(', '))
             errors.forEach((err) => toast.error(err))

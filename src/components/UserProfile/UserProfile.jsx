@@ -10,6 +10,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage"
 import imageCompression from 'browser-image-compression';
 import { useParams } from 'react-router-dom';
 import Spinner from '../Spinner/Spinner'
+import * as URL from "../../utilities/ApiUrls"
 
 const UserProfile = (props) => {
 
@@ -88,7 +89,7 @@ const UserProfile = (props) => {
             username: userData.username,
             profilePic: url
           })
-          fetch("https://dptalk-api-production.up.railway.app/users/profile-pic", {
+          fetch(URL.profilePic, {
             method : "PATCH",
             body : JSON.stringify({
               "username" : user.username,
@@ -108,8 +109,8 @@ const UserProfile = (props) => {
 
     useEffect( () => {
         if(user){
-            const answersUrl = `https://dptalk-api-production.up.railway.app/reply/by/${username}`
-            const questionsUrl = `https://dptalk-api-production.up.railway.app/ask/by/${username}`
+            const answersUrl = URL.answersBy + username
+            const questionsUrl = URL.questionsBy + username
             if(ownProfile){
               setUserData({
                 username : user.username,
@@ -117,7 +118,7 @@ const UserProfile = (props) => {
                 profilePic: user.profilePic
               })
             }else{
-              const usersUrl = `https://dptalk-api-production.up.railway.app/users/${username}`
+              const usersUrl = URL.user + username
               fetch(usersUrl)
                 .then(res => res.json())
                 .then(data => setUserData({
@@ -125,9 +126,7 @@ const UserProfile = (props) => {
                   email : data.email,
                   profilePic: data.profilePic
                 }))
-              
             }
-
         fetch(answersUrl, {headers: { 
             "x-access" : token
         }})

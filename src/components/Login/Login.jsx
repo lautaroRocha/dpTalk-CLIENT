@@ -6,6 +6,7 @@ import Background from '../animatedCanvas/animatedCanvas';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css"
+import * as URL from "../../utilities/ApiUrls"
 
 const Login = (props) => {
 
@@ -23,12 +24,11 @@ const Login = (props) => {
     }
 
 
-    const url = "https://dptalk-api-production.up.railway.app/users/login"
-    const userUrl = `https://dptalk-api-production.up.railway.app/users/${userData.username}`
+    const userUrl = URL.user + userData.username
 
     async function LogIn(e){
         e && e.preventDefault()
-        let token = await useFetch(url, "POST", userData);
+        let token = await useFetch(URL.logIn, "POST", userData);
         let user = await useFetch(userUrl, "GET")
         if(token.message){
             toast.error(token.message)
