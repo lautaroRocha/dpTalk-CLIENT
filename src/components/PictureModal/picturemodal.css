@@ -46,6 +46,7 @@
     display: flex;
     width: 100%;
     justify-content: space-around;
+    overflow: visible;
 }
 .update-modal>form>div>button{
     width: 45%;
@@ -69,7 +70,7 @@
     height: auto;
     border-radius: 50%;
     aspect-ratio: 1/1;
-    object-fit: cover   ;
+    object-fit: cover;
 }
 @media(min-width:500px){
     .img-preview{
