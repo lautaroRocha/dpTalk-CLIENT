@@ -39,7 +39,7 @@ const Ask = (props) => {
         }else{
             toast.info('Pregunta hecha!')
             navigate('/')
-            props.socket.emit('new-post', 'hay novedades')
+            props.socket.emit('new-post', {author : user.username})
         }
         await props.setNewQuestion(true)
     }

@@ -17,7 +17,6 @@ import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 
-
 function App() {
 
   const [user, setUser] = useState(null)
@@ -70,14 +69,12 @@ function App() {
     socket.on("connection", (arg) => {
       console.log('entraste al socket');
     });
-
     socket.off("answer-notification").on("answer-notification", (arg) => {
       const data = JSON.parse(arg)
       if(data.authorOfQuestion === user.username){
       NotificationManager.success(`respondió tu pregunta!`, `${data.authorOfAnswer}`, 5000, ()=>{navigate(data.link)});
     }
     });
-
     socket.off("confirmed-notification").on("confirmed-notification", (arg) => {
        const data = JSON.parse(arg)
        if(data.authorOfAnswer === user.username){
@@ -90,8 +87,22 @@ function App() {
        NotificationManager.success(`le gustó tu respuesta!`, ` A ${data.authorOfLike}`, 5000,()=>{navigate(data.link)})}
    });
    socket.off("post-notification").on("post-notification", (arg) => {
-      alert('Hay nuevos posteos')
+    const data = JSON.parse(arg)
+    if(data.author !== user.username && window.location.pathname == "/"){
+      alertOnNewPosts()
+    }
  });
+  }
+
+  function alertOnNewPosts(){
+    const refreshButton = document.createElement('button')
+    refreshButton.setAttribute('class', 'new-post-button')
+    refreshButton.innerText = "HAY NUEVOS POSTEOS"
+    document.body.append(refreshButton)
+    refreshButton.onclick = () =>{
+      setNewQuestion(true);
+      refreshButton.remove()
+    }
   }
 
 

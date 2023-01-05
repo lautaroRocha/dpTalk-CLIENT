@@ -32,3 +32,27 @@ html{
   flex-direction: column;
   align-items: center;
 }
+
+@keyframes appear{
+  0%{
+    transform: translateY(-25vh);
+  }
+  50%{
+    transform: translateY(-14vh);
+  }
+  100%{
+    transform: translateY(0vh);
+  }
+}
+
+.new-post-button{
+  position: fixed;
+  z-index: 10000;
+  width: fit-content;
+  top: 25vh;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  animation: appear .5s ease;
+  cursor: pointer;
+}
