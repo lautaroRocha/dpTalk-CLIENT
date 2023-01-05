@@ -13,6 +13,9 @@ import UserContext from "./Context/UserContext"
 import ScrollToTop from "./utilities/scrollTop"
 import UserProfile from './components/UserProfile/UserProfile';
 import socketIO from "socket.io-client";
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 
 
 function App() {
@@ -24,9 +27,9 @@ function App() {
   const [newQuestion, setNewQuestion] = useState(false)
   const [newAnswer, setNewAnswer] = useState(false)
   const [socket, setSocket] = useState(null)
-
   const questionsUrl = "https://dptalk-api-production.up.railway.app/ask"
   const userUrl = user && `https://dptalk-api-production.up.railway.app/users/${user.username}`
+  const navigate = useNavigate()
 
 
   useEffect(()=>{
@@ -71,26 +74,26 @@ function App() {
     socket.off("answer-notification").on("answer-notification", (arg) => {
       const data = JSON.parse(arg)
       if(data.authorOfQuestion === user.username){
-      toast.success(`${data.authorOfAnswer} respondió tu pregunta!`)}
+      NotificationManager.success(`respondió tu pregunta!`, `${data.authorOfAnswer}`, 5000, ()=>{navigate(data.link)});
+    }
     });
 
     socket.off("confirmed-notification").on("confirmed-notification", (arg) => {
        const data = JSON.parse(arg)
        if(data.authorOfAnswer === user.username){
-        toast.success(`${data.authorOfQuestion} marcó tu respuesta como correcta!`)}
+        NotificationManager.success(`marcó tu respuesta como correcta!`, `${data.authorOfQuestion}`, 5000, ()=>{navigate(data.link)})}
     });
     socket.off("like-notification").on("like-notification", (arg) => {
       const data = JSON.parse(arg)
       console.log()
       if(!data.answer.likes.includes(data.authorId) && data.authorOfAnswer === user.username && data.authorOfLike !== user.username){
-       toast.success(`A ${data.authorOfLike} le gustó tu respuesta!`)}
+       NotificationManager.success(`le gustó tu respuesta!`, ` A ${data.authorOfLike}`, 5000,()=>{navigate(data.link)})}
    });
    socket.off("post-notification").on("post-notification", (arg) => {
       alert('Hay nuevos posteos')
  });
   }
 
-  const navigate = useNavigate()
 
   function filterQuestions(e){
     let input = e.target.value;
@@ -118,7 +121,6 @@ function App() {
     }
 }
 
-
   return (
     <>
     <UserContext.Provider value={user}>
@@ -144,8 +146,8 @@ function App() {
             draggable
             pauseOnHover
             theme="colored"
-            style={{"overflow" : "visible"}}
-/>
+            style={{"overflow" : "visible"}}/>
+        <NotificationContainer style={{'overflow': 'visible'}}/>
       </TokenContext.Provider>    
       </UserContext.Provider>
     </>

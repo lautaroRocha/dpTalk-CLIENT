@@ -31,7 +31,7 @@ const Answer = (props) => {
                 toast.error('Hubo un error, intentá más tarde')
             }else{
                 props.setNewAnswer(true)
-                props.socket.emit('new-liked', {authorOfLike : user.username, authorOfAnswer: props.answer.author, answer : props.answer, authorId : user._id})
+                props.socket.emit('new-liked', {authorOfLike : user.username, authorOfAnswer: props.answer.author, answer : props.answer, authorId : user._id, link: window.location.pathname})
             }
         
         })
@@ -70,7 +70,7 @@ const Answer = (props) => {
                 toast.error('Hubo un error, intentá más tarde')
             }else{
                 props.setAsResolved();
-                props.socket.emit('new-confirmed', {authorOfQuestion : props.question.author, authorOfAnswer: props.answer.author})
+                props.socket.emit('new-confirmed', {authorOfQuestion : props.question.author, authorOfAnswer: props.answer.author, link: window.location.pathname})
                 props.setNewAnswer(true)
             }})
         .catch(error => toast.error(error))

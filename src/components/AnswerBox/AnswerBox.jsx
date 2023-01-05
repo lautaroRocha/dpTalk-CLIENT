@@ -30,7 +30,7 @@ const AnswerBox = forwardRef((props, ref) => {
         }else{
             hideAnswerBox()
             toast.info('Gracias por responder!')
-            props.socket.emit('new-answer', {authorOfAnswer : answer.author, authorOfQuestion : props.question.author})
+            props.socket.emit('new-answer', {authorOfAnswer : answer.author, authorOfQuestion : props.question.author, link: window.location.pathname})
             props.setNewAnswer(true)
         }  
     }
