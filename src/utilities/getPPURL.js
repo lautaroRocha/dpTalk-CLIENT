@@ -9,9 +9,7 @@ function getProfilePictureURL(reference, setter){
         setter(url);
         sessionStorage.setItem(`ProPic-${reference}`, url)
       })
-      .catch((error) => {
-        console.log(error)
-    });
+      .catch((error) => console.log(error))
     }
 }
 

@@ -6,6 +6,10 @@ import './register.css'
 import DPLogo from '../DPLogo/DPLogo';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import imageCompression from 'browser-image-compression';
+import { getStorage, ref, uploadBytes} from "firebase/storage";
+import defaultPicture from "../../utilities/default.png"
+
 
 const Register = (props) => {
 
@@ -14,6 +18,7 @@ const Register = (props) => {
         "email": " ",
         "password" : " ",
     })
+    const [defaultPicture, setDefaultPicture] = useState()
 
     const navigate = useNavigate()
 
@@ -22,10 +27,25 @@ const Register = (props) => {
     const password = useRef()
     const repeatPassword = useRef()
 
-
     const newUserURL = "https://dptalk-api-production.up.railway.app/users/signin"
     const url = "https://dptalk-api-production.up.railway.app/users/login"
     const userUrl = `https://dptalk-api-production.up.railway.app/users/${newUser.username}`
+
+    const defaultPictureURL = 'https://media-exp1.licdn.com/dms/image/C4D0BAQGlw01EDZIgVg/company-logo_200_200/0/1624978925235?e=2147483647&v=beta&t=dYqkqfAhVTDGr1GW7_oV1FC11wXeGSx8Ywadhc4KmzA'
+
+
+    const storage = getStorage();
+    const storageRef = newUser.username && ref(storage, `${newUser.username}-profilepic`);
+
+    async function uploadDefaultPicture(ref, file){
+        if(!file){
+          toast.error("No se ha detectado ningun archivo")
+        }else{
+        uploadBytes(ref, file).then((snapshot) => {
+           console.log(snapshot);
+        }).catch(error => console.log(error.message));
+      }
+    }
 
     async function LogIn(){
         let token = await useFetch(url, "POST", {'username' : newUser.username, 'password': newUser.password});
@@ -42,8 +62,16 @@ const Register = (props) => {
         }
     }
 
+    function getDefaultPictureBlob(url){
+        fetch(url)
+        .then(res => res.blob())
+        .then(blob => new File([blob], 'image', {type:'image'}))
+        .then(file => setDefaultPicture(file))
+    }
+
     async function registerUser(){
         if(password.current.value === repeatPassword.current.value){
+
             fetch(newUserURL, {method:"POST", body: JSON.stringify(newUser), headers: {
                 'Content-Type': 'application/json'}})
             .then(res => res.json())
@@ -52,6 +80,8 @@ const Register = (props) => {
                     let errors = Array.from(data.message.split(', '))
                     errors.forEach((err) => toast.error(err))
                 }else{
+                    getDefaultPictureBlob(defaultPictureURL)
+                    uploadDefaultPicture(storageRef, defaultPicture)
                     LogIn()
                 }
             })
@@ -66,6 +96,8 @@ const Register = (props) => {
         registerUser()
     }
 
+
+    getDefaultPictureBlob()
 
     return (
         <div className='register'>
@@ -122,7 +154,6 @@ const Register = (props) => {
             
             <Link to="/login">¿Ya tenés cuenta? Ingresá</Link> 
         </form>
-       
         </div>
     );
 }

@@ -23,7 +23,11 @@ const UserProfile = (props) => {
     const user = useContext(UserContext)
     const token = useContext(TokenContext)
     const storage = getStorage();
+
+
+
     const storageRef = user && ref(storage, `${user.username}-profilepic`);
+
     const modal = useRef()
 
     useEffect(()=>{
