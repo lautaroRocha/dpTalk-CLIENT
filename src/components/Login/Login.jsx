@@ -18,9 +18,11 @@ export const Login = (props) => {
     const user = localStorage.getItem('user')
     const navigate = useNavigate()
 
-    if(token && user){
-        navigate('/')
-    }
+    useEffect(()=>{
+        if(token && user){
+            navigate('/')
+        }
+    }, [user])
 
 
     const userUrl = URL.user + userData.username
