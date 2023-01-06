@@ -1,15 +1,26 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { Navigate } from 'react-router-dom';
 import { AskButton, MinQuestions} from '../../components';
 import "./home.css"
 import  UserContext from '../../Context/UserContext';
-import { useContext } from 'react';
+import TokenContext from '../../Context/TokenContext';
+import * as URL from "../../utilities/ApiUrls"
 
 export const Home = (props) => {
 
-  const user = useContext(UserContext)
+  const [notifications, setNotifications] = useState([])
 
-  
+  const user = useContext(UserContext)
+  const token = useContext(TokenContext)
+
+  useEffect( ()=>{
+    console.log('get notifs')
+    user &&  fetch(URL.notifications + user.username, {headers: {'x-access' : token}})
+        .then(res => res.json())
+        .then(data => setNotifications(data))
+  }, [user])
+
+
   if(!user){
     return <Navigate to="/login"/>;
     }else{

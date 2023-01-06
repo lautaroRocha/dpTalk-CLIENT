@@ -3,14 +3,14 @@ import {Login, Home, Question, Header, Ask, Register, UserProfile, ScrollToTop} 
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import {  Route, Routes, useNavigate } from 'react-router-dom';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import useFetch from './utilities/useFetch';
 import TokenContext from "./Context/TokenContext"
 import UserContext from "./Context/UserContext"
 import socketIO from "socket.io-client";
 import 'react-notifications/lib/notifications.css';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-
 import * as URL from "./utilities/ApiUrls"
+
 
 
 function App() {
@@ -30,6 +30,7 @@ function App() {
   const navigate = useNavigate()
 
 
+  
   useEffect(()=>{
     const savedToken = localStorage.getItem('token')
     const savedUser = localStorage.getItem('user')
@@ -62,6 +63,7 @@ function App() {
     socket && setSocket(socket)
     }
   }, [])
+
 
   if(socket){
     socket.on("connection", (arg) => {
@@ -103,12 +105,12 @@ function App() {
     }
   }
 
-
   function filterQuestions(e){
     let input = e.target.value;
     const filteredByTitle = questions.filter( (obj) => {return( obj.title.toLowerCase().includes(input.toLowerCase()))})
     setFilteredQuestions(filteredByTitle)
   }
+
   function logOut(){
     localStorage.removeItem('token')
     localStorage.removeItem('user')
