@@ -14,7 +14,6 @@ export const Home = (props) => {
   const token = useContext(TokenContext)
 
   useEffect( ()=>{
-    console.log('get notifs')
     user &&  fetch(URL.notifications + user.username, {headers: {'x-access' : token}})
         .then(res => res.json())
         .then(data => setNotifications(data))

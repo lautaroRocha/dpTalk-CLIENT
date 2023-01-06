@@ -5,6 +5,7 @@ import './answer.css'
 import {Link} from 'react-router-dom'
 import { toast } from 'react-toastify';
 import * as URL from "../../utilities/ApiUrls"
+import {sendNotification} from "../../utilities/sendNotification"
 
 
 export const Answer = (props) => {
@@ -33,10 +34,15 @@ export const Answer = (props) => {
             }else{
                 props.setNewAnswer(true)
                 props.socket.emit('new-liked', {authorOfLike : user.username, authorOfAnswer: props.answer.author, answer : props.answer, authorId : user._id, link: window.location.pathname})
+                if(!props.answer.likes.includes(user._id)){
+                    sendNotification({
+                        message: `A ${user.username} le gustó tu respuesta!`, 
+                        receiver: props.answer.author}, token)
+                }
             }
-        
         })
     }
+
     function dislikeAnswer(){
         fetch(dislikesUrl, {
             method : "PATCH",
@@ -72,6 +78,9 @@ export const Answer = (props) => {
             }else{
                 props.setAsResolved();
                 props.socket.emit('new-confirmed', {authorOfQuestion : props.question.author, authorOfAnswer: props.answer.author, link: window.location.pathname})
+                sendNotification({
+                    message: `A ${user.username} le gustó tu respuesta!`, 
+                    receiver: props.answer.author},token)
                 props.setNewAnswer(true)
             }})
         .catch(error => toast.error(error))

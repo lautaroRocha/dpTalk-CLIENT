@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import useFetch from "../../utilities/useFetch"
 import "./answerbox.css"
 import * as URL from "../../utilities/ApiUrls"
+import {sendNotification} from "../../utilities/sendNotification"
 
 export const AnswerBox = forwardRef((props, ref) => {
 
@@ -30,6 +31,7 @@ export const AnswerBox = forwardRef((props, ref) => {
             hideAnswerBox()
             toast.info('Gracias por responder!')
             props.socket.emit('new-answer', {authorOfAnswer : answer.author, authorOfQuestion : props.question.author, link: window.location.pathname})
+            sendNotification({message : `${answer.author} respondió tu pregunta!`, receiver: props.question.author },token)
             props.setNewAnswer(true)
         }  
     }
