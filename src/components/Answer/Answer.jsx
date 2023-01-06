@@ -37,7 +37,8 @@ export const Answer = (props) => {
                 if(!props.answer.likes.includes(user._id)){
                     sendNotification({
                         message: `A ${user.username} le gustó tu respuesta!`, 
-                        receiver: props.answer.author}, token)
+                        receiver: props.answer.author,
+                        date: new Date().toLocaleDateString() +','+ new Date().toLocaleTimeString()}, token)
                 }
             }
         })
@@ -80,7 +81,9 @@ export const Answer = (props) => {
                 props.socket.emit('new-confirmed', {authorOfQuestion : props.question.author, authorOfAnswer: props.answer.author, link: window.location.pathname})
                 sendNotification({
                     message: `A ${user.username} le gustó tu respuesta!`, 
-                    receiver: props.answer.author},token)
+                    receiver: props.answer.author,
+                    date: new Date().toLocaleDateString() +','+ new Date().toLocaleTimeString()},token)
+
                 props.setNewAnswer(true)
             }})
         .catch(error => toast.error(error))

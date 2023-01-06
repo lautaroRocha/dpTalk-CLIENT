@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { Navigate } from 'react-router-dom';
-import { AskButton, MinQuestions} from '../../components';
+import { AskButton, MinQuestions, NotificationsPanel} from '../../components';
 import "./home.css"
 import  UserContext from '../../Context/UserContext';
 import TokenContext from '../../Context/TokenContext';
@@ -31,6 +31,7 @@ export const Home = (props) => {
               return(<MinQuestions question={qstn} key={idx} />)
             })} 
           </main>
+          <NotificationsPanel />
           <AskButton />
         </>
         )

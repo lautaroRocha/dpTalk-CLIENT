@@ -1,0 +1,16 @@
+.notif{
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 50;
+}
+.notif-button{
+    background-color: rebeccapurple;
+    width: 3rem;
+    height: auto;
+    border-radius: 50%;
+}
+.notif-panel{
+    width: 100%;
+    height: 80%;
+}

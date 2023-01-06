@@ -13,7 +13,7 @@ export const sendNotification = (body, token) => {
             if(!res.ok){
                 console.log('error')
             }else{
-                console.log('yes')
+                return
             }
         })
 }

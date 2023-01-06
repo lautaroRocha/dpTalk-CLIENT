@@ -71,7 +71,7 @@ function App() {
     });
     socket.off("answer-notification").on("answer-notification", (arg) => {
       const data = JSON.parse(arg)
-      if(data.authorOfQuestion === user.username){
+      if(data.authorOfAnswer !== user.username){
       NotificationManager.success(`respondió tu pregunta!`, `${data.authorOfAnswer}`, 5000, ()=>{navigate(data.link)});
     }
     });
