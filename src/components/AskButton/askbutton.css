@@ -1,8 +1,8 @@
 .ask-btn, .ask-btn>button{
     position: fixed;
     bottom: 2vh;
-    right: auto;
     width: 50%;
+    left: 10vw;
     transition: all .5s ease;
     cursor: pointer;
     z-index: 10;

@@ -23,14 +23,11 @@ function App() {
   const [newAnswer, setNewAnswer] = useState(false)
   const [socket, setSocket] = useState(null)
 
-
   const questionsUrl = URL.questions
   const userUrl = user && URL.user + user.username
   
   const navigate = useNavigate()
 
-
-  
   useEffect(()=>{
     const savedToken = localStorage.getItem('token')
     const savedUser = localStorage.getItem('user')
@@ -63,7 +60,6 @@ function App() {
     socket && setSocket(socket)
     }
   }, [])
-
 
   if(socket){
     socket.on("connection", (arg) => {

@@ -31,7 +31,7 @@ export const Home = (props) => {
               return(<MinQuestions question={qstn} key={idx} />)
             })} 
           </main>
-          <NotificationsPanel />
+          <NotificationsPanel notifications={notifications.notifications}/>
           <AskButton />
         </>
         )
