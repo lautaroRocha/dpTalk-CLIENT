@@ -79,11 +79,12 @@ export const Answer = (props) => {
             }else{
                 props.setAsResolved();
                 props.socket.emit('new-confirmed', {authorOfQuestion : props.question.author, authorOfAnswer: props.answer.author, link: window.location.pathname})
+                if(props.answer.author !== user._id){
                 sendNotification({
-                    message: `A ${user.username} le gustó tu respuesta!`, 
+                    message: `${user.username} aprobó tu respuesta!`, 
                     receiver: props.answer.author,
                     date: new Date().toLocaleDateString() +','+ new Date().toLocaleTimeString()},token)
-
+                }
                 props.setNewAnswer(true)
             }})
         .catch(error => toast.error(error))

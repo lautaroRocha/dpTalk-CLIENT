@@ -31,7 +31,9 @@ export const AnswerBox = forwardRef((props, ref) => {
             hideAnswerBox()
             toast.info('Gracias por responder!')
             props.socket.emit('new-answer', {authorOfAnswer : answer.author, authorOfQuestion : props.question.author, link: window.location.pathname})
+            if(props.question.author !== user.username){
             sendNotification({message : `${answer.author} respondió tu pregunta!`, receiver: props.question.author, date: new Date().toLocaleDateString() +','+ new Date().toLocaleTimeString()},token)
+            }
             props.setNewAnswer(true)
         }  
     }
