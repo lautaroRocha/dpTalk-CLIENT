@@ -34,11 +34,12 @@ export const Answer = (props) => {
             }else{
                 props.setNewAnswer(true)
                 props.socket.emit('new-liked', {authorOfLike : user.username, authorOfAnswer: props.answer.author, answer : props.answer, authorId : user._id, link: window.location.pathname})
-                if(!props.answer.likes.includes(user._id)){
+                if(!props.answer.likes.includes(user._id) && props.answer.author !== user.username){
                     sendNotification({
                         message: `A ${user.username} le gustó tu respuesta!`, 
                         receiver: props.answer.author,
-                        date: new Date().toLocaleDateString() +','+ new Date().toLocaleTimeString()}, token)
+                        date: new Date().toLocaleDateString() +','+ new Date().toLocaleTimeString(),
+                        link: window.location.pathname}, token)
                 }
             }
         })
@@ -83,7 +84,8 @@ export const Answer = (props) => {
                 sendNotification({
                     message: `${user.username} aprobó tu respuesta!`, 
                     receiver: props.answer.author,
-                    date: new Date().toLocaleDateString() +','+ new Date().toLocaleTimeString()},token)
+                    date: new Date().toLocaleDateString() +','+ new Date().toLocaleTimeString(),
+                    link: window.location.pathname},token)
                 }
                 props.setNewAnswer(true)
             }})

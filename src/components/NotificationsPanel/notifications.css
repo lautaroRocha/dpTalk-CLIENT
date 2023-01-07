@@ -1,25 +1,39 @@
 .notif{
     position: fixed;
     bottom: 0;
+    right: 0;
     z-index: 50;
-    width: 100%;
+    width: 30%;
     height: 15vh;
     margin: 0;
 }
 .notif-button{
-    width: 4rem;
-    height: 4rem;
+    width: 3.3rem;
+    height: 3.3rem;
     border-radius: 50%;
     position: absolute;
-    bottom: 1vh;
+    bottom: 2vh;
     right: 10vw;
     display: grid;
     place-items: center;
     z-index: 2;
+    overflow: visible;
+
 }
+
+.notif-alert{
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .notif-button > svg{
     fill: var(--lighter);
-    transform: scale(1.4);
+    transform: scale(1);
 }
 .notif-panel{
     width: 100%;
@@ -80,6 +94,20 @@
     text-align: right;
 }
 
+.notif-panel > div > .read {
+    background-color: transparent;
+    color: var(--dark-grey);
+    position: relative;
+}
+.notif-panel > div > .read::before{
+    content: "  ";
+    display: inline-block;
+    width: 80%;
+    height: 1px;
+    background-color: black;
+    position: absolute;
+    top: 0;
+}
 
 
 @media(min-width:500px){
@@ -94,6 +122,9 @@
         margin-bottom: 2rem;
         border-radius: 25px;
         width: 80%;
+        right: 12vw;
+        margin-left: 23vw;
+
     }
     .notif-panel::-webkit-scrollbar {
         width: 0px;
@@ -101,11 +132,13 @@
 
     .notif-button{
         z-index: 100;
+        margin-bottom: 1rem;
     }
 }
 
-@media(min-width:500px){
-    .notif-panel{
-        margin-left: 23vw;
+@media(min-width:900px){
+    .notif{
+        width: 40%;
+        right: 10vw;
     }
 }

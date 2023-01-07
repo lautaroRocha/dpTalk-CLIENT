@@ -1,5 +1,5 @@
 
-import {Login, Home, Question, Header, Ask, Register, UserProfile, ScrollToTop} from "./components"
+import {Login, Home, Question, Header, Ask, Register, UserProfile, ScrollToTop, NotificationsPanel} from "./components"
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import {  Route, Routes, useNavigate } from 'react-router-dom';
@@ -22,6 +22,7 @@ function App() {
   const [newQuestion, setNewQuestion] = useState(false)
   const [newAnswer, setNewAnswer] = useState(false)
   const [socket, setSocket] = useState(null)
+  const [alertNotif, setAlertNotif] = useState(false)
 
   const questionsUrl = URL.questions
   const userUrl = user && URL.user + user.username
@@ -141,7 +142,8 @@ function App() {
           <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion} socket={socket}/>} />
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
           <Route path="/user/:username" element={<UserProfile updateUser={useUpdateUser}/>} />
-        </Routes>    
+        </Routes>   
+        {window.location.pathname === "/" && <NotificationsPanel/>}
         <ToastContainer
             position="bottom-center"
             autoClose={3000}
