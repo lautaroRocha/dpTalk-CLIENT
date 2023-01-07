@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import * as Icons from "../../utilities/svgIcons"
 import './notifications.css'
+import { Notification } from '../../components'
 
 export const NotificationsPanel= (props) => {
 
@@ -9,6 +10,8 @@ export const NotificationsPanel= (props) => {
     function openOrClose(){
         setIsOpen(!isOpen)
     }
+
+
 
 
     return(
@@ -21,7 +24,7 @@ export const NotificationsPanel= (props) => {
     <div className="notif notif-panel">
         <div>
         {props.notifications && props.notifications.map((noti, idx)=>{return(
-            <span key={idx}>{noti.notification}</span>
+            <Notification noti={noti} key={idx}/>
         )})}
         </div>
     </div>

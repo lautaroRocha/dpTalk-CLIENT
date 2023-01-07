@@ -16,7 +16,7 @@ export const Home = (props) => {
   useEffect( ()=>{
     user &&  fetch(URL.notifications + user.username, {headers: {'x-access' : token}})
         .then(res => res.json())
-        .then(data => setNotifications(data))
+        .then(data => setNotifications(data.notifications.reverse()))
   }, [user])
 
 
@@ -31,7 +31,7 @@ export const Home = (props) => {
               return(<MinQuestions question={qstn} key={idx} />)
             })} 
           </main>
-          <NotificationsPanel notifications={notifications.notifications}/>
+          <NotificationsPanel notifications={notifications}/>
           <AskButton />
         </>
         )
