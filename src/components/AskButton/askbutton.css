@@ -12,6 +12,7 @@
     .ask-btn{
         width: 40%;
         margin-bottom: 1rem;
+        left: auto;
     }
     .ask-btn:hover{
         transform: scale(1.1);
