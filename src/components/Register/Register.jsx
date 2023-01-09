@@ -25,22 +25,6 @@ export const Register = (props) => {
     const repeatPassword = useRef()
 
 
-    const defaultPictureURL = 'https://media-exp1.licdn.com/dms/image/C4D0BAQGlw01EDZIgVg/company-logo_200_200/0/1624978925235?e=2147483647&v=beta&t=dYqkqfAhVTDGr1GW7_oV1FC11wXeGSx8Ywadhc4KmzA'
-
-
-    const storage = getStorage();
-    const storageRef = newUser.username && ref(storage, `${newUser.username}-profilepic`);
-
-    async function uploadDefaultPicture(ref, file){
-        if(!file){
-          toast.error("No se ha detectado ningun archivo")
-        }else{
-        uploadBytes(ref, file).then((snapshot) => {
-           console.log(snapshot);
-        }).catch(error => console.log(error.message));
-      }
-    }
-
     async function LogIn(){
         let token = await useFetch(URL.logIn, "POST", {'username' : newUser.username, 'password': newUser.password});
         let user = await useFetch(URL.user + newUser.username, "GET")
@@ -56,16 +40,8 @@ export const Register = (props) => {
         }
     }
 
-    function getDefaultPictureBlob(url){
-        fetch(url)
-        .then(res => res.blob())
-        .then(blob => new File([blob], 'image', {type:'image'}))
-        .then(file => setDefaultPicture(file))
-    }
-
     async function registerUser(){
         if(password.current.value === repeatPassword.current.value){
-
             fetch(URL.registerUser, {method:"POST", body: JSON.stringify(newUser), headers: {
                 'Content-Type': 'application/json'}})
             .then(res => res.json())
@@ -74,8 +50,6 @@ export const Register = (props) => {
                     let errors = Array.from(data.message.split(', '))
                     errors.forEach((err) => toast.error(err))
                 }else{
-                    getDefaultPictureBlob(defaultPictureURL)
-                    uploadDefaultPicture(storageRef, defaultPicture)
                     LogIn()
                 }
             })
@@ -91,10 +65,9 @@ export const Register = (props) => {
     }
 
 
-    getDefaultPictureBlob()
-
     return (
         <div className='register'>
+            <img src="" alt="" />
         <Background />
               <span>TALK</span>
         <div className='dev-place-logo'>
