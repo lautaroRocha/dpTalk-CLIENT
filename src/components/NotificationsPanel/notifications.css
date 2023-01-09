@@ -18,6 +18,7 @@
     place-items: center;
     z-index: 2;
     overflow: visible;
+    cursor: pointer;
 
 }
 
@@ -44,7 +45,12 @@
     scrollbar-color: red;
     max-width: 600px;
 }
-
+.notif-panel > h2{
+    color: var(--dark-grey);
+    margin-left: 1rem;
+    margin-top: .5rem;
+    font-size: 1rem;
+}
 
 
 .notif-panel-overlay{
@@ -61,7 +67,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    gap: 5px;
     margin: 1rem auto ;
     width: 95%;
 }
@@ -69,7 +75,7 @@
 .notif-panel > div > .notifications{
     display: flex;
     background-color: var(--green);
-    width: 100%;
+    width: 90%;
     gap: 1rem;
     justify-content: space-around;
     align-items: center;
@@ -102,11 +108,11 @@
 .notif-panel > div > .read::before{
     content: "  ";
     display: inline-block;
-    width: 80%;
+    width: 90%;
     height: 1px;
     background-color: black;
     position: absolute;
-    top: 0;
+    bottom: 0;
 }
 
 

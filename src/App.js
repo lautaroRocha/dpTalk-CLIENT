@@ -63,25 +63,27 @@ function App() {
   }, [])
 
   if(socket){
-    socket.on("connection", (arg) => {
-      console.log('entraste al socket');
-    });
     socket.off("answer-notification").on("answer-notification", (arg) => {
       const data = JSON.parse(arg)
       if(data.authorOfAnswer !== user.username){
       NotificationManager.success(`respondió tu pregunta!`, `${data.authorOfAnswer}`, 5000, ()=>{navigate(data.link)});
-    }
+      setAlertNotif(!alertNotif)
+   }
     });
     socket.off("confirmed-notification").on("confirmed-notification", (arg) => {
        const data = JSON.parse(arg)
        if(data.authorOfAnswer === user.username){
-        NotificationManager.success(`marcó tu respuesta como correcta!`, `${data.authorOfQuestion}`, 5000, ()=>{navigate(data.link)})}
+        NotificationManager.success(`marcó tu respuesta como correcta!`, `${data.authorOfQuestion}`, 5000, ()=>{navigate(data.link)})
+        setAlertNotif(!alertNotif)
+      }
     });
     socket.off("like-notification").on("like-notification", (arg) => {
       const data = JSON.parse(arg)
       console.log()
       if(!data.answer.likes.includes(data.authorId) && data.authorOfAnswer === user.username && data.authorOfLike !== user.username){
-       NotificationManager.success(`le gustó tu respuesta!`, ` A ${data.authorOfLike}`, 5000,()=>{navigate(data.link)})}
+       NotificationManager.success(`le gustó tu respuesta!`, ` A ${data.authorOfLike}`, 5000,()=>{navigate(data.link)})
+       setAlertNotif(!alertNotif)
+      }
    });
    socket.off("post-notification").on("post-notification", (arg) => {
     const data = JSON.parse(arg)
@@ -143,7 +145,7 @@ function App() {
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
           <Route path="/user/:username" element={<UserProfile updateUser={useUpdateUser}/>} />
         </Routes>   
-        {window.location.pathname === "/" && <NotificationsPanel/>}
+        {window.location.pathname === "/" && <NotificationsPanel alert={alertNotif}/>}
         <ToastContainer
             position="bottom-center"
             autoClose={3000}

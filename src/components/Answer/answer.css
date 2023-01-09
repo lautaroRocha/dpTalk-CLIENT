@@ -32,6 +32,7 @@
     align-self: flex-end;
     justify-content: flex-end;
 }
+
 .answer-status{
     font-weight: bolder;
     color: var(--green);
@@ -59,6 +60,7 @@ button[data-set]{
     border: 1px solid var(--focus-grey);
     color: var(--action-blue);
     width: fit-content;
+    margin: 0;
 }
 button[data-set]:after{
     content: '✔️';
