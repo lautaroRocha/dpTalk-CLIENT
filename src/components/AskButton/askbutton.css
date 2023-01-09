@@ -2,6 +2,7 @@
     position: fixed;
     bottom: 2vh;
     width: 50%;
+    max-width: 300px;
     left: 10vw;
     transition: all .5s ease;
     cursor: pointer;

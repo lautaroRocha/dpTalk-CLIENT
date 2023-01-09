@@ -1,4 +1,4 @@
-export const url = "http://localhost:7000/"
+export const url = "https://dptalk-api-production.up.railway.app/"
 
 export const socket = "https://socket-testing-production.up.railway.app/"
 

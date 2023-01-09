@@ -59,7 +59,11 @@ header >  span{
     }
     header > div > svg{
         transform: scale(.5);
-        margin-top: 0;
+        margin-top: .5rem;
+        max-width: 1300px;
+        position: absolute;
+        left: 50;
+        right: 50;
     }
     header >  span{
         top: 5rem;

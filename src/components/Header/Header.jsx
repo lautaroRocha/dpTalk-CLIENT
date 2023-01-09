@@ -45,7 +45,7 @@ export const Header = (props) => {
         }
         }else{
             if (document.documentElement.scrollTop > 50) {
-                canvas.current.style.height = "5rem";
+                canvas.current.style.height = "6rem";
                 logo.current.style.width = "50%"
                 talk.current.style.left = "10%"
                 talk.current.style.top = "3vh"

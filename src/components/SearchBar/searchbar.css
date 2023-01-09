@@ -20,5 +20,6 @@
     .searchbar{
         margin-top: 11rem ;
         height: 10vh;
+        max-height: 3rem;
     }
 }
