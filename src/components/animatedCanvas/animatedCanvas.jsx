@@ -1,10 +1,9 @@
 import { useEffect, useRef } from "react";
-import './Background.css'
 
-const SPEED = 0.02;
 
-const Background = () => {
+export const Background = (props) => {
   const canvasRef = useRef()
+  const SPEED = 0.02;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -73,4 +72,3 @@ const Background = () => {
   return <canvas ref={canvasRef} width="32px" height="32px"/>;
 };
 
-export default Background
