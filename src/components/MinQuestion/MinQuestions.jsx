@@ -16,9 +16,8 @@ export const MinQuestions = (props) => {
             setProfilePicUrl(cachedURL)
         }else{
             getProfilePicture(props.question.author, setProfilePicUrl)
-           
         }
-    },[])
+    },[props.question])
    
     
     

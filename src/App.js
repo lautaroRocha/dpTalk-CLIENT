@@ -2,7 +2,7 @@
 import {Login, Home, Question, Header, Ask, Register, UserProfile, ScrollToTop, NotificationsPanel} from "./components"
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import {  Route, Routes, useNavigate } from 'react-router-dom';
+import {  Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import useFetch from './utilities/useFetch';
 import TokenContext from "./Context/TokenContext"
@@ -18,7 +18,7 @@ function App() {
   const [user, setUser] = useState(null)
   const [questions, setQuestions] = useState([])
   const [token, setToken] = useState(false)
-  const [filteredQuestions, setFilteredQuestions] = useState(null)
+  const [filteredQuestions, setFilteredQuestions] = useState([])
   const [newQuestion, setNewQuestion] = useState(false)
   const [newAnswer, setNewAnswer] = useState(false)
   const [socket, setSocket] = useState(null)
@@ -28,6 +28,7 @@ function App() {
   const userUrl = user && URL.user + user.username
   
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(()=>{
     const savedToken = localStorage.getItem('token')
@@ -39,8 +40,8 @@ function App() {
   }, [])
 
   useEffect(()=>{
-    setFilteredQuestions(Array.from(questions).reverse())
-  }, [questions])
+    setFilteredQuestions(questions)
+  }, [questions, location])
 
   useEffect(()=>{
     fetch(questionsUrl)
