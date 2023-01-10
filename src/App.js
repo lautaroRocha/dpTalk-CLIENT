@@ -66,7 +66,8 @@ function App() {
   if(socket){
     socket.off("answer-notification").on("answer-notification", (arg) => {
       const data = JSON.parse(arg)
-      if(data.authorOfAnswer !== user.username){
+      console.log(data)
+      if(data.authorOfAnswer !== user.username && data.authorOfQuestion === user.username){
       NotificationManager.success(`respondió tu pregunta!`, `${data.authorOfAnswer}`, 5000, ()=>{navigate(data.link)});
       setAlertNotif(!alertNotif)
    }

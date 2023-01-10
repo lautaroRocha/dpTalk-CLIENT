@@ -51,7 +51,7 @@ export const Header = (props) => {
                 talk.current.style.top = "3vh"
                 talk.current.style.transform = "scale(.6)"
                 talk.current.style.fontSize = 'clamp(.7rem, 10vw, 1rem)';
-                nav.current.style.marginTop="5rem"
+                nav.current.style.marginTop="6rem"
             } else {
                 canvas.current.style.height = "10rem";
                 logo.current.style.width = "100%"

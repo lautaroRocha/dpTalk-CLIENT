@@ -16,10 +16,10 @@
     border: 1px solid var(--dark-grey);
 }
 
-@media(min-width:900px){
+@media(min-width:500px){
     .searchbar{
         margin-top: 11rem ;
         height: 10vh;
-        max-height: 3rem;
+        max-height: 2rem;
     }
 }

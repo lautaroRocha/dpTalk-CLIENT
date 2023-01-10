@@ -52,7 +52,12 @@ header >  span{
     top: 7vh;
     transition: all .5s ease;
 }
+@media (min-width: 500px){
 
+    header > div > svg{
+        margin-top: 2vh;
+    }
+}
 @media (min-width: 900px){
     header{
         height: 10rem;
