@@ -5,16 +5,15 @@ import TokenContext from "../../Context/TokenContext"
 import { toast } from 'react-toastify';
 import useFetch from '../../utilities/useFetch';
 import "./ask.css"
+import * as URL from "../../utilities/ApiUrls"
 
-const Ask = (props) => {
+export const Ask = (props) => {
 
     const [question, setQuestion] = useState({title : "", body : ""})
 
     const user = useContext(UserContext)
     const token = useContext(TokenContext)
-    const askUrl = "http://localhost:7000/ask"
     const navigate = useNavigate()
-
 
     function createQuestion(){
         if(question.title !== "" && question.body !== ""){
@@ -32,13 +31,14 @@ const Ask = (props) => {
 
     async function usePostToDatabase(){
         const newQuestion = createQuestion()
-        const asking = await useFetch(askUrl, 'POST', newQuestion, token)
+        const asking = await useFetch(URL.questions, 'POST', newQuestion, token)
         if(asking.message){
             let errors = Array.from(asking.message.split(', '))
             errors.forEach((err) => toast.error(err))
         }else{
             toast.info('Pregunta hecha!')
             navigate('/')
+            props.socket.emit('new-post', {author : user.username})
         }
         await props.setNewQuestion(true)
     }
@@ -60,4 +60,3 @@ const Ask = (props) => {
     );
 }
 
-export default Ask;

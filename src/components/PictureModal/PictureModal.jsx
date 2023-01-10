@@ -2,7 +2,7 @@ import React, {forwardRef, useRef} from 'react';
 import './picturemodal.css'
 
 
-const PictureModal = forwardRef((props, ref) => {
+export const PictureModal = forwardRef((props, ref) => {
     const imagen = useRef()
     const imagePreview = useRef()
 
@@ -35,4 +35,3 @@ const PictureModal = forwardRef((props, ref) => {
     );
 })
 
-export default PictureModal;

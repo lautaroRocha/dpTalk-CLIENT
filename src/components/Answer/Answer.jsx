@@ -4,13 +4,15 @@ import UserContext from "../../Context/UserContext"
 import './answer.css'
 import {Link} from 'react-router-dom'
 import { toast } from 'react-toastify';
+import * as URL from "../../utilities/ApiUrls"
+import {sendNotification} from "../../utilities/sendNotification"
 
 
-const Answer = (props) => {
+export const Answer = (props) => {
 
-    const likesUrl = `http://localhost:7000/reply/like/${props.answer._id}`
-    const dislikesUrl = `http://localhost:7000/reply/dislike/${props.answer._id}`
-    const answerUrl= `http://localhost:7000/reply/${props.answer._id}`
+    const likesUrl = URL.like + props.answer._id
+    const dislikesUrl = URL.dislike + props.answer._id
+    const answerUrl= URL.answers + props.answer._id
 
     const token = useContext(TokenContext)
     const user = useContext(UserContext)
@@ -31,11 +33,18 @@ const Answer = (props) => {
                 toast.error('Hubo un error, intentá más tarde')
             }else{
                 props.setNewAnswer(true)
-                props.socket.emit('new-liked', {authorOfLike : user.username, authorOfAnswer: props.answer.author, answer : props.answer, authorId : user._id})
+                props.socket.emit('new-liked', {authorOfLike : user.username, authorOfAnswer: props.answer.author, answer : props.answer, authorId : user._id, link: window.location.pathname})
+                if(!props.answer.likes.includes(user._id) && props.answer.author !== user.username){
+                    sendNotification({
+                        message: `A ${user.username} le gustó tu respuesta!`, 
+                        receiver: props.answer.author,
+                        date: new Date().toLocaleDateString() +','+ new Date().toLocaleTimeString(),
+                        link: window.location.pathname}, token)
+                }
             }
-        
         })
     }
+
     function dislikeAnswer(){
         fetch(dislikesUrl, {
             method : "PATCH",
@@ -70,7 +79,14 @@ const Answer = (props) => {
                 toast.error('Hubo un error, intentá más tarde')
             }else{
                 props.setAsResolved();
-                props.socket.emit('new-confirmed', {authorOfQuestion : props.question.author, authorOfAnswer: props.answer.author})
+                props.socket.emit('new-confirmed', {authorOfQuestion : props.question.author, authorOfAnswer: props.answer.author, link: window.location.pathname})
+                if(props.answer.author !== user._id){
+                sendNotification({
+                    message: `${user.username} aprobó tu respuesta!`, 
+                    receiver: props.answer.author,
+                    date: new Date().toLocaleDateString() +','+ new Date().toLocaleTimeString(),
+                    link: window.location.pathname},token)
+                }
                 props.setNewAnswer(true)
             }})
         .catch(error => toast.error(error))
@@ -103,4 +119,3 @@ const Answer = (props) => {
     );
 }
 
-export default Answer;

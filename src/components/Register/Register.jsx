@@ -1,19 +1,21 @@
 import React, {useState, useRef} from 'react';
 import  useFetch  from '../../utilities/useFetch';
 import { Link, useNavigate } from 'react-router-dom';
-import Background from '../animatedCanvas/animatedCanvas';
+import {Background, DPLogo} from "../../components"
 import './register.css'
-import DPLogo from '../DPLogo/DPLogo';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getStorage, ref, uploadBytes} from "firebase/storage";
+import * as URL from "../../utilities/ApiUrls"
 
-const Register = (props) => {
+export const Register = (props) => {
 
     const [newUser, setNewUser] = useState({
         "username": " ",
         "email": " ",
         "password" : " ",
     })
+    const [defaultPicture, setDefaultPicture] = useState()
 
     const navigate = useNavigate()
 
@@ -23,13 +25,9 @@ const Register = (props) => {
     const repeatPassword = useRef()
 
 
-    const newUserURL = "http://localhost:7000/users/signin"
-    const url = "http://localhost:7000/users/login"
-    const userUrl = `http://localhost:7000/users/${newUser.username}`
-
     async function LogIn(){
-        let token = await useFetch(url, "POST", {'username' : newUser.username, 'password': newUser.password});
-        let user = await useFetch(userUrl, "GET")
+        let token = await useFetch(URL.logIn, "POST", {'username' : newUser.username, 'password': newUser.password});
+        let user = await useFetch(URL.user + newUser.username, "GET")
         if(token.message){
             toast.error(token.message)
             return
@@ -44,7 +42,7 @@ const Register = (props) => {
 
     async function registerUser(){
         if(password.current.value === repeatPassword.current.value){
-            fetch(newUserURL, {method:"POST", body: JSON.stringify(newUser), headers: {
+            fetch(URL.registerUser, {method:"POST", body: JSON.stringify(newUser), headers: {
                 'Content-Type': 'application/json'}})
             .then(res => res.json())
             .then( data => {
@@ -69,6 +67,7 @@ const Register = (props) => {
 
     return (
         <div className='register'>
+            <img src="" alt="" />
         <Background />
               <span>TALK</span>
         <div className='dev-place-logo'>
@@ -122,9 +121,7 @@ const Register = (props) => {
             
             <Link to="/login">¿Ya tenés cuenta? Ingresá</Link> 
         </form>
-       
         </div>
     );
 }
 
-export default Register;

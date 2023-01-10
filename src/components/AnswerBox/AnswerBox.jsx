@@ -4,8 +4,10 @@ import TokenContext from '../../Context/TokenContext';
 import { toast } from 'react-toastify';
 import useFetch from "../../utilities/useFetch"
 import "./answerbox.css"
+import * as URL from "../../utilities/ApiUrls"
+import {sendNotification} from "../../utilities/sendNotification"
 
-const AnswerBox = forwardRef((props, ref) => {
+export const AnswerBox = forwardRef((props, ref) => {
 
 
     const user = useContext(UserContext)
@@ -16,21 +18,26 @@ const AnswerBox = forwardRef((props, ref) => {
         ref.current.style.display = "none"
     }
 
-    const answerUrl = "https://dptalk-api-production.up.railway.app/reply"
-
     async function useAnswerQuestion(){
         const answer = {
             author : user.username,
             question : props.question._id,
             body : answerBody.current.value
         }
-        const postedAnswer = await useFetch(answerUrl, 'POST', answer, token)
+        const postedAnswer = await useFetch(URL.answers, 'POST', answer, token)
         if(postedAnswer.message){
             toast.error(postedAnswer.message)
         }else{
             hideAnswerBox()
             toast.info('Gracias por responder!')
-            props.socket.emit('new-answer', {authorOfAnswer : answer.author, authorOfQuestion : props.question.author})
+            props.socket.emit('new-answer', {authorOfAnswer : answer.author, authorOfQuestion : props.question.author, link: window.location.pathname})
+            if(props.question.author !== user.username){
+            sendNotification({
+                message : `${answer.author} respondió tu pregunta!`, 
+                receiver: props.question.author, 
+                date: new Date().toLocaleDateString() +','+ new Date().toLocaleTimeString(), 
+                link: window.location.pathname, read: false},token)
+            }
             props.setNewAnswer(true)
         }  
     }
@@ -46,4 +53,3 @@ const AnswerBox = forwardRef((props, ref) => {
     );
 })
 
-export default AnswerBox;

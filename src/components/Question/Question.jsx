@@ -2,15 +2,14 @@ import React, {useState, useEffect, useRef, useContext} from 'react';
 import TokenContext from '../../Context/TokenContext';
 import "./question.css"
 import { useParams } from 'react-router-dom';
-import AnswerBox from '../AnswerBox/AnswerBox';
-import Answer from '../Answer/Answer';
+import { Answer, AnswerBox, Spinner  } from '../../components';
 import getProfilePicture from '../../utilities/getPPURL';
 import { Link } from 'react-router-dom';
-import Spinner from '../Spinner/Spinner'
 import { toast } from 'react-toastify';
+import * as URL from "../../utilities/ApiUrls"
 
 
-const Question = (props) => {
+export const Question = (props) => {
 
   const token = useContext(TokenContext)
   const [question, setQuestion] = useState(null);
@@ -21,17 +20,15 @@ const Question = (props) => {
 
   const answerBox = useRef()
 
-  const questionUrl= `http://localhost:7000/ask/${questionId}`
-  const answersUrl= `http://localhost:7000/reply/${questionId}`
 
   
   useEffect(()=>{
-    fetch(questionUrl, {headers:{'x-access' : token}})
+    fetch(URL.questions + questionId, {headers:{'x-access' : token}})
     .then(res => res.json())
     .then(data => setQuestion(data))
 
 
-    fetch(answersUrl, {headers:{'x-access' : token}})
+    fetch(URL.answers + questionId, {headers:{'x-access' : token}})
     .then(res => res.json())
     .then(data => setAnswers(Array.from(data)))
     props.setNewAnswer(false)
@@ -67,7 +64,7 @@ answers.sort((a, b) =>{
     answerBox.current.style.display = "flex"
   }
   function setAsResolved(){
-    fetch(questionUrl, {
+    fetch(URL.questions + questionId, {
         method : "PATCH",
         headers : {
             "Content-Type": "application/json",
@@ -128,4 +125,3 @@ answers.sort((a, b) =>{
     );
 }
 
-export default Question;

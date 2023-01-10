@@ -1,10 +1,10 @@
 import React from 'react';
 import "../UserProfile/userprofile.css"
 import * as Icons from "../../utilities/svgIcons"
-import Spinner from '../Spinner/Spinner';
+import {Spinner} from '../../components';
 
 
-const ProfilePic = (props) => {
+export const ProfilePic = (props) => {
     return (
         <>
         {!props.url ? 
@@ -19,4 +19,3 @@ const ProfilePic = (props) => {
     );
 }
 
-export default ProfilePic;

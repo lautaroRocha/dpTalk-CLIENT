@@ -4,14 +4,13 @@ import UserContext from '../../Context/UserContext';
 import TokenContext from '../../Context/TokenContext';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import ProfilePic from '../ProfilePic/ProfilePic';
-import PictureModal from '../PictureModal/PictureModal';
+import { ProfilePic, PictureModal, Spinner } from '../../components';
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 import imageCompression from 'browser-image-compression';
 import { useParams } from 'react-router-dom';
-import Spinner from '../Spinner/Spinner'
+import * as URL from "../../utilities/ApiUrls"
 
-const UserProfile = (props) => {
+export const UserProfile = (props) => {
 
     const [questionsByUser, setQuestionsByUser] = useState([])
     const [answersByUser, setAnswersByUser] = useState([])
@@ -23,7 +22,11 @@ const UserProfile = (props) => {
     const user = useContext(UserContext)
     const token = useContext(TokenContext)
     const storage = getStorage();
+
+
+
     const storageRef = user && ref(storage, `${user.username}-profilepic`);
+
     const modal = useRef()
 
     useEffect(()=>{
@@ -84,7 +87,7 @@ const UserProfile = (props) => {
             username: userData.username,
             profilePic: url
           })
-          fetch("http://localhost:7000/users/profile-pic", {
+          fetch(URL.profilePic, {
             method : "PATCH",
             body : JSON.stringify({
               "username" : user.username,
@@ -104,8 +107,8 @@ const UserProfile = (props) => {
 
     useEffect( () => {
         if(user){
-            const answersUrl = `http://localhost:7000/reply/by/${username}`
-            const questionsUrl = `http://localhost:7000/ask/by/${username}`
+            const answersUrl = URL.answersBy + username
+            const questionsUrl = URL.questionsBy + username
             if(ownProfile){
               setUserData({
                 username : user.username,
@@ -113,7 +116,7 @@ const UserProfile = (props) => {
                 profilePic: user.profilePic
               })
             }else{
-              const usersUrl = `http://localhost:7000/users/${username}`
+              const usersUrl = URL.user + username
               fetch(usersUrl)
                 .then(res => res.json())
                 .then(data => setUserData({
@@ -121,9 +124,7 @@ const UserProfile = (props) => {
                   email : data.email,
                   profilePic: data.profilePic
                 }))
-              
             }
-
         fetch(answersUrl, {headers: { 
             "x-access" : token
         }})
@@ -160,12 +161,11 @@ const UserProfile = (props) => {
             {!user ?
               <Spinner /> :
             <div className="profile-card">
-                <div className="profile-head">
-                  {!userData.profilePic ?
+                <div className="profile-head">                  {!userData.profilePic ?
                   <Spinner /> :
                   <ProfilePic url={userData.profilePic} openModal={openModal} ownProfile={ownProfile}/>
-                  }
-                    <div>
+                  }                    
+                  <div>
                         <h2>{userData.username}</h2>
                         <span>{userData.email}</span>
                     </div>   
@@ -205,4 +205,3 @@ const UserProfile = (props) => {
     );
 }
 
-export default UserProfile;

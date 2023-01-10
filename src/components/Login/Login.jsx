@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useFetch from '../../utilities/useFetch';
-import DPLogo from "../DPLogo/DPLogo"
-import Background from '../animatedCanvas/animatedCanvas';
+import { DPLogo, Background } from '../../components';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css"
+import * as URL from "../../utilities/ApiUrls"
 
-const Login = (props) => {
+export const Login = (props) => {
 
     const [userData, setUserData] = useState({
         username : "",
@@ -18,17 +18,18 @@ const Login = (props) => {
     const user = localStorage.getItem('user')
     const navigate = useNavigate()
 
-    if(token && user){
-        navigate('/')
-    }
+    useEffect(()=>{
+        if(token && user){
+            navigate('/')
+        }
+    }, [user])
 
 
-    const url = "http://localhost:7000/users/login"
-    const userUrl = `http://localhost:7000/users/${userData.username}`
+    const userUrl = URL.user + userData.username
 
     async function LogIn(e){
         e && e.preventDefault()
-        let token = await useFetch(url, "POST", userData);
+        let token = await useFetch(URL.logIn, "POST", userData);
         let user = await useFetch(userUrl, "GET")
         if(token.message){
             toast.error(token.message)
@@ -78,4 +79,3 @@ const Login = (props) => {
     );
 }
 
-export default Login;

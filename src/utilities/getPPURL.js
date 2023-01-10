@@ -4,16 +4,30 @@ function getProfilePictureURL(reference, setter){
     if(reference){
       const storage = getStorage();
       const storageRef = ref(storage, `${reference}-profilepic`);
+      const defaultRef = ref(storage, `DEFAULT-profilePic.jfif`);
+
       getDownloadURL(storageRef)
-      .then((url) => {
-        setter(url);
-        sessionStorage.setItem(`ProPic-${reference}`, url)
+      .then((res)=>{{
+            setter(res);
+            sessionStorage.setItem(`ProPic-${reference}`, res)
+          }
+      }).catch(error => {
+        if(error.message.includes('/object-not-found')){
+          getDownloadURL(defaultRef)
+          .then((res)=>{
+            if(res.error){
+              console.log('chanfles')
+            }else{
+              setter(res);
+              sessionStorage.setItem(`ProPic-${reference}`, res)
+            }
+          
+        })
+        
+        }
       })
-      .catch((error) => {
-        console.log(error)
-    });
     }
-}
+  }
 
 export default getProfilePictureURL;
     

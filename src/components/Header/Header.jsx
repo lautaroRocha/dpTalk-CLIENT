@@ -1,11 +1,10 @@
 import React, {useRef, useEffect} from 'react';
 import "./header.css"
-import Background from '../animatedCanvas/animatedCanvas';
-import DPLogo from '../DPLogo/DPLogo';
-import Navbar from '../Navbar/Navbar';
+import { Background, DPLogo, Navbar} from '../../components';
+
 import { useLocation } from 'react-router-dom';
 
-const Header = (props) => {
+export const Header = (props) => {
 
     const header = useRef()
     const canvas = useRef();
@@ -46,13 +45,13 @@ const Header = (props) => {
         }
         }else{
             if (document.documentElement.scrollTop > 50) {
-                canvas.current.style.height = "5rem";
+                canvas.current.style.height = "6rem";
                 logo.current.style.width = "50%"
                 talk.current.style.left = "10%"
                 talk.current.style.top = "3vh"
                 talk.current.style.transform = "scale(.6)"
                 talk.current.style.fontSize = 'clamp(.7rem, 10vw, 1rem)';
-                nav.current.style.marginTop="5rem"
+                nav.current.style.marginTop="6rem"
             } else {
                 canvas.current.style.height = "10rem";
                 logo.current.style.width = "100%"
@@ -88,4 +87,3 @@ const Header = (props) => {
     );
 }
 
-export default Header;

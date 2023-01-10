@@ -1,18 +1,16 @@
-import Login from './components/Login/Login';
-import Home from './components/Home/Home';
-import Question from './components/Question/Question';
-import Header from './components/Header/Header';
-import Ask from './components/Ask/Ask';
-import Register from './components/Register/Register';
+
+import {Login, Home, Question, Header, Ask, Register, UserProfile, ScrollToTop, NotificationsPanel} from "./components"
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import {  Route, Routes, useNavigate } from 'react-router-dom';
+import {  Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import useFetch from './utilities/useFetch';
 import TokenContext from "./Context/TokenContext"
 import UserContext from "./Context/UserContext"
-import ScrollToTop from "./utilities/scrollTop"
-import UserProfile from './components/UserProfile/UserProfile';
 import socketIO from "socket.io-client";
+import 'react-notifications/lib/notifications.css';
+import * as URL from "./utilities/ApiUrls"
+
 
 
 function App() {
@@ -20,14 +18,17 @@ function App() {
   const [user, setUser] = useState(null)
   const [questions, setQuestions] = useState([])
   const [token, setToken] = useState(false)
-  const [filteredQuestions, setFilteredQuestions] = useState(null)
+  const [filteredQuestions, setFilteredQuestions] = useState([])
   const [newQuestion, setNewQuestion] = useState(false)
   const [newAnswer, setNewAnswer] = useState(false)
   const [socket, setSocket] = useState(null)
+  const [alertNotif, setAlertNotif] = useState(false)
 
-  const questionsUrl = "http://localhost:7000/ask"
-  const userUrl = user && `http://localhost:7000/users/${user.username}`
-
+  const questionsUrl = URL.questions
+  const userUrl = user && URL.user + user.username
+  
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(()=>{
     const savedToken = localStorage.getItem('token')
@@ -39,9 +40,8 @@ function App() {
   }, [])
 
   useEffect(()=>{
-    const questionsArray = questions
-    setFilteredQuestions(questionsArray.reverse())
-  }, [questions])
+    setFilteredQuestions(questions)
+  }, [questions, location])
 
   useEffect(()=>{
     fetch(questionsUrl)
@@ -58,42 +58,60 @@ function App() {
 
   useEffect(()=>{
     if(!socket){
-    const socket = socketIO.connect("http://localhost:8000");
+    const socket = socketIO.connect(URL.socket);
     socket && setSocket(socket)
     }
   }, [])
 
   if(socket){
-    socket.on("connection", (arg) => {
-      console.log(arg);
-    });
-
     socket.off("answer-notification").on("answer-notification", (arg) => {
       const data = JSON.parse(arg)
-      if(data.authorOfQuestion === user.username){
-      toast.success(`${data.authorOfAnswer} respondió tu pregunta!`)}
+      console.log(data)
+      if(data.authorOfAnswer !== user.username && data.authorOfQuestion === user.username){
+      NotificationManager.success(`respondió tu pregunta!`, `${data.authorOfAnswer}`, 5000, ()=>{navigate(data.link)});
+      setAlertNotif(!alertNotif)
+   }
     });
-
     socket.off("confirmed-notification").on("confirmed-notification", (arg) => {
        const data = JSON.parse(arg)
        if(data.authorOfAnswer === user.username){
-        toast.success(`${data.authorOfQuestion} marcó tu respuesta como correcta!`)}
+        NotificationManager.success(`marcó tu respuesta como correcta!`, `${data.authorOfQuestion}`, 5000, ()=>{navigate(data.link)})
+        setAlertNotif(!alertNotif)
+      }
     });
     socket.off("like-notification").on("like-notification", (arg) => {
       const data = JSON.parse(arg)
       console.log()
       if(!data.answer.likes.includes(data.authorId) && data.authorOfAnswer === user.username && data.authorOfLike !== user.username){
-       toast.success(`A ${data.authorOfLike} le gustó tu respuesta!`)}
+       NotificationManager.success(`le gustó tu respuesta!`, ` A ${data.authorOfLike}`, 5000,()=>{navigate(data.link)})
+       setAlertNotif(!alertNotif)
+      }
    });
+   socket.off("post-notification").on("post-notification", (arg) => {
+    const data = JSON.parse(arg)
+    if(data.author !== user.username && window.location.pathname == "/"){
+      alertOnNewPosts()
+    }
+ });
   }
 
-  const navigate = useNavigate()
+  function alertOnNewPosts(){
+    const refreshButton = document.createElement('button')
+    refreshButton.setAttribute('class', 'new-post-button')
+    refreshButton.innerText = "HAY NUEVOS POSTEOS"
+    document.body.append(refreshButton)
+    refreshButton.onclick = () =>{
+      setNewQuestion(true);
+      refreshButton.remove()
+    }
+  }
 
   function filterQuestions(e){
     let input = e.target.value;
     const filteredByTitle = questions.filter( (obj) => {return( obj.title.toLowerCase().includes(input.toLowerCase()))})
     setFilteredQuestions(filteredByTitle)
   }
+
   function logOut(){
     localStorage.removeItem('token')
     localStorage.removeItem('user')
@@ -115,7 +133,6 @@ function App() {
     }
 }
 
-
   return (
     <>
     <UserContext.Provider value={user}>
@@ -126,10 +143,11 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} setToken={setToken}/>} /> 
           <Route path='/' element={<Home filteredQuestions={filteredQuestions}/>}/>
           <Route path='/question/:questionId' element={<Question setNewAnswer={setNewAnswer} setNewQuestion={setNewQuestion} socket={socket}/>}/>
-          <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion}/>} />
+          <Route path="/ask" element={<Ask setNewQuestion={setNewQuestion} socket={socket}/>} />
           <Route path="/register" element={<Register setUser={setUser} setToken={setToken} />} />
           <Route path="/user/:username" element={<UserProfile updateUser={useUpdateUser}/>} />
-        </Routes>    
+        </Routes>   
+        {window.location.pathname === "/" && <NotificationsPanel alert={alertNotif}/>}
         <ToastContainer
             position="bottom-center"
             autoClose={3000}
@@ -141,8 +159,8 @@ function App() {
             draggable
             pauseOnHover
             theme="colored"
-            style={{"overflow" : "visible"}}
-/>
+            style={{"overflow" : "visible"}}/>
+        <NotificationContainer style={{'overflow': 'visible'}}/>
       </TokenContext.Provider>    
       </UserContext.Provider>
     </>

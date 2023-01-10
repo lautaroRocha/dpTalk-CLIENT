@@ -76,3 +76,18 @@ li>svg{
         padding: 1rem;
     }
 }
+
+@media(min-width:1300px){
+    nav{
+        height: 80vh;
+        background-color: transparent;
+        margin-right: 60vw;
+    }
+}
+@media(min-width:1400px){
+    nav{
+        height: 80vh;
+        background-color: transparent;
+        margin-right: 55vw;
+    }
+}

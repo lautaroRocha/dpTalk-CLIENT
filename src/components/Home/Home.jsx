@@ -1,31 +1,31 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Navigate } from 'react-router-dom';
-import AskButton from '../AskButton/AskButton';
-import MinQuestions from '../MinQuestion/MinQuestions';
+import { AskButton, MinQuestions, NotificationsPanel} from '../../components';
 import "./home.css"
 import  UserContext from '../../Context/UserContext';
-import { useContext } from 'react';
+import TokenContext from '../../Context/TokenContext';
 
-const Home = (props) => {
+export const Home = (props) => {
 
   const user = useContext(UserContext)
+  const token = useContext(TokenContext)
 
-  
+
+
+
   if(!user){
     return <Navigate to="/login"/>;
     }else{
       return(
         <>
-        <h1>¡Bienvenidx a DevPlaceTALK!</h1>
           <main>
-            {props.filteredQuestions && props.filteredQuestions.map((qstn, idx) => {
+        <h1>¡Bienvenidx a DevPlaceTALK!</h1>
+            {props.filteredQuestions && [...props.filteredQuestions].reverse().map((qstn, idx) => {
               return(<MinQuestions question={qstn} key={idx} />)
             })} 
-          </main>
-          <AskButton />
+          </main>          <AskButton />
         </>
         )
   }
 }
 
-export default Home;

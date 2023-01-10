@@ -1,8 +1,9 @@
 .ask-btn, .ask-btn>button{
     position: fixed;
     bottom: 2vh;
-    right: auto;
     width: 50%;
+    max-width: 300px;
+    left: 10vw;
     transition: all .5s ease;
     cursor: pointer;
     z-index: 10;
@@ -12,6 +13,7 @@
     .ask-btn{
         width: 40%;
         margin-bottom: 1rem;
+        left: auto;
     }
     .ask-btn:hover{
         transform: scale(1.1);
