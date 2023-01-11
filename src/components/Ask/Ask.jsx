@@ -32,15 +32,15 @@ export const Ask = (props) => {
     async function usePostToDatabase(){
         const newQuestion = createQuestion()
         const asking = await useFetch(URL.questions, 'POST', newQuestion, token)
-        if(asking.message){
+        if(asking.message || asking.includes('validation failed')){
             let errors = Array.from(asking.message.split(', '))
             errors.forEach((err) => toast.error(err))
         }else{
             toast.info('Pregunta hecha!')
             navigate('/')
             props.socket.emit('new-post', {author : user.username})
+            await props.setNewQuestion(true)
         }
-        await props.setNewQuestion(true)
     }
 
     if(!user){
