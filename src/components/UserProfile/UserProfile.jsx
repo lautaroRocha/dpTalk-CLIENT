@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { ProfilePic, PictureModal, Spinner } from '../../components';
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 import imageCompression from 'browser-image-compression';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import * as URL from "../../utilities/ApiUrls"
 
 export const UserProfile = (props) => {
@@ -153,7 +153,9 @@ export const UserProfile = (props) => {
     
     }, [user, ownProfile])
 
-
+    if(!user){
+      return <Navigate to="/login"/>;
+      }else{
     return (
       <>
            <PictureModal uploadToStorage={uploadToStorage} storageRef={storageRef} ref={modal} closeModal={closeModal}/>
@@ -192,7 +194,6 @@ export const UserProfile = (props) => {
                        Subió
                        <span> {answersByUser.length} </span>{answersByUser.length > 1  ? 'respuestas' : 'respuesta'}</h3>
                       }
-                    
                         <div>
                         {answersByUser.map((answ, idx) => {return(<Link key={idx} to={`../question/${answ.question}`}>{answ.body}</Link>)})}
                         </div>
@@ -203,5 +204,6 @@ export const UserProfile = (props) => {
         </div>
           </>
     );
+}
 }
 

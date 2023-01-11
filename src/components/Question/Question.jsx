@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useRef, useContext} from 'react';
 import TokenContext from '../../Context/TokenContext';
+import UserContext from '../../Context/UserContext'
 import "./question.css"
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { Answer, AnswerBox, Spinner  } from '../../components';
 import getProfilePicture from '../../utilities/getPPURL';
 import { Link } from 'react-router-dom';
@@ -12,6 +13,7 @@ import * as URL from "../../utilities/ApiUrls"
 export const Question = (props) => {
 
   const token = useContext(TokenContext)
+  const user = useContext(UserContext)
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [profilePictureUrl, setProfilePicUrl] = useState()
@@ -20,8 +22,6 @@ export const Question = (props) => {
 
   const answerBox = useRef()
 
-
-  
   useEffect(()=>{
     fetch(URL.questions + questionId, {headers:{'x-access' : token}})
     .then(res => res.json())
@@ -82,7 +82,9 @@ answers.sort((a, b) =>{
     })
 }
 
-
+if(!user){
+  return <Navigate to="/login"/>;
+  }else{
     return (
         <>
         {!question ?
@@ -123,5 +125,6 @@ answers.sort((a, b) =>{
         </div>}
       </>
     );
+  }
 }
 

@@ -1,5 +1,5 @@
 
-import {Login, Home, Question, Header, Ask, Register, UserProfile, ScrollToTop, NotificationsPanel} from "./components"
+import {Login, Home, Question, Header, Ask, Register, UserProfile, ScrollToTop, NotificationsPanel, engageSocket} from "./components"
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import {  Route, Routes, useNavigate, useLocation } from 'react-router-dom';
@@ -17,7 +17,7 @@ function App() {
 
   const [user, setUser] = useState(null)
   const [questions, setQuestions] = useState([])
-  const [token, setToken] = useState(false)
+  const [token, setToken] = useState(null)
   const [filteredQuestions, setFilteredQuestions] = useState([])
   const [newQuestion, setNewQuestion] = useState(false)
   const [newAnswer, setNewAnswer] = useState(false)
@@ -48,12 +48,12 @@ function App() {
       .then(res => res.json())
       .then(data => {
         if(data.message){
-          console.log(data.message)
+          toast.error(data.message)
         }else{
           setQuestions(data)
           setNewQuestion(false)
         }})
-      .catch(error => console.log(error))
+      .catch(error => toast.error(error))
   }, [newQuestion])
 
   useEffect(()=>{
@@ -63,36 +63,43 @@ function App() {
     }
   }, [])
 
+
   if(socket){
+    const notSelfReply = data =>  data.authorOfAnswer !== user.username
+    const userDidQuestion = data =>  data.authorOfQuestion === user.username
+    const userReplied = data => data.authorOfAnswer === user.username
+    const wassNotLiked =  data => !data.answer.likes.includes(data.authorId)
+    const notSelfLike =  data => data.authorOfLike !== user.username
+    const notOwnPost = data => data.author !== user.username
+    const onHome = window.location.pathname == "/"
+    
     socket.off("answer-notification").on("answer-notification", (arg) => {
-      const data = JSON.parse(arg)
-      console.log(data)
-      if(data.authorOfAnswer !== user.username && data.authorOfQuestion === user.username){
-      NotificationManager.success(`respondió tu pregunta!`, `${data.authorOfAnswer}`, 5000, ()=>{navigate(data.link)});
-      setAlertNotif(!alertNotif)
-   }
-    });
+        const data = JSON.parse(arg)
+        if(notSelfReply(data) && userDidQuestion(data)){
+          NotificationManager.success(`respondió tu pregunta!`, `${data.authorOfAnswer}`, 5000, ()=>{navigate(data.link)});
+          setAlertNotif(!alertNotif)
+       }
+        });
     socket.off("confirmed-notification").on("confirmed-notification", (arg) => {
-       const data = JSON.parse(arg)
-       if(data.authorOfAnswer === user.username){
-        NotificationManager.success(`marcó tu respuesta como correcta!`, `${data.authorOfQuestion}`, 5000, ()=>{navigate(data.link)})
-        setAlertNotif(!alertNotif)
-      }
-    });
+        const data = JSON.parse(arg)
+        if(userReplied(data) && notSelfReply(data)){
+          NotificationManager.success(`marcó tu respuesta como correcta!`, `${data.authorOfQuestion}`, 5000, ()=>{navigate(data.link)})
+          setAlertNotif(!alertNotif)
+          }
+        });
     socket.off("like-notification").on("like-notification", (arg) => {
-      const data = JSON.parse(arg)
-      console.log()
-      if(!data.answer.likes.includes(data.authorId) && data.authorOfAnswer === user.username && data.authorOfLike !== user.username){
-       NotificationManager.success(`le gustó tu respuesta!`, ` A ${data.authorOfLike}`, 5000,()=>{navigate(data.link)})
-       setAlertNotif(!alertNotif)
-      }
-   });
-   socket.off("post-notification").on("post-notification", (arg) => {
-    const data = JSON.parse(arg)
-    if(data.author !== user.username && window.location.pathname == "/"){
-      alertOnNewPosts()
-    }
- });
+        const data = JSON.parse(arg)
+        if(wassNotLiked(data) && userReplied(data) && notSelfLike(data)){
+          NotificationManager.success(`le gustó tu respuesta!`, ` A ${data.authorOfLike}`, 5000,()=>{navigate(data.link)})
+          setAlertNotif(!alertNotif)
+          }
+       });
+    socket.off("post-notification").on("post-notification", (arg) => {
+        const data = JSON.parse(arg)
+        if(notOwnPost(data) && onHome){
+          alertOnNewPosts()
+        }
+     })
   }
 
   function alertOnNewPosts(){

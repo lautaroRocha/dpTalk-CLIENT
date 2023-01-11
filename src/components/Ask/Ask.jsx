@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import UserContext from "../../Context/UserContext"
 import TokenContext from "../../Context/TokenContext"
 import { toast } from 'react-toastify';
@@ -43,7 +43,9 @@ export const Ask = (props) => {
         await props.setNewQuestion(true)
     }
 
-
+    if(!user){
+        return <Navigate to="/login"/>;
+        }else{
     return (
         <div className='ask'>
             <div className='ask-text'>
@@ -58,5 +60,6 @@ export const Ask = (props) => {
             </div>
         </div>
     );
+}
 }
 
