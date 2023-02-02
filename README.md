@@ -8,6 +8,9 @@ The backend for the app is on https://github.com/lautaroRocha/dpTalk-API
 ### Link
 https://devplacetalk.firebaseapp.com/
 
+![esquema app](https://user-images.githubusercontent.com/102425176/216336597-cd2d2ea2-a13b-454b-906f-b8ba6c631206.png)
+
+
 
 ### Built with
 
@@ -29,6 +32,7 @@ https://devplacetalk.firebaseapp.com/
 - Answering user's questions.
 - Liking and disliking other user's answers.
 - Getting real time notifications on user interaction (posts, answers, correct answers and likes).
+
 
 
 
